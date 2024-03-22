@@ -51,14 +51,16 @@ export default function ShopSearch(props: ShopSearchProps) {
                 onSubmit={onSubmit}
             ></SearchField>
 
-            <ShopMap
-                initialRegion={initialRegion}
-                coffeeShops={coffeeShops}
-                width="full"
-                height="48"
-            ></ShopMap>
-
+            <View className="w-full h-60">
+                <ShopMap
+                    initialRegion={initialRegion}
+                    coffeeShops={coffeeShops}
+                ></ShopMap>
+            </View>
             <Button title="navigate" onPress={nav}></Button>
+
+            {/* <View className="w-full h-72"></View> */}
+
         </View>
     );
 }

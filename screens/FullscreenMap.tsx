@@ -27,8 +27,6 @@ export default function FullscreenMap() {
         <ShopMap
             initialRegion={initialRegion}
             coffeeShops={coffeeShops}
-            width="full"
-            height="full"
         ></ShopMap>
     );
 }
