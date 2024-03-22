@@ -1,9 +1,13 @@
-import { Image } from "react-native";
+import { Image, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import { styled } from "nativewind";
+
+const StyledMapView = styled(MapView);
 
 interface ShopMapProps {
     initialRegion: Region;
     coffeeShops: Coordinates[];
+    mapDimensions: string[];
 }
 
 interface Region {
@@ -21,9 +25,13 @@ interface Coordinates {
 export default function ShopMap(props: ShopMapProps) {
     const initialRegion = props.initialRegion;
     const coffeeShops = props.coffeeShops;
+    const [width, height] = props.mapDimensions;
 
     return (
-        <MapView className="h-full w-full" initialRegion={initialRegion}>
+        <MapView
+            className={`flex w-${width} h-${height}`}
+            initialRegion={initialRegion}
+        >
             {coffeeShops.map((coords, index) => {
                 return (
                     <Marker key={index} coordinate={coords}>
