@@ -1,10 +1,8 @@
-import { Text, View } from "react-native";
+import { Text, View, StyleSheet, ScrollView } from "react-native";
 import ShopCard from "./ShopCard";
-
 const ShopList = () => {
   // search bar
   // map toggle
-
   // send a request to the api with the information from search bar or gps location information
   const shops = [
     {
@@ -30,12 +28,11 @@ const ShopList = () => {
       dairyFree: true,
     },
   ];
-
   return (
-    <View>
+    <View style={styles.container2}>
       {shops.map((shop) => {
         return (
-          <View>
+          <View style={styles.container}>
             <ShopCard shop={shop} key={shop.id} />
           </View>
         );
@@ -43,5 +40,28 @@ const ShopList = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 0.5,
+    justifyContent: "center",
+    flexWrap: "wrap",
+    backgroundColor: "#ECF0F1",
+    padding: 4,
+    borderWidth: 1,
+    borderColor: "#FF0000",
+    margin: 5,
+  },
+  container2: {
+    flex: 1,
+    flexDirection: "column",
+  },
+  paragraph: {
+    margin: 24,
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+});
 
 export default ShopList;
