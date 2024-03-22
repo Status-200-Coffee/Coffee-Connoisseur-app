@@ -54,8 +54,8 @@ export default function ShopSearch(props: ShopSearchProps) {
             <ShopMap
                 initialRegion={initialRegion}
                 coffeeShops={coffeeShops}
-                width="80"
-                height="24"
+                width="full"
+                height="48"
             ></ShopMap>
 
             <Button title="navigate" onPress={nav}></Button>

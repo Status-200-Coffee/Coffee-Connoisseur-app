@@ -29,8 +29,10 @@ export default function ShopMap(props: ShopMapProps) {
 
     // const [isReady, setIsReady] = useState(false);
 
+    const classes = "w-" + width + " h-" + height;
+
     return (
-        <View className={`w-${width} h-${height} bg-slate-200`}>
+        <View className={classes}>
             <MapView
                 className="w-full h-full"
                 initialRegion={initialRegion}
