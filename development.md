@@ -6,6 +6,12 @@ git clone https://github.com/Status-200-Coffee/Coffee-Connoisseur-app.git
 cd Coffee-Connoisseur-app
 ```
 
+Install dependencies
+
+```bash
+npm install
+```
+
 Run the Expo development server
 
 ```bash
