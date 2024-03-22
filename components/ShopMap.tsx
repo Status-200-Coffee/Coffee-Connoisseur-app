@@ -1,12 +1,39 @@
-import MapView from "react-native-maps";
+import { Image } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 
-export default function ShopMap() {
-    const initialRegion = {
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.08,
-        longitudeDelta: 0.08,
-    };
+interface ShopMapProps {
+    initialRegion: Region;
+    coffeeShops: Coordinates[];
+}
 
-    return <MapView className="h-full w-full" initialRegion={initialRegion}></MapView>
+interface Region {
+    latitude: number;
+    longitude: number;
+    latitudeDelta: number;
+    longitudeDelta: number;
+}
+
+interface Coordinates {
+    latitude: number;
+    longitude: number;
+}
+
+export default function ShopMap(props: ShopMapProps) {
+    const initialRegion = props.initialRegion;
+    const coffeeShops = props.coffeeShops;
+
+    return (
+        <MapView className="h-full w-full" initialRegion={initialRegion}>
+            {coffeeShops.map((coords, index) => {
+                return (
+                    <Marker key={index} coordinate={coords}>
+                        <Image
+                            className="h-12 w-12"
+                            source={require("../assets/coffee-shop-icon-small.png")}
+                        ></Image>
+                    </Marker>
+                );
+            })}
+        </MapView>
+    );
 }
