@@ -1,4 +1,4 @@
-import ShopMap from "./ShopMap";
+import ShopMap from "../components/ShopMap";
 
 export default function FullscreenMap() {
     const initialRegion = {

@@ -1,9 +1,16 @@
-import { View } from "react-native";
-import ShopMap from "./ShopMap";
-import SearchField from "./SearchField";
+import { Button, View } from "react-native";
+import ShopMap from "../components/ShopMap";
+import SearchField from "../components/SearchField";
 import { useState } from "react";
 
-export default function ShopSearch() {
+interface ShopSearchProps {
+    navigation: { navigate: (name: string) => void };
+}
+
+export default function ShopSearch(props: ShopSearchProps) {
+    const navigation = props.navigation;
+    console.log(navigation);
+
     const [searchPhrase, setSearchPhrase] = useState("");
 
     const initialRegion = {
@@ -32,6 +39,10 @@ export default function ShopSearch() {
         console.log(searchPhrase);
     }
 
+    function nav() {
+        navigation.navigate("FullscreenMap");
+    }
+
     return (
         <View className="flex justify-items-center py-4">
             <SearchField
@@ -46,6 +57,8 @@ export default function ShopSearch() {
                 width="80"
                 height="24"
             ></ShopMap>
+
+            <Button title="navigate" onPress={nav}></Button>
         </View>
     );
 }
