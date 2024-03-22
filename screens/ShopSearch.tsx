@@ -9,7 +9,6 @@ interface ShopSearchProps {
 
 export default function ShopSearch(props: ShopSearchProps) {
     const navigation = props.navigation;
-    console.log(navigation);
 
     const [searchPhrase, setSearchPhrase] = useState("");
 
@@ -55,6 +54,7 @@ export default function ShopSearch(props: ShopSearchProps) {
                 <ShopMap
                     initialRegion={initialRegion}
                     coffeeShops={coffeeShops}
+                    onPress={nav}
                 ></ShopMap>
             </View>
             <Button title="navigate" onPress={nav}></Button>
