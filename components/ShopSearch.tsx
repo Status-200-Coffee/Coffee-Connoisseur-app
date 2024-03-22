@@ -33,7 +33,7 @@ export default function ShopSearch() {
     }
 
     return (
-        <View>
+        <View className="flex justify-items-center py-4">
             <SearchField
                 searchPhrase={searchPhrase}
                 setSearchPhrase={setSearchPhrase}
@@ -43,8 +43,8 @@ export default function ShopSearch() {
             <ShopMap
                 initialRegion={initialRegion}
                 coffeeShops={coffeeShops}
-                width="full"
-                height="full"
+                width="80"
+                height="24"
             ></ShopMap>
         </View>
     );

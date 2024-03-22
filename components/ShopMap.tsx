@@ -27,27 +27,26 @@ export default function ShopMap(props: ShopMapProps) {
     const width = props.width;
     const height = props.height;
 
-    const [isReady, setIsReady] = useState(false);
+    // const [isReady, setIsReady] = useState(false);
 
     return (
-        <View className="w-[200px] h-[200px] bg-slate-200">
-            {/* <MapView
+        <View className={`w-${width} h-${height} bg-slate-200`}>
+            <MapView
                 className="w-full h-full"
                 initialRegion={initialRegion}
-                onMapReady={() => setIsReady(true)}
+                // onMapReady={() => setIsReady(true)}
             >
-                {isReady &&
-                    coffeeShops.map((coords, index) => {
-                        return (
-                            <Marker key={index} coordinate={coords}>
-                                <Image
-                                    className="h-12 w-12"
-                                    source={require("../assets/coffee-shop-icon-small.png")}
-                                ></Image>
-                            </Marker>
-                        );
-                    })}
-            </MapView> */}
+                {coffeeShops.map((coords, index) => {
+                    return (
+                        <Marker key={index} coordinate={coords}>
+                            <Image
+                                className="h-12 w-12"
+                                source={require("../assets/coffee-shop-icon-small.png")}
+                            ></Image>
+                        </Marker>
+                    );
+                })}
+            </MapView>
         </View>
     );
 }
