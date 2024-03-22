@@ -15,11 +15,13 @@ type ShopProps = {
 };
 
 export default function ShopCard(props: ShopProps) {
-
   return (
     <View style={styles.container}>
       <Text>{props.shop.name}</Text>
-      <Image source={{uri: props.shop.photos}} style={{width: 200, height: 200}} />
+      <Image
+        source={{ uri: props.shop.photos }}
+        style={{ width: 200, height: 200 }}
+      />
       <Text>{props.shop.description}</Text>
       <Text>Location {props.shop.location}</Text>
       <Text>{props.shop.rating}</Text>
@@ -45,18 +47,17 @@ export default function ShopCard(props: ShopProps) {
   );
 }
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      backgroundColor: '#ecf0f1',
-      padding: 8,
-    },
-    paragraph: {
-      margin: 24,
-      fontSize: 18,
-      fontWeight: 'bold',
-      textAlign: 'center',
-    },
-  });
-  
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: "#ecf0f1",
+    padding: 8,
+  },
+  paragraph: {
+    margin: 24,
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+});
