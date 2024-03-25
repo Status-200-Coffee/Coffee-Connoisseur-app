@@ -38,12 +38,18 @@ export default function ShopSearch(props: ShopSearchProps) {
         console.log(searchPhrase);
     }
 
-    function nav() {
+    function navMap() {
         navigation.navigate("FullscreenMap", { initialRegion, coffeeShops });
+    }
+
+    const [city, setCity] = useState();
+    function navSearch() {
+        navigation.navigate("CitySearch", { setCity });
     }
 
     return (
         <View className="flex justify-items-center py-4">
+            <Button title="City Search" onPress={navSearch}></Button>
             <SearchField
                 searchPhrase={searchPhrase}
                 setSearchPhrase={setSearchPhrase}
@@ -54,10 +60,10 @@ export default function ShopSearch(props: ShopSearchProps) {
                 <ShopMap
                     initialRegion={initialRegion}
                     coffeeShops={coffeeShops}
-                    onPress={nav}
+                    onPress={navMap}
                 ></ShopMap>
             </View>
-            <Button title="navigate" onPress={nav}></Button>
+            <Button title="navigate" onPress={navMap}></Button>
 
             {/* <View className="w-full h-72"></View> */}
         </View>
