@@ -1,53 +1,43 @@
-import { SearchBar } from "@rneui/base";
 import { useState } from "react";
 import { FlatList, View, Text } from "react-native";
+import { SearchBar } from "@rneui/base";
 
-interface CitySearchProps {
-    navigation: any;
-    route: any;
-}
+import { Props } from "./types";
 
-interface ItemProps {
-    title: string;
-    setCity: (city: string) => void;
-    navigation: any;
-}
+export default function CitySearch({ navigation, route }: Props<"CitySearch">) {
+    const { setCity } = route.params;
 
-function Item({ title, setCity, navigation }: ItemProps) {
-    return (
-        <View className=" border my-2 mx-4 p-2">
-            <Text
-                className="text-xl text-center"
-                onPress={() => {
-                    setCity(title);
-                    navigation.goBack();
-                }}
-            >
-                {title}
-            </Text>
-        </View>
-    );
-}
+    const allCities = ["Carlisle", "Newcastle"];
 
-const allCities = ["Carlisle", "Newcastle"];
-
-export default function CitySearch(props: CitySearchProps) {
-    const navigation = props.navigation;
-    const { setCity } = props.route.params;
-
-    const [input, setInput] = useState("");
-    const [filteredCities, setFilteredCities] = useState([...allCities]);
+    const [input, setInput] = useState<string>("");
+    const [filteredCities, setFilteredCities] = useState<string[]>([
+        ...allCities,
+    ]);
 
     function handleSearch(text: string) {
-        console.log(text);
-
-        setFilteredCities(() => {
-            return allCities.filter((city) => {
-                return city.toLowerCase().startsWith(text.toLowerCase());
-            });
-        });
+        setFilteredCities(
+            allCities.filter((city) => {
+                return city.toLowerCase().startsWith(text);
+            })
+        );
 
         setInput(text);
+    }
+
+    function renderItem(title: string) {
+        return (
+            <View className=" border my-2 mx-4 p-2">
+                <Text
+                    className="text-xl text-center"
+                    onPress={() => {
+                        setCity(title);
+                        navigation.goBack();
+                    }}
+                >
+                    {title}
+                </Text>
+            </View>
+        );
     }
 
     return (
@@ -62,15 +52,7 @@ export default function CitySearch(props: CitySearchProps) {
             <FlatList
                 className="flex-col flex-nowrap"
                 data={filteredCities}
-                renderItem={(item) => {
-                    return (
-                        <Item
-                            title={item.item}
-                            setCity={setCity}
-                            navigation={navigation}
-                        ></Item>
-                    );
-                }}
+                renderItem={({ item }) => renderItem(item.toLowerCase())}
                 keyExtractor={(item) => item}
             ></FlatList>
         </View>

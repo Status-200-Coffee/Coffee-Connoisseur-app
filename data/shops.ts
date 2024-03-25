@@ -1,4 +1,6 @@
-export const shopData = {
+import { CityShops } from "../types";
+
+export const shopData: CityShops = {
     Carlisle: [
         { latitude: 54.894336, longitude: -2.932074 },
         // 54.894336076699474, -2.932074477079885

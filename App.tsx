@@ -1,11 +1,14 @@
-import ShopSearch from "./screens/ShopSearch";
-import FullscreenMap from "./screens/FullscreenMap";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import ShopSearch from "./screens/ShopSearch";
 import CitySearch from "./screens/CitySearch";
+import FullscreenMap from "./screens/FullscreenMap";
+
+import { RootStackParamList } from "./screens/types";
 
 export default function App() {
-    const Stack = createNativeStackNavigator();
+    const Stack = createNativeStackNavigator<RootStackParamList>();
 
     return (
         <NavigationContainer>

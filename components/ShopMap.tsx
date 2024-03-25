@@ -1,30 +1,10 @@
 import { Image } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
-interface ShopMapProps {
-    region: Region;
-    setRegion: any;
-    coffeeShops: Coordinates[];
-    onPress?: (name: any) => void;
-}
-
-interface Region {
-    latitude: number;
-    longitude: number;
-    latitudeDelta: number;
-    longitudeDelta: number;
-}
-
-interface Coordinates {
-    latitude: number;
-    longitude: number;
-}
+import { ShopMapProps } from "../types";
 
 export default function ShopMap(props: ShopMapProps) {
-    const region = props.region;
-    const setRegion = props.setRegion;
-    const coffeeShops = props.coffeeShops;
-    const onPress = props.onPress;
+    const { region, setRegion, coffeeShops, onPress } = props;
 
     return (
         <MapView

@@ -1,14 +1,8 @@
 import ShopMap from "../components/ShopMap";
 
-interface FullscreenMapProps {
-    navigation: { navigate: (name: string) => void };
-    // route: { params: { initialRegion: any; coffeeShops: any } };
-    route: any;
-}
+import { Props } from "./types";
 
-export default function FullscreenMap(props: FullscreenMapProps) {
-    const route = props.route;
-
+export default function FullscreenMap({ route }: Props<"FullscreenMap">) {
     const { coffeeShops, region, setRegion } = route.params;
 
     return (
