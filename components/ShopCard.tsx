@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { Image, Text, View, Button } from "react-native";
 
-interface ShopProps {
+type ShopProps = {
   shop: {
     _id: number;
     name: string;
@@ -17,15 +17,13 @@ interface ShopProps {
     hasSeating: boolean;
     dairyFree: boolean;
   };
-};
+}
 
 export default function ShopCard(props: ShopProps) {
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
-  const shop = props.shop
-
-  console.log(shop._id)
+  const shop = props.shop;
 
   return (
     <View className="border-2 m-2">
@@ -36,8 +34,7 @@ export default function ShopCard(props: ShopProps) {
       <Text>{shop.name}</Text>
       <Text>{shop.description}</Text>
       <Text>
-        Location: {shop.longitude}, {shop.latitude} |{" "}
-        {shop.city}
+        Location: {shop.longitude}, {shop.latitude} | {shop.city}
       </Text>
       <Text>{shop.rating}</Text>
       {(() => {
@@ -60,9 +57,9 @@ export default function ShopCard(props: ShopProps) {
         key={shop._id}
         onPress={() =>
           navigation.navigate("ShopPage", {
-            shop_id: shop._id
+            shop_id: shop._id,
           })
-         }
+        }
       />
     </View>
   );

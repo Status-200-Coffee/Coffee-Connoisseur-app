@@ -12,7 +12,6 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="ShopList" component={ShopList} />
-        <Stack.Screen name="ShopCard" component={ShopCard} />
         <Stack.Screen name="ShopPage" component={ShopPage} />
       </Stack.Navigator>
     </NavigationContainer>
