@@ -14,6 +14,8 @@ export default function ShopMap(props: ShopMapProps) {
             onRegionChangeComplete={(region) => {
                 setRegion({
                     ...region,
+                    // prevents bug where map zooms out when changing
+                    // between ShopSearch and FullscreenMap screens
                     latitudeDelta: region.latitudeDelta / 4,
                 });
             }}

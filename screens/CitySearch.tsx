@@ -17,7 +17,7 @@ export default function CitySearch({ navigation, route }: Props<"CitySearch">) {
     function handleSearch(text: string) {
         setFilteredCities(
             allCities.filter((city) => {
-                return city.toLowerCase().startsWith(text);
+                return city.toLowerCase().startsWith(text.toLowerCase());
             })
         );
 
@@ -52,7 +52,7 @@ export default function CitySearch({ navigation, route }: Props<"CitySearch">) {
             <FlatList
                 className="flex-col flex-nowrap"
                 data={filteredCities}
-                renderItem={({ item }) => renderItem(item.toLowerCase())}
+                renderItem={({ item }) => renderItem(item)}
                 keyExtractor={(item) => item}
             ></FlatList>
         </View>
