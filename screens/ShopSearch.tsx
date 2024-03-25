@@ -3,8 +3,10 @@ import ShopMap from "../components/ShopMap";
 import SearchField from "../components/SearchField";
 import { useState } from "react";
 
+import { shopData } from "../data/shops";
+
 interface ShopSearchProps {
-    navigation: { navigate: (name: string) => void };
+    navigation: { navigate: (name: string, params: Object) => void };
 }
 
 export default function ShopSearch(props: ShopSearchProps) {
@@ -12,34 +14,32 @@ export default function ShopSearch(props: ShopSearchProps) {
 
     const [searchPhrase, setSearchPhrase] = useState("");
 
-    const initialRegion = {
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.08,
-        longitudeDelta: 0.08,
-    };
-
-    const coffeeShops = [
+    const initialRegions = [
         {
-            latitude: 37.779,
-            longitude: -122.43,
+            latitude: 54.892374,
+            longitude: -2.932819,
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.02,
         },
+        // Carlisle 54.89237443360861, -2.9328197283288433
         {
-            latitude: 37.789,
-            longitude: -122.435,
+            latitude: 54.978511,
+            longitude: -1.617363,
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.02,
         },
-        {
-            latitude: 37.7904,
-            longitude: -122.432,
-        },
+        // Newcastle 54.978511087860866, -1.617363419991376
     ];
+    const initialRegion = initialRegions[1];
+
+    const coffeeShops = shopData["newcastle"];
 
     function onSubmit() {
         console.log(searchPhrase);
     }
 
     function nav() {
-        navigation.navigate("FullscreenMap");
+        navigation.navigate("FullscreenMap", { initialRegion, coffeeShops });
     }
 
     return (
@@ -60,7 +60,6 @@ export default function ShopSearch(props: ShopSearchProps) {
             <Button title="navigate" onPress={nav}></Button>
 
             {/* <View className="w-full h-72"></View> */}
-
         </View>
     );
 }

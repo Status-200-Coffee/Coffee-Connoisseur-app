@@ -1,27 +1,15 @@
 import ShopMap from "../components/ShopMap";
 
-export default function FullscreenMap() {
-    const initialRegion = {
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.08,
-        longitudeDelta: 0.08,
-    };
+interface FullscreenMapProps {
+    navigation: { navigate: (name: string) => void };
+    // route: { params: { initialRegion: any; coffeeShops: any } };
+    route: any;
+}
 
-    const coffeeShops = [
-        {
-            latitude: 37.779,
-            longitude: -122.43,
-        },
-        {
-            latitude: 37.789,
-            longitude: -122.435,
-        },
-        {
-            latitude: 37.7904,
-            longitude: -122.432,
-        },
-    ];
+export default function FullscreenMap(props: FullscreenMapProps) {
+    const route = props.route;
+
+    const { initialRegion, coffeeShops } = route.params;
 
     return (
         <ShopMap
