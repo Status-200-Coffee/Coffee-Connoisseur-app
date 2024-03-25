@@ -1,29 +1,40 @@
+import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Image, Text, View, Button } from "react-native";
 
 type ShopProps = {
   shop: {
     id: number;
     name: string;
-    photos: string;
+    mainImage: string;
+    userImages: Array<string>;
     description: string;
+    longitude: number;
+    latitude: number;
+    city: string;
+    totalRatings: number;
     rating: number;
-    location: string;
-    hasSeating: boolean;
     dogFriendly: boolean;
+    hasSeating: boolean;
     dairyFree: boolean;
   };
 };
 
 export default function ShopCard(props: ShopProps) {
+
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Image
-        source={{ uri: props.shop.photos }}
-        style={{ width: 200, height: 200 }}
+        source={{ uri: props.shop.mainImage }}
+        style={{ width: 150, height: 150, margin: 10 }}
       />
       <Text>{props.shop.name}</Text>
       <Text>{props.shop.description}</Text>
-      <Text>Location {props.shop.location}</Text>
+      <Text>
+        Location: {props.shop.longitude}, {props.shop.latitude} |{" "}
+        {props.shop.city}
+      </Text>
       <Text>{props.shop.rating}</Text>
       {(() => {
         if (props.shop.hasSeating) {
@@ -40,7 +51,11 @@ export default function ShopCard(props: ShopProps) {
           return <Text>Dairy Free Options</Text>;
         }
       })()}
-      <Button title="View Shop" />
+      <Button
+        title="View Shop"
+        key={props.shop.id}
+        onPress={() => navigation.navigate("ShopPage")}
+      />
     </View>
   );
 }
