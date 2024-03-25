@@ -3,8 +3,19 @@ import { Dispatch, SetStateAction } from "react";
 export type SetState<T> = Dispatch<SetStateAction<T>>;
 
 export type CoffeeShop = {
+    _id: number;
+    name: string;
+    mainImage: string;
+    userImages: string[];
     latitude: number;
     longitude: number;
+    city: string;
+    totalRatings: number;
+    rating: number;
+    dogFriendly: boolean;
+    dairyFree: boolean;
+    hasSeating: boolean;
+    description: string;
 };
 
 export type Region = {
