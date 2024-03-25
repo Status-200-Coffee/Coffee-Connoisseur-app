@@ -1,9 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet, Image, Text, View, Button } from "react-native";
+import { Image, Text, View, Button } from "react-native";
 
 type ShopProps = {
   shop: {
-    id: number;
+    _id: number;
     name: string;
     mainImage: string;
     userImages: Array<string>;
@@ -24,7 +24,7 @@ export default function ShopCard(props: ShopProps) {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <View className="border-2 m-2">
       <Image
         source={{ uri: props.shop.mainImage }}
         style={{ width: 150, height: 150, margin: 10 }}
@@ -53,21 +53,10 @@ export default function ShopCard(props: ShopProps) {
       })()}
       <Button
         title="View Shop"
-        key={props.shop.id}
+        key={props.shop._id}
         onPress={() => navigation.navigate("ShopPage")}
       />
     </View>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 0.5,
-    justifyContent: "center",
-    flexWrap: "wrap",
-    backgroundColor: "#ECF0F1",
-    padding: 4,
-    borderWidth: 1,
-    borderColor: "#FF0000",
-    margin: 5,
-  },
-});
+
