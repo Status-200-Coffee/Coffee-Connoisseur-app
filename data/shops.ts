@@ -1,5 +1,5 @@
 export const shopData = {
-    carlisle: [
+    Carlisle: [
         { latitude: 54.894336, longitude: -2.932074 },
         // 54.894336076699474, -2.932074477079885
         { latitude: 54.887918, longitude: -2.920916 },
@@ -9,10 +9,10 @@ export const shopData = {
         { latitude: 54.893965, longitude: -2.940013 },
         // 54.89396587461883, -2.9400138148592547
     ],
-    newcastle: [
+    Newcastle: [
         { latitude: 54.981239, longitude: -1.609981 },
         // 54.98123922222847, -1.6099813881913174
-        { latitude: 54.978530, longitude: -1.600454 },
+        { latitude: 54.97853, longitude: -1.600454 },
         // 54.978530189520455, -1.6004541825802827
         { latitude: 54.978874, longitude: -1.625087 },
         // 54.97887498565323, -1.6250875880790838

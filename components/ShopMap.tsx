@@ -2,7 +2,8 @@ import { Image } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
 interface ShopMapProps {
-    initialRegion: Region;
+    region: Region;
+    setRegion: any;
     coffeeShops: Coordinates[];
     onPress?: (name: any) => void;
 }
@@ -20,14 +21,17 @@ interface Coordinates {
 }
 
 export default function ShopMap(props: ShopMapProps) {
-    const initialRegion = props.initialRegion;
+    const region = props.region;
+    const setRegion = props.setRegion;
     const coffeeShops = props.coffeeShops;
     const onPress = props.onPress;
 
     return (
         <MapView
             className="w-full h-full"
-            initialRegion={initialRegion}
+            initialRegion={region}
+            region={region}
+            onRegionChangeComplete={(region) => setRegion(region)}
             onPress={onPress}
         >
             {coffeeShops.map((coords, index) => {

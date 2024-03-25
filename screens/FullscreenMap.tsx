@@ -9,11 +9,12 @@ interface FullscreenMapProps {
 export default function FullscreenMap(props: FullscreenMapProps) {
     const route = props.route;
 
-    const { initialRegion, coffeeShops } = route.params;
+    const { coffeeShops, region, setRegion } = route.params;
 
     return (
         <ShopMap
-            initialRegion={initialRegion}
+            region={region}
+            setRegion={setRegion}
             coffeeShops={coffeeShops}
         ></ShopMap>
     );
