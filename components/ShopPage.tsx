@@ -1,41 +1,47 @@
 import { Image, Text, View } from "react-native";
-import axios from 'axios'
+import axios from "axios";
 import { useEffect, useState } from "react";
 
-interface shop_id {shop_id: number}
+export default function ShopPage({route}) {
 
-export default function ShopPage(prop: shop_id) {
+  const { shop_id } = route.params;
 
+  const [shopPage, setShopPage] = useState({});
 
-  useEffect(()=>{
-    axios.get(`https://coffee-connoisseur-api.onrender.com/api/shops/Newcastle/${shop_id}`)
-  })
+  useEffect(() => {
+    axios
+      .get(
+        `https://coffee-connoisseur-api.onrender.com/api/shops/Newcastle/${shop_id}`
+      )
+      .then(({ data: { shop } }) => {
+        setShopPage(shop);
+      });
+  });
 
-  
   return (
     <View>
       <Image
-        source={{ uri: shop.mainImage }}
+        source={{ uri: shopPage.mainImage }}
         style={{ width: 150, height: 150, margin: 10 }}
       />
-      <Text>{shop.name}</Text>
-      <Text>{shop.description}</Text>
+      <Text>{shopPage.name}</Text>
+      <Text>{shopPage.description}</Text>
       <Text>
-        Location: {shop.longitude}, {shop.latitude} | {shop.city}
+        Location: {shopPage.longitude}, {shopPage.latitude} | {shopPage.city}
       </Text>
-      <Text>{shop.rating}</Text>
+      <Text>{shopPage.rating}</Text>
       {(() => {
-        if (shop.hasSeating) {
+        if (shopPage.hasSeating) {
           return <Text>Has seating</Text>;
         }
       })()}
       {(() => {
-        if (shop.dogFriendly) {
+        if (shopPage.dogFriendly) {
           return <Text>Dog Friendly</Text>;
         }
       })()}
       {(() => {
-        if (shop.dairyFree) {
+        if (shopPage.dairyFree) {
           return <Text>Dairy Free Options</Text>;
         }
       })()}

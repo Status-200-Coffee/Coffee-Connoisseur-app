@@ -1,7 +1,7 @@
 import { View, ScrollView } from "react-native";
-import ShopCard from "./ShopCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ShopCard from "./ShopCard";
 
 interface shop {
   _id: number;
@@ -20,13 +20,13 @@ interface shop {
 }
 
 const ShopList = () => {
-  const [shopList, setShopList] = useState([]);
+
+  const [shopList, setShopList] = useState<shop[]>([]);
 
   useEffect(() => {
     axios
       .get("https://coffee-connoisseur-api.onrender.com/api/shops/Newcastle")
       .then(({ data: { shops } }) => {
-        console.log("shops", shops)
         setShopList(shops);
       });
   },[]);
@@ -35,7 +35,7 @@ const ShopList = () => {
     <ScrollView className="flex-0.5 justify-content-center">
       {shopList.map((shop) => {
         return (
-          <View className="">
+          <View>
             <ShopCard shop={shop} key={shop._id} />
           </View>
         );

@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { Image, Text, View, Button } from "react-native";
 
-type ShopProps = {
+interface ShopProps {
   shop: {
     _id: number;
     name: string;
@@ -23,40 +23,47 @@ export default function ShopCard(props: ShopProps) {
 
   const navigation = useNavigation();
 
+  const shop = props.shop
+
+  console.log(shop._id)
+
   return (
     <View className="border-2 m-2">
       <Image
-        source={{ uri: props.shop.mainImage }}
+        source={{ uri: shop.mainImage }}
         style={{ width: 150, height: 150, margin: 10 }}
       />
-      <Text>{props.shop.name}</Text>
-      <Text>{props.shop.description}</Text>
+      <Text>{shop.name}</Text>
+      <Text>{shop.description}</Text>
       <Text>
-        Location: {props.shop.longitude}, {props.shop.latitude} |{" "}
-        {props.shop.city}
+        Location: {shop.longitude}, {shop.latitude} |{" "}
+        {shop.city}
       </Text>
-      <Text>{props.shop.rating}</Text>
+      <Text>{shop.rating}</Text>
       {(() => {
-        if (props.shop.hasSeating) {
+        if (shop.hasSeating) {
           return <Text>Has seating</Text>;
         }
       })()}
       {(() => {
-        if (props.shop.dogFriendly) {
+        if (shop.dogFriendly) {
           return <Text>Dog Friendly</Text>;
         }
       })()}
       {(() => {
-        if (props.shop.dairyFree) {
+        if (shop.dairyFree) {
           return <Text>Dairy Free Options</Text>;
         }
       })()}
       <Button
         title="View Shop"
-        key={props.shop._id}
-        onPress={() => navigation.navigate("ShopPage")}
+        key={shop._id}
+        onPress={() =>
+          navigation.navigate("ShopPage", {
+            shop_id: shop._id
+          })
+         }
       />
     </View>
   );
 }
-
