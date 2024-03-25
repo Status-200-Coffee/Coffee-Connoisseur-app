@@ -31,7 +31,12 @@ export default function ShopMap(props: ShopMapProps) {
             className="w-full h-full"
             initialRegion={region}
             region={region}
-            onRegionChangeComplete={(region) => setRegion(region)}
+            onRegionChangeComplete={(region) => {
+                setRegion({
+                    ...region,
+                    latitudeDelta: region.latitudeDelta / 4,
+                });
+            }}
             onPress={onPress}
         >
             {coffeeShops.map((coords, index) => {

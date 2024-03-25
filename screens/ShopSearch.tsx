@@ -11,7 +11,6 @@ interface ShopSearchProps {
 export default function ShopSearch(props: ShopSearchProps) {
     const navigation = props.navigation;
 
-    const [searchPhrase, setSearchPhrase] = useState("");
     const [city, setCity] = useState<"Carlisle" | "Newcastle">("Carlisle");
 
     const initialRegions = {
@@ -39,10 +38,6 @@ export default function ShopSearch(props: ShopSearchProps) {
         setRegion(initialRegions[city]);
         coffeeShops = shopData[city];
     }, [city]);
-
-    function onSubmit() {
-        console.log(searchPhrase);
-    }
 
     function navMap() {
         navigation.navigate("FullscreenMap", {
