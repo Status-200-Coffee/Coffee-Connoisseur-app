@@ -2,29 +2,65 @@ import { useEffect, useState } from "react";
 import { Button, View, Text } from "react-native";
 
 import ShopMap from "../components/ShopMap";
-import { shopData } from "../data/shops";
-import { initialRegions } from "../data/cities";
-import { getShopsByCity } from "../api";
+import { getCities, getShopsByCity } from "../api";
 
-import { CoffeeShop, Region } from "../types";
+import { City, CoffeeShop, Region, UserLocation } from "../types";
 import { Props } from "./types";
+import { getUserLocation } from "../utils/location";
 
 export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
     const [loaded, setLoaded] = useState<boolean>(false);
+    const [userLocation, setUserLocation] = useState<UserLocation>();
+    const [errorMsg, setErrorMsg] = useState<string>("");
+    const [coffeeShops, setCoffeeShops] = useState<CoffeeShop[]>([]);
     const [city, setCity] = useState<string>("Carlisle");
-    const [region, setRegion] = useState<Region>(initialRegions[city]);
-    const [coffeeShops, setCoffeeShops] = useState<CoffeeShop[]>(
-        shopData[city]
-    );
+    const [regions, setRegions] = useState<Record<string, Region>>({});
+    const [region, setRegion] = useState<Region>({
+        latitude: 54.8925,
+        longitude: -2.9329,
+        latitudeDelta: 0.04,
+        longitudeDelta: 0.04,
+    });
+
+    useEffect(() => {
+        getUserLocation(setUserLocation, setErrorMsg);
+    }, []);
+
+    useEffect(() => {
+        getCities()
+            .then((cities) => {
+                const newRegions: Record<string, Region> = {};
+
+                cities.map((city: City) => {
+                    newRegions[city.city] = {
+                        latitude: city.latitude,
+                        longitude: city.longitude,
+                        latitudeDelta: 0.04,
+                        longitudeDelta: 0.04,
+                    };
+                });
+
+                setRegions(newRegions);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
 
     useEffect(() => {
         setLoaded(false);
-        setRegion(initialRegions[city]);
+        setRegion(regions[city]);
 
-        getShopsByCity(city).then((shops) => {
-            setCoffeeShops(shops);
-            setLoaded(true);
-        });
+        getShopsByCity(city)
+            .then((shops) => {
+                setCoffeeShops(shops);
+            })
+            .catch((error) => {
+                console.log(error, city);
+            })
+            .finally(() => {
+                setLoaded(true);
+            });
     }, [city]);
 
     function navSearch() {
@@ -56,6 +92,7 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
                     region={region}
                     setRegion={setRegion}
                     coffeeShops={coffeeShops}
+                    userLocation={userLocation}
                     onPress={navMap}
                 ></ShopMap>
             </View>

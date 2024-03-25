@@ -2,6 +2,11 @@ import { Dispatch, SetStateAction } from "react";
 
 export type SetState<T> = Dispatch<SetStateAction<T>>;
 
+export type UserLocation = {
+    latitude: number;
+    longitude: number;
+};
+
 export type CoffeeShop = {
     _id: number;
     name: string;
@@ -16,6 +21,7 @@ export type CoffeeShop = {
     dairyFree: boolean;
     hasSeating: boolean;
     description: string;
+    distance?: string;
 };
 
 export type Region = {
@@ -25,7 +31,12 @@ export type Region = {
     longitudeDelta: number;
 };
 
-export type City = Record<string, Region>;
+export type City = {
+    _id: number;
+    city: string;
+    latitude: number;
+    longitude: number;
+};
 
 export type CityShops = Record<string, CoffeeShop[]>;
 
@@ -33,5 +44,6 @@ export type ShopMapProps = {
     region: Region;
     setRegion: SetState<Region>;
     coffeeShops: CoffeeShop[];
+    userLocation?: UserLocation;
     onPress?: () => void;
 };

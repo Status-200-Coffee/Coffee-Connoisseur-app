@@ -4,7 +4,7 @@ import MapView, { Marker } from "react-native-maps";
 import { ShopMapProps } from "../types";
 
 export default function ShopMap(props: ShopMapProps) {
-    const { region, setRegion, coffeeShops, onPress } = props;
+    const { region, setRegion, coffeeShops, userLocation, onPress } = props;
 
     return (
         <MapView
@@ -31,6 +31,8 @@ export default function ShopMap(props: ShopMapProps) {
                     </Marker>
                 );
             })}
+
+            {userLocation && <Marker coordinate={userLocation}></Marker>}
         </MapView>
     );
 }
