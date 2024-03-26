@@ -11,6 +11,7 @@ interface shop {
   longitude: number;
   latitude: number;
   city: string;
+  distance: string,
   totalRatings: number;
   rating: number;
   dogFriendly: boolean;
@@ -31,6 +32,7 @@ export default function ShopPage({ route }: { route: any }) {
     longitude: 0,
     latitude: 0,
     city: "",
+    distance: "",
     totalRatings: 0,
     rating: 0,
     dogFriendly: false,
@@ -50,32 +52,35 @@ export default function ShopPage({ route }: { route: any }) {
   }, []);
 
   return isLoading ? <Text className="">Loading...</Text> : (
-    <View className="flex-1 border-2 m-4">
-      <Image
+    <View className="flex-1 items-center bg-cyan-50">
+      <Image 
+        className="width-300 height-300 margin-10"
         source={{ uri: shopPage.mainImage }}
-        style={{ width: 150, height: 150, margin: 10 }}
+        style={{ width: 300, height: 300, margin: 10 }}
       />
-      <Text>{shopPage.name}</Text>
-      <Text>{shopPage.description}</Text>
-      <Text>
-        Location: {shopPage.longitude}, {shopPage.latitude} | {shopPage.city}
-      </Text>
-      <Text>{shopPage.rating}</Text>
-      {(() => {
-        if (shopPage.hasSeating) {
-          return <Text>Has seating</Text>;
-        }
-      })()}
-      {(() => {
-        if (shopPage.dogFriendly) {
-          return <Text>Dog Friendly</Text>;
-        }
-      })()}
-      {(() => {
-        if (shopPage.dairyFree) {
-          return <Text>Dairy Free Options</Text>;
-        }
-      })()}
+      <Text className="font-bold leading-8 text-2xl">{shopPage.name}</Text>
+      <Text className="leading-10 text-lg italic">{shopPage.description}</Text>
+      <Text className="text-lg">
+          Location: {shopPage.distance} | {shopPage.city}
+        </Text>
+        <Text className="font-bold leading-10 text-lg">{shopPage.rating} / 5</Text>
+      <View className="flex-row justify-evenly">
+        {(() => {
+          if (shopPage.hasSeating) {
+            return <Text className="text-xl m-2">🪑</Text>;
+          }
+        })()}
+        {(() => {
+          if (shopPage.dogFriendly) {
+            return <Text className="text-xl m-2">🐶</Text>;
+          }
+        })()}
+        {(() => {
+          if (shopPage.dairyFree) {
+            return <Text>🌿</Text>;
+          }
+        })()}
+        </View>
     </View>
   );
 }

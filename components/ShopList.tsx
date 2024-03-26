@@ -12,6 +12,7 @@ interface shop {
   longitude: number;
   latitude: number;
   city: string;
+  distance: string;
   totalRatings: number;
   rating: number;
   dogFriendly: boolean;
@@ -32,11 +33,11 @@ const ShopList = () => {
   },[]);
 
   return (
-    <ScrollView className="flex-0.5 justify-content-center">
+    <ScrollView>
       {shopList.map((shop) => {
         return (
           <View>
-            <ShopCard shop={shop} key={shop._id} />
+            <ShopCard shop={shop} key={shop._id}/>
           </View>
         );
       })}

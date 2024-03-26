@@ -1,7 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ShopList from "./components/ShopList";
-import ShopCard from "./components/ShopCard";
 import ShopPage from "./components/ShopPage";
 
 export default function App() {
