@@ -36,14 +36,14 @@ export type City = {
     city: string;
     latitude: number;
     longitude: number;
+    distance?: string;
 };
+
+export type CityRegions = Record<string, Region>;
 
 export type CityShops = Record<string, CoffeeShop[]>;
 
 export type ShopMapProps = {
-    region: Region;
-    setRegion: SetState<Region>;
-    coffeeShops: CoffeeShop[];
-    userLocation?: UserLocation;
+    initialRegion: Region;
     onPress?: () => void;
 };

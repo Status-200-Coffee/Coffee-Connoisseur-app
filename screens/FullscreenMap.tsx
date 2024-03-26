@@ -1,15 +1,13 @@
 import ShopMap from "../components/ShopMap";
+import { useCache } from "../contexts/Cache";
+import { RegionProvider } from "../contexts/Region";
 
-import { Props } from "./types";
-
-export default function FullscreenMap({ route }: Props<"FullscreenMap">) {
-    const { coffeeShops, region, setRegion } = route.params;
+export default function FullscreenMap() {
+    const { cache } = useCache();
 
     return (
-        <ShopMap
-            region={region}
-            setRegion={setRegion}
-            coffeeShops={coffeeShops}
-        ></ShopMap>
+        <RegionProvider>
+            <ShopMap initialRegion={cache.cities[cache.currentCity!]}></ShopMap>
+        </RegionProvider>
     );
 }

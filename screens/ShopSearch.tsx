@@ -2,81 +2,52 @@ import { useEffect, useState } from "react";
 import { Button, View, ActivityIndicator } from "react-native";
 
 import ShopMap from "../components/ShopMap";
-import { getCities, getClosestCity, getShopsByCity } from "../api";
+import { getShopsByCity } from "../utils/api";
+import { useCache } from "../contexts/Cache";
+import { RegionProvider } from "../contexts/Region";
 
-import { City, CoffeeShop, Region, UserLocation } from "../types";
 import { Props } from "./types";
-import { getUserLocation } from "../utils/location";
+import { Region } from "../types";
 
 export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
+    const { cache, setCache } = useCache();
     const [loaded, setLoaded] = useState<boolean>(false);
-    const [userLocation, setUserLocation] = useState<UserLocation>();
-    const [errorMsg, setErrorMsg] = useState<string>("");
-    const [coffeeShops, setCoffeeShops] = useState<CoffeeShop[]>([]);
-    const [city, setCity] = useState<string>("Carlisle");
-    const [regions, setRegions] = useState<Record<string, Region>>({});
-    const [region, setRegion] = useState<Region>({
-        latitude: 54.8925,
-        longitude: -2.9329,
-        latitudeDelta: 0.04,
-        longitudeDelta: 0.04,
+    const [cityRegion, setCityRegion] = useState<Region>({
+        latitude: 52.2345,
+        longitude: -2.6543,
+        latitudeDelta: 0.1,
+        longitudeDelta: 0.1,
     });
 
     useEffect(() => {
-        getUserLocation(setUserLocation, setErrorMsg);
-    }, []);
+        setLoaded(false);
 
-    useEffect(() => {
-        if (!userLocation) return;
+        const currentCity = cache.currentCity || "Carlisle";
 
-        getClosestCity(userLocation).then((city) => {
-            setCity(city);
-        });
-    }, [userLocation]);
-
-    useEffect(() => {
-        getCities()
-            .then((cities) => {
-                const newRegions: Record<string, Region> = {};
-
-                cities.map((city: City) => {
-                    newRegions[city.city] = {
-                        latitude: city.latitude,
-                        longitude: city.longitude,
-                        latitudeDelta: 0.04,
-                        longitudeDelta: 0.04,
-                    };
+        getShopsByCity(currentCity)
+            .then((shops) => {
+                setCache((currCache) => {
+                    const newCityShops = { ...currCache.cityShops };
+                    newCityShops[currentCity] = shops;
+                    return { ...currCache, cityShops: newCityShops };
                 });
 
-                setRegions(newRegions);
+                setCityRegion(cache.cities[currentCity]);
             })
             .catch((error) => {
-                console.log(error);
-            });
-    }, []);
-
-    useEffect(() => {
-        setLoaded(false);
-        setRegion(regions[city]);
-
-        getShopsByCity(city)
-            .then((shops) => {
-                setCoffeeShops(shops);
-            })
-            .catch((error) => {
-                console.log(error, city);
+                console.log(error, currentCity);
             })
             .finally(() => {
                 setLoaded(true);
             });
-    }, [city]);
+    }, [cache.currentCity]);
 
     function navSearch() {
         if (!loaded) {
             return;
         }
 
-        navigation.navigate("CitySearch", { setCity });
+        navigation.navigate("CitySearch");
     }
 
     function navMap() {
@@ -84,11 +55,7 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
             return;
         }
 
-        navigation.navigate("FullscreenMap", {
-            coffeeShops,
-            region,
-            setRegion,
-        });
+        navigation.navigate("FullscreenMap");
     }
 
     if (!loaded) {
@@ -104,13 +71,12 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
             <Button title="City Search" onPress={navSearch}></Button>
 
             <View className="w-full h-60 my-8">
-                <ShopMap
-                    region={region}
-                    setRegion={setRegion}
-                    coffeeShops={coffeeShops}
-                    userLocation={userLocation}
-                    onPress={navMap}
-                ></ShopMap>
+                <RegionProvider>
+                    <ShopMap
+                        initialRegion={cityRegion}
+                        onPress={navMap}
+                    ></ShopMap>
+                </RegionProvider>
             </View>
 
             <Button title="navigate" onPress={navMap}></Button>

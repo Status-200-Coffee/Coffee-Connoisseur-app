@@ -1,21 +1,16 @@
 import * as Location from "expo-location";
-import { SetState, UserLocation } from "../types";
+import { UserLocation } from "../types";
 
-export async function getUserLocation(
-    setLocation: SetState<UserLocation | undefined>,
-    setErrorMsg: SetState<string>
-) {
+export async function getUserLocation(): Promise<UserLocation | null> {
     const { status } = await Location.requestForegroundPermissionsAsync();
 
     if (status !== "granted") {
-        setErrorMsg("Permission Denied: location");
-        return;
+        console.log("Could not retrieve user location");
+        return null;
     }
 
     const location = await Location.getCurrentPositionAsync({});
-    const { longitude, latitude } = location.coords;
+    const { latitude, longitude } = location.coords;
 
-    console.log(longitude, latitude);
-
-    setLocation({ longitude, latitude });
+    return { latitude, longitude };
 }

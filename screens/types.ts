@@ -1,14 +1,10 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { CoffeeShop, Region, SetState } from "../types";
 
 export type RootStackParamList = {
+    LoadingScreen: undefined;
     ShopSearch: undefined;
-    CitySearch: { setCity: SetState<string> };
-    FullscreenMap: {
-        coffeeShops: CoffeeShop[];
-        region: Region;
-        setRegion: SetState<Region>;
-    };
+    CitySearch: undefined;
+    FullscreenMap: undefined;
 };
 
 export type Props<K extends keyof RootStackParamList> = NativeStackScreenProps<

@@ -2,12 +2,14 @@ import { useState } from "react";
 import { FlatList, View, Text } from "react-native";
 import { SearchBar } from "@rneui/base";
 
+import { useCache } from "../contexts/Cache";
+
 import { Props } from "./types";
 
-export default function CitySearch({ navigation, route }: Props<"CitySearch">) {
-    const { setCity } = route.params;
+export default function CitySearch({ navigation }: Props<"CitySearch">) {
+    const { cache, setCache } = useCache();
 
-    const allCities = ["Carlisle", "Newcastle"];
+    const allCities = Object.keys(cache.cities);
 
     const [input, setInput] = useState<string>("");
     const [filteredCities, setFilteredCities] = useState<string[]>([
@@ -24,17 +26,22 @@ export default function CitySearch({ navigation, route }: Props<"CitySearch">) {
         setInput(text);
     }
 
-    function renderItem(title: string) {
+    function changeCity(cityName: string) {
+        setCache((currentCache) => {
+            return { ...currentCache, currentCity: cityName };
+        });
+
+        navigation.goBack();
+    }
+
+    function renderItem(cityName: string) {
         return (
             <View className=" border my-2 mx-4 p-2">
                 <Text
                     className="text-xl text-center"
-                    onPress={() => {
-                        setCity(title);
-                        navigation.goBack();
-                    }}
+                    onPress={() => changeCity(cityName)}
                 >
-                    {title}
+                    {cityName}
                 </Text>
             </View>
         );
