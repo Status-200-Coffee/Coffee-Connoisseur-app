@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Button, View, Text } from "react-native";
+import { Button, View, ActivityIndicator } from "react-native";
 
 import ShopMap from "../components/ShopMap";
-import { getCities, getShopsByCity } from "../api";
+import { getCities, getClosestCity, getShopsByCity } from "../api";
 
 import { City, CoffeeShop, Region, UserLocation } from "../types";
 import { Props } from "./types";
@@ -25,6 +25,14 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
     useEffect(() => {
         getUserLocation(setUserLocation, setErrorMsg);
     }, []);
+
+    useEffect(() => {
+        if (!userLocation) return;
+
+        getClosestCity(userLocation).then((city) => {
+            setCity(city);
+        });
+    }, [userLocation]);
 
     useEffect(() => {
         getCities()
@@ -83,6 +91,14 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
         });
     }
 
+    if (!loaded) {
+        return (
+            <View className="h-5/6 flex justify-center">
+                <ActivityIndicator size="large"></ActivityIndicator>
+            </View>
+        );
+    }
+
     return (
         <View className="flex justify-items-center py-4">
             <Button title="City Search" onPress={navSearch}></Button>
@@ -98,8 +114,6 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
             </View>
 
             <Button title="navigate" onPress={navMap}></Button>
-
-            {loaded || <Text className="text-align-center">Loading...</Text>}
         </View>
     );
 }
