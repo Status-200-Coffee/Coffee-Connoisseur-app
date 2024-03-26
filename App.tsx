@@ -1,20 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import LoadingScreen from "./screens/LoadingScreen";
+import ShopSearch from "./screens/ShopSearch";
+import CitySearch from "./screens/CitySearch";
+import FullscreenMap from "./screens/FullscreenMap";
+import { CacheProvider } from "./contexts/Cache";
+
+import { RootStackParamList } from "./screens/types";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    return (
+        <NavigationContainer>
+            <CacheProvider>
+                <Stack.Navigator>
+                    <Stack.Screen
+                        name="LoadingScreen"
+                        component={LoadingScreen}
+                    />
+                    <Stack.Screen name="ShopSearch" component={ShopSearch} />
+                    <Stack.Screen name="CitySearch" component={CitySearch} />
+                    <Stack.Screen
+                        name="FullscreenMap"
+                        component={FullscreenMap}
+                    />
+                </Stack.Navigator>
+            </CacheProvider>
+        </NavigationContainer>
+    );
+}
