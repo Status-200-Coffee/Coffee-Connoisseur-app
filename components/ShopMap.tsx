@@ -1,5 +1,5 @@
-import { Image } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import { Image, Text } from "react-native";
+import MapView, { Callout, Marker } from "react-native-maps";
 
 import { ShopMapProps } from "../types";
 
@@ -21,13 +21,20 @@ export default function ShopMap(props: ShopMapProps) {
             }}
             onPress={onPress}
         >
-            {coffeeShops.map((coords, index) => {
+            {coffeeShops.map((coffeeShop, index) => {
+                const { latitude, longitude, name, rating } = coffeeShop;
+
                 return (
-                    <Marker key={index} coordinate={coords}>
+                    <Marker key={index} coordinate={{ latitude, longitude }}>
                         <Image
                             className="h-12 w-12"
                             source={require("../assets/coffee-shop-icon-small.png")}
                         ></Image>
+
+                        <Callout className="w-44">
+                            <Text className="text-center">{name}</Text>
+                            <Text className="text-center">Rating {rating}</Text>
+                        </Callout>
                     </Marker>
                 );
             })}
