@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, Image } from "react-native";
+import { Text, View, Image, Pressable } from "react-native";
 import React from "react";
 import { useState, useRef, useEffect } from "react";
 import { Camera, CameraType } from "expo-camera";
@@ -6,9 +6,9 @@ import * as MediaLibrary from "expo-media-library";
 
 export default function CoffeeCamera() {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
-  const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
+  const [cameraType, setCameraType] = useState(CameraType.back);
   const [capturedImage, setCapturedImage] = useState(null);
-  const [showCamera, setShowCamera] = useState<boolean>(false);
+  const [showCamera, setShowCamera] = useState(false);
   const cameraRef = useRef(null);
   useEffect(() => {
     (async () => {
@@ -26,49 +26,32 @@ export default function CoffeeCamera() {
   };
 
   return (
-    <View style={styles.container}>
-   
+    <View className="flex-1 bg-white items-center">
       {hasCameraPermission === true && (
-        <View style={styles.cameraContainer}>
+        <View className="flex-1 width-70 height-30">
           <Camera
             ref={cameraRef}
-            style={styles.camera}
-            type={Camera.Constants.Type.back}
+            style={{ width: 400, height: 400}}
+            type={CameraType.back}
           />
-          <Button title="Take Picture" onPress={takePicture} />
+          <Pressable onPress={takePicture}>
+            <View className="m-3 p-3 bg-sky-900 rounded-full mb-5 mx-20">
+            <Text className="text-center font-bold text-white text-lg">
+              Take picture 📷
+            </Text>
+            </View>
+          </Pressable>
         </View>
       )}
 
-     
       {capturedImage && (
-        <View style={styles.imageContainer}>
-          <Image source={{ uri: capturedImage }} style={styles.image} />
+        <View>
+          <Image
+            source={{ uri: capturedImage }}
+            style={{ width: 200, height: 200 }}
+          />
         </View>
       )}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  cameraContainer: {
-    flex: 1,
-    width: "70%",
-    height: "30%",
-  },
-  camera: {
-    flex: 1,
-  },
-  imageContainer: {
-    marginTop: 20,
-  },
-  image: {
-    width: 200,
-    height: 200,
-  },
-});

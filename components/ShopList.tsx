@@ -1,4 +1,4 @@
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Text } from "react-native";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import ShopCard from "./ShopCard";
@@ -21,7 +21,6 @@ interface shop {
 }
 
 const ShopList = () => {
-
   const [shopList, setShopList] = useState<shop[]>([]);
 
   useEffect(() => {
@@ -30,14 +29,14 @@ const ShopList = () => {
       .then(({ data: { shops } }) => {
         setShopList(shops);
       });
-  },[]);
+  }, []);
 
   return (
     <ScrollView>
       {shopList.map((shop) => {
         return (
           <View>
-            <ShopCard shop={shop} key={shop._id}/>
+            <ShopCard shop={shop} key={shop._id} />
           </View>
         );
       })}
