@@ -29,29 +29,29 @@ export default function ShopCard(props: ShopProps) {
     <View className="flex-row border-2 rounded m-2 items-center bg-sky-100">
       <Image
         source={{ uri: shop.mainImage }}
-        style={{ width: 150, height: 150, margin: 10 }}
+        style={{ width: 150, height: 150, margin: 14 }}
       />
-      <View className="flex-1">
+      <View className="flex-1 items-center">
         <Text className="font-bold leading-8 text-base">{shop.name}</Text>
-        <Text className="italic">{shop.description}</Text>
+        {/* <Text className="italic">{shop.description}</Text> */}
         <Text>
-          Location: {shop.distance} | {shop.city}
+          Location: {shop.distance}  {shop.city}
         </Text>
         <Text className="font-bold leading-6">{shop.rating} / 5</Text>
         <View className="flex-row justify-evenly">
         {(() => {
           if (shop.hasSeating) {
-            return <Text className="text-xl m-1">🪑</Text>;
+            return <Text className="text-xl">🪑</Text>;
           }
         })()}
         {(() => {
           if (shop.dogFriendly) {
-            return <Text className="text-xl m-1">🐶</Text>;
+            return <Text className="text-xl">🐶</Text>;
           }
         })()}
         {(() => {
           if (shop.dairyFree) {
-            return <Text className="text-xl m-1">🌿</Text>;
+            return <Text className="text-xl">🌿</Text>;
           }
         })()}
         </View>
@@ -63,7 +63,7 @@ export default function ShopCard(props: ShopProps) {
             })
           }
         >
-          <Text className="border-2 rounded m-2 p-2 bg-emerald-300 text-center font-bold">View Shop</Text>
+          <Text className="m-2 p-2 bg-blue-900 text-center font-bold text-white rounded">View Shop</Text>
         </Pressable>
       </View>
     </View>

@@ -8,11 +8,11 @@ export default function CoffeeCamera() {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
   const [capturedImage, setCapturedImage] = useState(null);
-  const [showCamera, setShowCamera] = useState(false);
+  const [showCamera, setShowCamera] = useState<boolean>(false);
   const cameraRef = useRef(null);
   useEffect(() => {
     (async () => {
-      MediaLibrary.requestPermissionsAsync();
+      // MediaLibrary.requestPermissionsAsync();
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
       setHasCameraPermission(cameraStatus.status === "granted");
     })();

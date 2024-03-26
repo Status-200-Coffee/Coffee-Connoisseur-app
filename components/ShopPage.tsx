@@ -57,6 +57,7 @@ export default function ShopPage({ route }: { route: any }) {
   return isLoading ? (
     <Text className="">Loading...</Text>
   ) : (
+    <ScrollView>
     <View className="flex-1 items-center bg-cyan-50">
       <Image
         className="width-300 height-300 margin-10"
@@ -74,20 +75,21 @@ export default function ShopPage({ route }: { route: any }) {
       <View className="flex-row justify-evenly">
         {(() => {
           if (shopPage.hasSeating) {
-            return <Text className="text-xl m-2">🪑</Text>;
+            return <Text className="text-xl m-1">🪑</Text>;
           }
         })()}
         {(() => {
           if (shopPage.dogFriendly) {
-            return <Text className="text-xl m-2">🐶</Text>;
+            return <Text className="text-xl m-1">🐶</Text>;
           }
         })()}
         {(() => {
           if (shopPage.dairyFree) {
-            return <Text>🌿</Text>;
+            return <Text className="text-xl m-1">🌿</Text>;
           }
         })()}
       </View>
+      <Text className="font-bold text-lg"> Connoisseur's Favourite Coffee </Text>
       <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
@@ -115,10 +117,11 @@ export default function ShopPage({ route }: { route: any }) {
           })
         }
       >
-        <Text className="border-2 rounded m-2 p-2 bg-emerald-300 text-center font-bold">
+        <Text className="m-2 p-2 bg-blue-900 text-center font-bold text-white rounded mb-5 text-base">
           Take a picture
         </Text>
       </Pressable>
     </View>
+    </ScrollView>
   );
 }
