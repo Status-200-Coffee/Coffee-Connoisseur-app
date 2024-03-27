@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useRef, useEffect } from "react";
 import { Text, View, Image, Pressable } from "react-native";
 import { Camera, CameraType } from "expo-camera";
