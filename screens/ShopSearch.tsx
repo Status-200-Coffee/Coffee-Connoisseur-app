@@ -8,39 +8,34 @@ import { useCache } from "../contexts/Cache";
 import { RegionProvider } from "../contexts/Region";
 
 import { Props } from "./types";
-import { Region } from "../types";
 
 export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
     const { cache, setCache } = useCache();
     const [loaded, setLoaded] = useState<boolean>(false);
-    const [cityRegion, setCityRegion] = useState<Region>({
-        latitude: 52.2345,
-        longitude: -2.6543,
-        latitudeDelta: 0.1,
-        longitudeDelta: 0.1,
-    });
 
     useEffect(() => {
         setLoaded(false);
 
         const currentCity = cache.currentCity || "Carlisle";
 
-        getShopsByCity(currentCity)
-            .then((shops) => {
-                setCache((currCache) => {
-                    const newCityShops = { ...currCache.cityShops };
-                    newCityShops[currentCity] = shops;
-                    return { ...currCache, cityShops: newCityShops };
+        if (cache.cityShops[currentCity]) {
+            setLoaded(true);
+        } else {
+            getShopsByCity(currentCity)
+                .then((shops) => {
+                    setCache((currCache) => {
+                        const newCityShops = { ...currCache.cityShops };
+                        newCityShops[currentCity] = shops;
+                        return { ...currCache, cityShops: newCityShops };
+                    });
+                })
+                .catch((error) => {
+                    console.log(error, currentCity);
+                })
+                .finally(() => {
+                    setLoaded(true);
                 });
-
-                setCityRegion(cache.cities[currentCity]);
-            })
-            .catch((error) => {
-                console.log(error, currentCity);
-            })
-            .finally(() => {
-                setLoaded(true);
-            });
+        }
     }, [cache.currentCity]);
 
     function navSearch() {
@@ -68,21 +63,23 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
     }
 
     return (
-        <View className="flex justify-items-center py-4">
+        <View className="flex flex-col h-full">
             <Button title="City Search" onPress={navSearch}></Button>
 
-            <View className="w-full h-60 my-8">
+            <View className="w-full h-1/5">
                 <RegionProvider>
                     <ShopMap
-                        initialRegion={cityRegion}
+                        initialRegion={cache.cities[cache.currentCity!]}
                         onPress={navMap}
                     ></ShopMap>
                 </RegionProvider>
             </View>
 
-            <Button title="navigate" onPress={navMap}></Button>
+            {/* <Button title="navigate" onPress={navMap}></Button> */}
 
-            <ShopList></ShopList>
+            <View className="flex-1 py-2">
+                <ShopList navigation={navigation}></ShopList>
+            </View>
         </View>
     );
 }

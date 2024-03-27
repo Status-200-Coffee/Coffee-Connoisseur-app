@@ -7,9 +7,9 @@ import * as MediaLibrary from "expo-media-library";
 export default function CoffeeCamera() {
     const [hasCameraPermission, setHasCameraPermission] =
         useState<boolean>(false);
-    const [cameraType, setCameraType] = useState(CameraType.back);
+    const [cameraType, setCameraType] = useState<CameraType>(CameraType.back);
     const [capturedImage, setCapturedImage] = useState<string>("");
-    const [showCamera, setShowCamera] = useState(false);
+    const [showCamera, setShowCamera] = useState<boolean>(false);
     const cameraRef = useRef<Camera>(null);
 
     useEffect(() => {
@@ -20,12 +20,12 @@ export default function CoffeeCamera() {
         })();
     }, []);
 
-    const takePicture = async () => {
+    async function takePicture() {
         if (cameraRef.current) {
             const photo = await cameraRef.current.takePictureAsync();
             setCapturedImage(photo.uri);
         }
-    };
+    }
 
     return (
         <View className="flex-1 bg-white items-center">
