@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 
+import { useCache } from "../contexts/Cache";
+
 import { Props } from "./types";
 import { CoffeeShop } from "../types";
-import { useCache } from "../contexts/Cache";
 
 export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
     const { shop_id } = route.params;
