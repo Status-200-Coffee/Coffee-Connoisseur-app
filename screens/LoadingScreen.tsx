@@ -16,6 +16,13 @@ export default function LoadingScreen({ navigation }: Props<"LoadingScreen">) {
         getUserLocation()
             .then((result) => {
                 if (!result) {
+                    setCache((cache) => {
+                        return {
+                            ...cache,
+                            userLocation: { latitude: 0, longitude: 0 },
+                        };
+                    });
+
                     return "Carlisle";
                 }
 
@@ -71,7 +78,7 @@ export default function LoadingScreen({ navigation }: Props<"LoadingScreen">) {
 
     function gotEverything() {
         if (
-            cache.userLocation &&
+            // cache.userLocation &&
             cache.cities &&
             cache.currentCity &&
             cache.cityShops
