@@ -69,6 +69,7 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
             <View className="w-full h-1/5">
                 <RegionProvider>
                     <ShopMap
+                        navigation={navigation}
                         initialRegion={cache.cities[cache.currentCity!]}
                         onPress={navMap}
                     ></ShopMap>
