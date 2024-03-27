@@ -5,7 +5,8 @@ import MapView, { Callout, Marker } from "react-native-maps";
 import { useCache } from "../contexts/Cache";
 import { useRegion } from "../contexts/Region";
 
-import { Region, ShopMapProps } from "../types";
+import { Region } from "../types";
+import { ShopMapProps } from "./types";
 
 export default function ShopMap({ initialRegion, onPress }: ShopMapProps) {
     const { cache } = useCache();
@@ -13,7 +14,7 @@ export default function ShopMap({ initialRegion, onPress }: ShopMapProps) {
 
     useEffect(() => {
         setRegion(initialRegion);
-    }, []);
+    }, [initialRegion]);
 
     function renderCoffeeShops() {
         const coffeeShops = cache.cityShops[cache.currentCity!];

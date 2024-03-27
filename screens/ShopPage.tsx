@@ -1,31 +1,17 @@
 import { useEffect, useState } from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
-import axios from "axios";
+
+import { useCache } from "../contexts/Cache";
 
 import { Props } from "./types";
-
-interface shop {
-    _id: number;
-    name: string;
-    mainImage: string;
-    userImages: Array<string>;
-    description: string;
-    longitude: number;
-    latitude: number;
-    city: string;
-    distance: string;
-    totalRatings: number;
-    rating: number;
-    dogFriendly: boolean;
-    hasSeating: boolean;
-    dairyFree: boolean;
-}
+import { CoffeeShop } from "../types";
 
 export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
     const { shop_id } = route.params;
-    const [isLoading, setIsLoading] = useState(true);
+    const { cache } = useCache();
 
-    const [shopPage, setShopPage] = useState<shop>({
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [shopPage, setShopPage] = useState<CoffeeShop>({
         _id: 0,
         name: "",
         mainImage: "",
@@ -43,19 +29,22 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
     });
 
     useEffect(() => {
-        axios
-            .get(
-                `https://coffee-connoisseur-api.onrender.com/api/shops/Newcastle/${shop_id}`
-            )
-            .then(({ data: { shop } }) => {
+        const shops = cache.cityShops[cache.currentCity!];
+
+        for (let shop of shops) {
+            if (shop._id === shop_id) {
                 setShopPage(shop);
                 setIsLoading(false);
-            });
+                return;
+            }
+        }
     }, []);
 
-    return isLoading ? (
-        <Text className="">Loading...</Text>
-    ) : (
+    if (isLoading) {
+        return <Text className="">Loading...</Text>;
+    }
+
+    return (
         <ScrollView>
             <View className="flex-1 items-center bg-cyan-50 p-5">
                 <Image
@@ -103,7 +92,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                 >
                     {shopPage.userImages.map((image) => {
                         return (
-                            <View className="pt-2">
+                            <View key={image} className="pt-2">
                                 <Image
                                     source={{ uri: image }}
                                     style={{
