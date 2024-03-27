@@ -125,7 +125,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                         })
                     }
                 >
-                    <Text className="m-2 p-2 bg-blue-900 text-center font-bold text-white rounded mb-5 text-base">
+                    <Text className="m-2 p-3 bg-blue-900 text-center font-bold text-white rounded-full mb-5 text-base">
                         Take a picture
                     </Text>
                 </Pressable>

@@ -26,14 +26,13 @@ export default function ShopCard(props: ShopProps) {
   const shop = props.shop;
 
   return (
-    <View className="flex-row border-2 rounded m-2 items-center bg-sky-100">
+    <View className="flex-row border-2 border-slate-600 rounded m-2 items-center bg-sky-100">
       <Image
         source={{ uri: shop.mainImage }}
         style={{ width: 150, height: 150, margin: 10 }}
       />
       <View className="flex-1 items-center">
         <Text className="font-bold leading-8 text-base">{shop.name}</Text>
-        {/* <Text className="italic">{shop.description}</Text> */}
         <Text>
           Location: {shop.distance} {shop.city}
         </Text>
@@ -63,7 +62,7 @@ export default function ShopCard(props: ShopProps) {
             })
           }
         >
-          <Text className="m-2 p-2 bg-blue-900 text-center font-bold text-white rounded">
+          <Text className="m-2 p-2 pl-5 pr-5 bg-blue-900 text-center font-bold text-white rounded-full">
             View Shop
           </Text>
         </Pressable>
