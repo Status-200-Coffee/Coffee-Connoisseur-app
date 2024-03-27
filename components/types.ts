@@ -4,6 +4,7 @@ import { Props } from "../screens/types";
 export type ShopMapProps = {
     initialRegion: Region;
     onPress?: () => void;
+    navigation: Props<"ShopSearch" | "FullscreenMap">["navigation"];
 };
 
 export type ShopListProps = {

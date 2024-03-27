@@ -8,13 +8,21 @@ import { useRegion } from "../contexts/Region";
 import { Region } from "../types";
 import { ShopMapProps } from "./types";
 
-export default function ShopMap({ initialRegion, onPress }: ShopMapProps) {
+export default function ShopMap({
+    navigation,
+    initialRegion,
+    onPress,
+}: ShopMapProps) {
     const { cache } = useCache();
     const { region, setRegion } = useRegion();
 
     useEffect(() => {
         setRegion(initialRegion);
     }, [initialRegion]);
+
+    function navigateToShopPage(shop_id: number) {
+        navigation.navigate("ShopPage", { shop_id });
+    }
 
     function renderCoffeeShops() {
         const coffeeShops = cache.cityShops[cache.currentCity!];
@@ -33,7 +41,12 @@ export default function ShopMap({ initialRegion, onPress }: ShopMapProps) {
                         source={require("../assets/coffee-shop-icon-small.png")}
                     ></Image>
 
-                    <Callout className="w-44">
+                    <Callout
+                        className="w-44"
+                        onPress={() => {
+                            navigateToShopPage(coffeeShop._id);
+                        }}
+                    >
                         <Text className="text-center">{name}</Text>
                         <Text className="text-center">Rating {rating}</Text>
                     </Callout>
