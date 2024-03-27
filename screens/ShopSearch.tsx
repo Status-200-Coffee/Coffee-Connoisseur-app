@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, View, ActivityIndicator } from "react-native";
 
 import ShopMap from "../components/ShopMap";
+import ShopList from "../components/ShopList";
 import { getShopsByCity } from "../utils/api";
 import { useCache } from "../contexts/Cache";
 import { RegionProvider } from "../contexts/Region";
@@ -80,6 +81,8 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
             </View>
 
             <Button title="navigate" onPress={navMap}></Button>
+
+            <ShopList></ShopList>
         </View>
     );
 }

@@ -8,6 +8,8 @@ import FullscreenMap from "./screens/FullscreenMap";
 import { CacheProvider } from "./contexts/Cache";
 
 import { RootStackParamList } from "./screens/types";
+import ShopPage from "./screens/ShopPage";
+import CoffeeCamera from "./screens/CoffeeCamera";
 
 export default function App() {
     const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -25,6 +27,11 @@ export default function App() {
                     <Stack.Screen
                         name="FullscreenMap"
                         component={FullscreenMap}
+                    />
+                    <Stack.Screen name="ShopPage" component={ShopPage} />
+                    <Stack.Screen
+                        name="CoffeeCamera"
+                        component={CoffeeCamera}
                     />
                 </Stack.Navigator>
             </CacheProvider>
