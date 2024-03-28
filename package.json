@@ -53,7 +53,7 @@
   "private": true,
   "lint-staged": {
     "./**/*.{js,ts,tsx,json}": [
-      "prettier --config .prittierrc.json --write",
+      "prettier --config .prittierrc --write",
       "git add"
     ]
   },
