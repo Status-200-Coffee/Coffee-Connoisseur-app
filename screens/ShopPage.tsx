@@ -31,7 +31,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
     useEffect(() => {
         const shops = cache.cityShops[cache.currentCity!];
 
-        for (let shop of shops) {
+        for (const shop of shops) {
             if (shop._id === shop_id) {
                 setShopPage(shop);
                 setIsLoading(false);
