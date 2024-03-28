@@ -41,7 +41,6 @@ export default function ProfilePage({
                 `https://coffee-connoisseur-api.onrender.com/api/users/${username}`
             )
             .then(({ data: { user } }) => {
-                console.log(user);
                 setUserPage(user);
                 // setIsLoading(false);
             });
@@ -53,7 +52,6 @@ export default function ProfilePage({
         const currentCity = cache.currentCity || "Carlisle";
 
         getShopsByCity(currentCity, "", "").then((shop) => {
-            console.log(shop);
             setShopList(shop);
         });
     }, []);
