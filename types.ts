@@ -47,3 +47,13 @@ export type ShopMapProps = {
     initialRegion: Region;
     onPress?: () => void;
 };
+
+export type User = {
+    _id: number;
+    username: string;
+    email: string;
+    coffeeCollected: number;
+    photosPosted:string[]
+    favouriteShops: number[]
+    profilePicture: string
+}
