@@ -8,8 +8,8 @@ export function RegionProvider({ children }: ProviderProps) {
     const [region, setRegion] = useState<Region>({
         latitude: 40,
         longitude: -1,
-        latitudeDelta: 0.5,
-        longitudeDelta: 0.5,
+        latitudeDelta: 0.3,
+        longitudeDelta: 0.3,
     });
 
     return (
@@ -28,3 +28,5 @@ export function useRegion() {
 
     return context;
 }
+
+
