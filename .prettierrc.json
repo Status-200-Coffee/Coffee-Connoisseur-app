@@ -2,5 +2,19 @@
     "tabWidth": 4,
     "trailingComma": "es5",
     "semi": true,
-    "singleQuote": false
+    "singleQuote": false,
+    "overrides": [
+        {
+            "files": "package.json",
+            "options": {
+                "tabWidth": 2
+            }
+        },
+        {
+            "files": "package-lock.json",
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
 }
