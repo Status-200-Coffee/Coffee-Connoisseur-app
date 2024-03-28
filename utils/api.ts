@@ -18,7 +18,7 @@ export async function getCities(): Promise<City[]> {
 
 export async function getClosestCity(user: UserLocation): Promise<string> {
     const { latitude, longitude } = user;
-    const response = await api.get(`/cities`, {
+    const response = await api.get("/cities", {
         params: {
             lat: latitude,
             long: longitude,
