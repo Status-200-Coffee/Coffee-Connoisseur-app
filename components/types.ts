@@ -8,6 +8,7 @@ export type ShopMapProps = {
 };
 
 export type ShopListProps = {
+    shopList: CoffeeShop[];
     navigation: Props<"ShopSearch">["navigation"];
 };
 

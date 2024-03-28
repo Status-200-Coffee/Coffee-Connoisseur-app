@@ -2,17 +2,10 @@ import { useState } from "react";
 import { View, ScrollView } from "react-native";
 
 import ShopCard from "./ShopCard";
-import { useCache } from "../contexts/Cache";
 
-import { CoffeeShop } from "../types";
 import { ShopListProps } from "./types";
 
-export default function ShopList({ navigation }: ShopListProps) {
-    const { cache } = useCache();
-    const [shopList, setShopList] = useState<CoffeeShop[]>(
-        cache.cityShops[cache.currentCity!]
-    );
-
+export default function ShopList({ shopList, navigation }: ShopListProps) {
     return (
         <ScrollView className="flex flex-col h-full">
             {shopList.map((shop) => {
