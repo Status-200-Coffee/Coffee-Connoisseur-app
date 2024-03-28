@@ -4,6 +4,7 @@ import {
     CityShops,
     Region,
     SetState,
+    User,
     UserLocation,
 } from "../types";
 
@@ -12,6 +13,7 @@ export type Cache = {
     cities: CityRegions;
     cityShops: CityShops;
     userLocation: UserLocation | null;
+    user: User | null;
 };
 
 export type CacheContextType = {

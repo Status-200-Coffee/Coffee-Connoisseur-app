@@ -52,7 +52,7 @@ export default function ShopList({ navigation }: ShopListProps) {
         setQueryString(queries);
     };
     useEffect(() => {
-        const { latitude, longitude } = cache.userLocation;
+        const { latitude, longitude } = cache.userLocation!;
         let sort = `&sortBy=distance&orderBy=asc&long=${longitude}&lat=${latitude}`;
         if (sortBy === "rating") {
             sort = "&sortBy=rating&orderBy=desc";
