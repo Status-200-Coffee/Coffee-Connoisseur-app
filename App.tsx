@@ -10,6 +10,6 @@ const App = () => {
             </CacheProvider>
         </NavigationContainer>
     );
-}
+};
 
 export default App;

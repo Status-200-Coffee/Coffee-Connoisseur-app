@@ -17,13 +17,12 @@ export default function CitySearch({ navigation }: Props<"CitySearch">) {
     ]);
 
     function handleSearch(text: string) {
+        setInput(text);
         setFilteredCities(
             allCities.filter((city) => {
                 return city.toLowerCase().startsWith(text.toLowerCase());
             })
         );
-
-        setInput(text);
     }
 
     function changeCity(cityName: string) {

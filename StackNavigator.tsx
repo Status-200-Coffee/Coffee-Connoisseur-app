@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const HomeStackNavigator = () => {
     return (
         <Stack.Navigator initialRouteName="LoadingScreen">
-        <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
+            <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
             <Stack.Screen name="ShopSearch" component={ShopSearch} />
             <Stack.Screen name="CitySearch" component={CitySearch} />
             <Stack.Screen name="FullscreenMap" component={FullscreenMap} />
@@ -20,6 +20,6 @@ const HomeStackNavigator = () => {
             <Stack.Screen name="CoffeeCamera" component={CoffeeCamera} />
         </Stack.Navigator>
     );
-}
+};
 
 export default HomeStackNavigator;

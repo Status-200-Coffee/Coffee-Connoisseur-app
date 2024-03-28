@@ -11,6 +11,6 @@ const AppDrawerNavigator = () => {
             <Drawer.Screen name="ShopSearch" component={ShopSearch} />
         </Drawer.Navigator>
     );
-}
+};
 
 export default AppDrawerNavigator;
