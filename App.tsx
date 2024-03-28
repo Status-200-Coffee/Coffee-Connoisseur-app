@@ -21,6 +21,7 @@ export default function App() {
                     <Stack.Screen
                         name="LoadingScreen"
                         component={LoadingScreen}
+                        options={{headerShown: false}}
                     />
                     <Stack.Screen name="ShopSearch" component={ShopSearch} />
                     <Stack.Screen name="CitySearch" component={CitySearch} />
