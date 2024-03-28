@@ -24,10 +24,15 @@ export default function App() {
             <CacheProvider>
                 <Stack.Navigator>
                 <Stack.Screen name="ProfilePage" component={ProfilePage} />
-                    <Stack.Screen
+                <Stack.Screen
                         name="LoadingScreen"
                         component={LoadingScreen}
                     />
+                   
+                    
+               
+                
+       
                     <Stack.Screen name="ShopSearch" component={ShopSearch} />
                     <Stack.Screen name="CitySearch" component={CitySearch} />
                     <Stack.Screen
