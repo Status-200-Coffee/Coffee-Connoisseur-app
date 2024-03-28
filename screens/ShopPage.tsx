@@ -59,7 +59,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                 <View className="flex-row items-center">
                     <Text className="font-bold leading-10 text-xl">
                         {" "}
-            Connoisseur Rating: {shopPage.rating} / 5
+                        Connoisseur Rating: {shopPage.rating} / 5
                     </Text>
                 </View>
                 <View className="flex-row items-center">
@@ -70,17 +70,35 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                     <View className="flex-row m-2 pl-4">
                         {(() => {
                             if (shopPage.dogFriendly) {
-                                return <FontAwesome6 name="dog" size={21} color="black" />;
+                                return (
+                                    <FontAwesome6
+                                        name="dog"
+                                        size={21}
+                                        color="black"
+                                    />
+                                );
                             }
                         })()}
                         {(() => {
                             if (shopPage.hasSeating) {
-                                return <MaterialIcons name="chair" size={22} color="black" />;
+                                return (
+                                    <MaterialIcons
+                                        name="chair"
+                                        size={22}
+                                        color="black"
+                                    />
+                                );
                             }
                         })()}
                         {(() => {
                             if (shopPage.dairyFree) {
-                                return <Entypo name="leaf" size={22} color="black" />;
+                                return (
+                                    <Entypo
+                                        name="leaf"
+                                        size={22}
+                                        color="black"
+                                    />
+                                );
                             }
                         })()}
                     </View>
@@ -90,7 +108,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                 </Text>
                 <Text className="font-bold text-xl">
                     {" "}
-          Connoisseur's Favourite Coffee{" "}
+                    Connoisseur's Favourite Coffee{" "}
                 </Text>
                 <ScrollView
                     horizontal
@@ -122,7 +140,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                     }
                 >
                     <Text className="m-2 p-2 bg-blue-900 text-center font-bold text-white rounded mb-5 text-base">
-            Take a picture
+                        Take a picture
                     </Text>
                 </Pressable>
             </View>

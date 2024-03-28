@@ -3,6 +3,7 @@ import HomeStackNavigator from "./StackNavigator";
 import ShopSearch from "./screens/ShopSearch";
 import LoginPage from "./screens/LoginPage";
 import SignUpPage from "./screens/SignUpPage";
+import ProfilePage from "./screens/ProfilePage";
 
 const Drawer = createDrawerNavigator();
 
@@ -13,6 +14,7 @@ const AppDrawerNavigator = () => {
             <Drawer.Screen name="ShopSearch" component={ShopSearch} />
             <Drawer.Screen name="LoginPage" component={LoginPage} />
             <Drawer.Screen name="SignUpPage" component={SignUpPage} />
+            <Drawer.Screen name="ProfilePage" component={ProfilePage} />
         </Drawer.Navigator>
     );
 };

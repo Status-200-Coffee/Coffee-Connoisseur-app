@@ -14,5 +14,5 @@ export type ShopListProps = {
 
 export type ShopCardProps = {
     shop: CoffeeShop;
-    navigation: Props<"ShopSearch">["navigation"];
+    navigation: Props<"ShopSearch" | "ProfilePage">["navigation"];
 };

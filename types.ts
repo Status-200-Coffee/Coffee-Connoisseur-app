@@ -46,9 +46,10 @@ export type CityShops = Record<string, CoffeeShop[]>;
 export type User = {
     _id: number;
     username: string;
+    password: string;
     email: string;
     coffeeCollected: number;
-    photosPosted:string[]
-    favouriteShops: number[]
-    profilePicture: string
-}
+    photosPosted: string[];
+    favouriteShops: number[];
+    profilePicture: string;
+};
