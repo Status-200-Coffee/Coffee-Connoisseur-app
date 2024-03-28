@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { View, ScrollView } from "react-native";
 
 import ShopCard from "./ShopCard";
