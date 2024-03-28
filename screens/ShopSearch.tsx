@@ -78,7 +78,7 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
 
             {/* <Button title="navigate" onPress={navMap}></Button> */}
 
-        <View className="flex-1 py-2">
+            <View className="flex-1 py-2">
                 <ShopList
                     shopList={cache.cityShops[cache.currentCity!]}
                     navigation={navigation}
