@@ -8,13 +8,14 @@ import { ShopListProps } from "./types";
 export default function ShopList({ shopList, navigation }: ShopListProps) {
     return (
         <ScrollView className="flex flex-col h-full">
-            {shopList.map((shop) => {
-                return (
-                    <View key={shop._id}>
-                        <ShopCard shop={shop} navigation={navigation} />
-                    </View>
-                );
-            })}
+            {shopList &&
+                shopList.map((shop) => {
+                    return (
+                        <View key={shop._id}>
+                            <ShopCard shop={shop} navigation={navigation} />
+                        </View>
+                    );
+                })}
         </ScrollView>
     );
 }
