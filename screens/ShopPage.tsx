@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
+import { Entypo } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
 
 import { useCache } from "../contexts/Cache";
 
@@ -52,38 +55,42 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                     source={{ uri: shopPage.mainImage }}
                     style={{ width: 300, height: 300, margin: 12 }}
                 />
-                <Text className="font-bold leading-8 text-2xl">
-                    {shopPage.name}
-                </Text>
-                <Text className="leading-10 text-lg italic">
+                <Text className="font-bold p-1 text-3xl">{shopPage.name}</Text>
+                <View className="flex-row items-center">
+                    <Text className="font-bold leading-10 text-xl">
+                        {" "}
+            Connoisseur Rating: {shopPage.rating} / 5
+                    </Text>
+                </View>
+                <View className="flex-row items-center">
+                    <Entypo name="location-pin" size={22} color="black" />
+                    <Text className="text-xl">
+                        {shopPage.city} {shopPage.distance}
+                    </Text>
+                    <View className="flex-row m-2 pl-4">
+                        {(() => {
+                            if (shopPage.dogFriendly) {
+                                return <FontAwesome6 name="dog" size={21} color="black" />;
+                            }
+                        })()}
+                        {(() => {
+                            if (shopPage.hasSeating) {
+                                return <MaterialIcons name="chair" size={22} color="black" />;
+                            }
+                        })()}
+                        {(() => {
+                            if (shopPage.dairyFree) {
+                                return <Entypo name="leaf" size={22} color="black" />;
+                            }
+                        })()}
+                    </View>
+                </View>
+                <Text className="pb-5 leading-10 text-lg italic items-center">
                     {shopPage.description}
                 </Text>
-                <Text className="text-lg">
-                    Location: {shopPage.distance} {shopPage.city}
-                </Text>
-                <Text className="font-bold leading-10 text-lg">
-                    {shopPage.rating} / 5
-                </Text>
-                <View className="flex-row justify-evenly">
-                    {(() => {
-                        if (shopPage.hasSeating) {
-                            return <Text className="text-xl m-1">🪑</Text>;
-                        }
-                    })()}
-                    {(() => {
-                        if (shopPage.dogFriendly) {
-                            return <Text className="text-xl m-1">🐶</Text>;
-                        }
-                    })()}
-                    {(() => {
-                        if (shopPage.dairyFree) {
-                            return <Text className="text-xl m-1">🌿</Text>;
-                        }
-                    })()}
-                </View>
-                <Text className="font-bold text-lg">
+                <Text className="font-bold text-xl">
                     {" "}
-                    Connoisseur's Favourite Coffee{" "}
+          Connoisseur's Favourite Coffee{" "}
                 </Text>
                 <ScrollView
                     horizontal
@@ -114,8 +121,8 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                         })
                     }
                 >
-                    <Text className="m-2 p-3 bg-blue-900 text-center font-bold text-white rounded-full mb-5 text-base">
-                        Take a picture
+                    <Text className="m-2 p-2 bg-blue-900 text-center font-bold text-white rounded mb-5 text-base">
+            Take a picture
                     </Text>
                 </Pressable>
             </View>

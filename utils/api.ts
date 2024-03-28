@@ -6,8 +6,9 @@ const api = axios.create({
     baseURL: "https://coffee-connoisseur-api.onrender.com/api",
 });
 
-export async function getShopsByCity(city: string): Promise<CoffeeShop[]> {
-    const response = await api.get(`/shops/${city}`);
+export async function getShopsByCity(city: string, queryString: string, sort: string): Promise<CoffeeShop[]> {
+    const searchString = `/shops/${city}?${queryString}${sort}`;
+    const response = await api.get(searchString);
     return response.data.shops;
 }
 
