@@ -42,3 +42,13 @@ export type City = {
 export type CityRegions = Record<string, Region>;
 
 export type CityShops = Record<string, CoffeeShop[]>;
+
+export type User = {
+    _id: number;
+    username: string;
+    email: string;
+    coffeeCollected: number;
+    photosPosted:string[]
+    favouriteShops: number[]
+    profilePicture: string
+}
