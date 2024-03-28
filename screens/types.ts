@@ -7,7 +7,9 @@ export type RootStackParamList = {
     FullscreenMap: undefined;
     ShopPage: { shop_id: number };
     CoffeeCamera: { shop_id: number };
-    ProfilePage: {username: string};
+    LoginPage: undefined;
+    SignUpPage: undefined;
+    ProfilePage: { username: string };
 };
 
 export type Props<K extends keyof RootStackParamList> = NativeStackScreenProps<

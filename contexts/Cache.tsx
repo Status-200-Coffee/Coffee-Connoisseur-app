@@ -9,6 +9,7 @@ export function CacheProvider({ children }: ProviderProps) {
         cities: {},
         cityShops: {},
         userLocation: null,
+        user: null,
     });
 
     return (

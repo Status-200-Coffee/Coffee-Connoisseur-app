@@ -1,57 +1,30 @@
-
-import React from 'react';
-import { Text, View, Image, ScrollView } from 'react-native';
-import { useState, useEffect } from 'react';
+import React from "react";
+import { Text, View, Image, ScrollView } from "react-native";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Props } from "./types";
-import ShopList from '../components/ShopList';
-import { useCache } from '../contexts/Cache';
-import { getShopsByCity } from '../utils/api';
+import ShopList from "../components/ShopList";
+import { useCache } from "../contexts/Cache";
+import { getShopsByCity } from "../utils/api";
 
-import { CoffeeShop, Region } from "../types";
-import ShopCard from '../components/ShopCard';
+import { CoffeeShop, Region, User } from "../types";
+import ShopCard from "../components/ShopCard";
 
-interface user {
-    _id: number,
-    profilePicture: string,
-    username: string,
-    password: string,
-    email: string,
-    coffeeCollected: number,
-    photosPosted: Array<string>,
-    favouriteShops: Array<number>
-}
-
-interface shop {
-    _id: number;
-    name: string;
-    mainImage: string;
-    userImages: Array<string>;
-    description: string;
-    longitude: number;
-    latitude: number;
-    city: string;
-    distance: string;
-    totalRatings: number;
-    rating: number;
-    dogFriendly: boolean;
-    hasSeating: boolean;
-    dairyFree: boolean;
-}
-
-export default function ProfilePage({ navigation, route }: Props<"ProfilePage">) {
+export default function ProfilePage({
+    navigation,
+    route,
+}: Props<"ProfilePage">) {
     const { cache, setCache } = useCache();
     const [loaded, setLoaded] = useState<boolean>(false);
-    const currShops =[]
+    const currShops = [];
 
-    const [shopList, setShopList] = useState<shop[]>([]);
-    const [filteredShopList, setFilteredShopList] = useState<shop[]>([])
+    const [shopList, setShopList] = useState<CoffeeShop[]>([]);
+    const [filteredShopList, setFilteredShopList] = useState<CoffeeShop[]>([]);
 
-    const username = "easter"
+    const username = "easter";
     // const { username } = route.params;
     // const [isLoading, setIsLoading] = useState(true);
-    const [userPage, setUserPage] = useState<user>({
-
+    const [userPage, setUserPage] = useState<User>({
         _id: 0,
         profilePicture: "",
         username: "",
@@ -59,9 +32,8 @@ export default function ProfilePage({ navigation, route }: Props<"ProfilePage">)
         email: "",
         coffeeCollected: 0,
         photosPosted: [],
-        favouriteShops: []
-    }
-    );
+        favouriteShops: [],
+    });
 
     useEffect(() => {
         axios
@@ -69,40 +41,32 @@ export default function ProfilePage({ navigation, route }: Props<"ProfilePage">)
                 `https://coffee-connoisseur-api.onrender.com/api/users/${username}`
             )
             .then(({ data: { user } }) => {
-                console.log(user)
+                console.log(user);
                 setUserPage(user);
                 // setIsLoading(false);
             });
     }, []);
 
-   
-    
     useEffect(() => {
         setLoaded(false);
 
         const currentCity = cache.currentCity || "Carlisle";
 
-        getShopsByCity(currentCity)
-            .then((shop) => {
-                console.log(shop)
-                    setShopList(shop);
-                });
-        }, []);
+        getShopsByCity(currentCity, "", "").then((shop) => {
+            console.log(shop);
+            setShopList(shop);
+        });
+    }, []);
 
-
-    // isLoading ? 
+    // isLoading ?
     // (
     //     <Text className="">Loading...</Text>
     // ) :
     return (
         <View className="flex justify-items-center py-4">
             <Text className="font-bold text-lg">Profile</Text>
-            <Text >
-                Username: {userPage.username}
-            </Text>
-            <Text className="font-bold text-lg">
-                {" "}
-                Favourite Coffees</Text>
+            <Text>Username: {userPage.username}</Text>
+            <Text className="font-bold text-lg"> Favourite Coffees</Text>
             <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -110,7 +74,7 @@ export default function ProfilePage({ navigation, route }: Props<"ProfilePage">)
             >
                 {userPage.photosPosted.map((image) => {
                     return (
-                        <View className="pt-2">
+                        <View key={image} className="pt-2">
                             <Image
                                 source={{ uri: image }}
                                 style={{
@@ -122,7 +86,6 @@ export default function ProfilePage({ navigation, route }: Props<"ProfilePage">)
                         </View>
                     );
                 })}
-
             </ScrollView>
             <ScrollView
                 horizontal
@@ -131,27 +94,24 @@ export default function ProfilePage({ navigation, route }: Props<"ProfilePage">)
             >
                 {userPage.favouriteShops.map((coffeeShopID) => {
                     return (
-                        <View className="pt-2">
+                        <View key={coffeeShopID} className="pt-2">
                             <Text className="font-bold text-lg">
                                 {" "}
                                 {coffeeShopID}
                             </Text>
-
                         </View>
                     );
                 })}
-
             </ScrollView>
             <ScrollView>
-            {shopList.map((shop) => {
-                return (
-                    <View key={shop._id}>
-                        <ShopCard shop={shop} />
-                    </View>
-                );
-            })}
-         </ScrollView>
+                {shopList.map((shop) => {
+                    return (
+                        <View key={shop._id}>
+                            <ShopCard shop={shop} navigation={navigation} />
+                        </View>
+                    );
+                })}
+            </ScrollView>
         </View>
     );
-};
-
+}

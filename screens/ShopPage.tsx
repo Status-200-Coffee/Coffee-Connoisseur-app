@@ -1,31 +1,20 @@
 import { useEffect, useState } from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
-import axios from "axios";
+import { Entypo } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
+
+import { useCache } from "../contexts/Cache";
 
 import { Props } from "./types";
-
-interface shop {
-    _id: number;
-    name: string;
-    mainImage: string;
-    userImages: Array<string>;
-    description: string;
-    longitude: number;
-    latitude: number;
-    city: string;
-    distance: string;
-    totalRatings: number;
-    rating: number;
-    dogFriendly: boolean;
-    hasSeating: boolean;
-    dairyFree: boolean;
-}
+import { CoffeeShop } from "../types";
 
 export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
     const { shop_id } = route.params;
-    const [isLoading, setIsLoading] = useState(true);
+    const { cache } = useCache();
 
-    const [shopPage, setShopPage] = useState<shop>({
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [shopPage, setShopPage] = useState<CoffeeShop>({
         _id: 0,
         name: "",
         mainImage: "",
@@ -43,19 +32,22 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
     });
 
     useEffect(() => {
-        axios
-            .get(
-                `https://coffee-connoisseur-api.onrender.com/api/shops/Newcastle/${shop_id}`
-            )
-            .then(({ data: { shop } }) => {
+        const shops = cache.cityShops[cache.currentCity!];
+
+        for (const shop of shops) {
+            if (shop._id === shop_id) {
                 setShopPage(shop);
                 setIsLoading(false);
-            });
+                return;
+            }
+        }
     }, []);
 
-    return isLoading ? (
-        <Text className="">Loading...</Text>
-    ) : (
+    if (isLoading) {
+        return <Text className="">Loading...</Text>;
+    }
+
+    return (
         <ScrollView>
             <View className="flex-1 items-center bg-cyan-50 p-5">
                 <Image
@@ -63,36 +55,58 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                     source={{ uri: shopPage.mainImage }}
                     style={{ width: 300, height: 300, margin: 12 }}
                 />
-                <Text className="font-bold leading-8 text-2xl">
-                    {shopPage.name}
-                </Text>
-                <Text className="leading-10 text-lg italic">
+                <Text className="font-bold p-1 text-3xl">{shopPage.name}</Text>
+                <View className="flex-row items-center">
+                    <Text className="font-bold leading-10 text-xl">
+                        {" "}
+                        Connoisseur Rating: {shopPage.rating} / 5
+                    </Text>
+                </View>
+                <View className="flex-row items-center">
+                    <Entypo name="location-pin" size={22} color="black" />
+                    <Text className="text-xl">
+                        {shopPage.city} {shopPage.distance}
+                    </Text>
+                    <View className="flex-row m-2 pl-4">
+                        {(() => {
+                            if (shopPage.dogFriendly) {
+                                return (
+                                    <FontAwesome6
+                                        name="dog"
+                                        size={21}
+                                        color="black"
+                                    />
+                                );
+                            }
+                        })()}
+                        {(() => {
+                            if (shopPage.hasSeating) {
+                                return (
+                                    <MaterialIcons
+                                        name="chair"
+                                        size={22}
+                                        color="black"
+                                    />
+                                );
+                            }
+                        })()}
+                        {(() => {
+                            if (shopPage.dairyFree) {
+                                return (
+                                    <Entypo
+                                        name="leaf"
+                                        size={22}
+                                        color="black"
+                                    />
+                                );
+                            }
+                        })()}
+                    </View>
+                </View>
+                <Text className="pb-5 leading-10 text-lg italic items-center">
                     {shopPage.description}
                 </Text>
-                <Text className="text-lg">
-                    Location: {shopPage.distance} {shopPage.city}
-                </Text>
-                <Text className="font-bold leading-10 text-lg">
-                    {shopPage.rating} / 5
-                </Text>
-                <View className="flex-row justify-evenly">
-                    {(() => {
-                        if (shopPage.hasSeating) {
-                            return <Text className="text-xl m-1">🪑</Text>;
-                        }
-                    })()}
-                    {(() => {
-                        if (shopPage.dogFriendly) {
-                            return <Text className="text-xl m-1">🐶</Text>;
-                        }
-                    })()}
-                    {(() => {
-                        if (shopPage.dairyFree) {
-                            return <Text className="text-xl m-1">🌿</Text>;
-                        }
-                    })()}
-                </View>
-                <Text className="font-bold text-lg">
+                <Text className="font-bold text-xl">
                     {" "}
                     Connoisseur's Favourite Coffee{" "}
                 </Text>
@@ -103,7 +117,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                 >
                     {shopPage.userImages.map((image) => {
                         return (
-                            <View className="pt-2">
+                            <View key={image} className="pt-2">
                                 <Image
                                     source={{ uri: image }}
                                     style={{
