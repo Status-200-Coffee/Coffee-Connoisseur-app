@@ -42,8 +42,3 @@ export type City = {
 export type CityRegions = Record<string, Region>;
 
 export type CityShops = Record<string, CoffeeShop[]>;
-
-export type ShopMapProps = {
-    initialRegion: Region;
-    onPress?: () => void;
-};

@@ -8,15 +8,24 @@ import { CityRegions } from "../types";
 import { LinearGradient } from "expo-linear-gradient";
 
 export default function LoadingScreen({ navigation }: Props<"LoadingScreen">) {
-  const { cache, setCache } = useCache();
-  const [retry, setRetry] = useState(0);
+    const { cache, setCache } = useCache();
+    const [retry, setRetry] = useState(0);
 
-  useEffect(() => {
-    getUserLocation()
-      .then((result) => {
-        if (!result) {
-          return "Carlisle";
-        }
+
+    useEffect(() => {
+        getUserLocation()
+            .then((result) => {
+                if (!result) {
+                    setCache((cache) => {
+                        return {
+                            ...cache,
+                            userLocation: { latitude: 0, longitude: 0 },
+                        };
+                    });
+
+                    return "Carlisle";
+                }
+
 
         const { latitude, longitude } = result;
 
@@ -68,6 +77,7 @@ export default function LoadingScreen({ navigation }: Props<"LoadingScreen">) {
       });
   }, [retry]);
 
+
   function gotEverything() {
     if (
       cache.userLocation &&
@@ -78,6 +88,7 @@ export default function LoadingScreen({ navigation }: Props<"LoadingScreen">) {
       navigation.navigate("ShopSearch");
     } else {
       setRetry((retry) => retry + 1);
+
     }
   }
 
