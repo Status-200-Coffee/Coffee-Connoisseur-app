@@ -18,7 +18,7 @@ export default function ShopCard({ shop, navigation }: ShopCardProps) {
         <Text className="font-bold leading-8 text-base">{shop.name}</Text>
         <View className="flex-row items-center">
         <Entypo name="location-pin" size={20} color="black" />
-        <Text className="text-base">{shop.city} {shop.distance}</Text>
+        <Text className="text-base">{shop.city} {shop.distance} km</Text>
         </View>
         <Text className="font-bold leading-6 text-base">{shop.rating} / 5</Text>
         <View className="flex-row m-0.5">
