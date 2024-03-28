@@ -47,3 +47,4 @@ export type ShopMapProps = {
     initialRegion: Region;
     onPress?: () => void;
 };
+

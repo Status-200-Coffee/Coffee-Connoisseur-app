@@ -10,14 +10,20 @@ import { CacheProvider } from "./contexts/Cache";
 import { RootStackParamList } from "./screens/types";
 import ShopPage from "./screens/ShopPage";
 import CoffeeCamera from "./screens/CoffeeCamera";
+import ProfilePage from "./screens/ProfilePage";
+
+
+
 
 export default function App() {
     const Stack = createNativeStackNavigator<RootStackParamList>();
+    
 
     return (
         <NavigationContainer>
             <CacheProvider>
                 <Stack.Navigator>
+                <Stack.Screen name="ProfilePage" component={ProfilePage} />
                     <Stack.Screen
                         name="LoadingScreen"
                         component={LoadingScreen}
