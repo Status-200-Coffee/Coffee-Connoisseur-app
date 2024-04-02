@@ -8,11 +8,13 @@ import { useCache } from "../contexts/Cache";
 
 import { Props } from "./types";
 import { CoffeeShop } from "../types";
+import ShopRating from "../components/ShopRating";
 
 export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
     const { shop_id } = route.params;
     const { cache } = useCache();
-
+    const [rating, setRating] = useState(0);
+    const [votes, setVotes] = useState(0);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [shopPage, setShopPage] = useState<CoffeeShop>({
         _id: 0,
@@ -29,6 +31,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
         dogFriendly: false,
         hasSeating: false,
         dairyFree: false,
+        userVote: 0
     });
 
     useEffect(() => {
@@ -37,6 +40,8 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
         for (const shop of shops) {
             if (shop._id === shop_id) {
                 setShopPage(shop);
+                setRating(shop.rating);
+                setVotes(shop.totalRatings);
                 setIsLoading(false);
                 return;
             }
@@ -59,9 +64,16 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                 <View className="flex-row items-center">
                     <Text className="font-bold leading-10 text-xl">
                         {" "}
-                        Connoisseur Rating: {shopPage.rating} / 5
+                        Connoisseur Rating: {rating} / 5
                     </Text>
                 </View>
+                <ShopRating
+                    shop_id={shop_id}
+                    setRating={setRating}
+                    setVotes={setVotes}
+                    shopPage={shopPage}
+                />
+                <Text>({votes})</Text>
                 <View className="flex-row items-center">
                     <Entypo name="location-pin" size={22} color="black" />
                     <Text className="text-xl">
