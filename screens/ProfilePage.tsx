@@ -64,9 +64,11 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
                 showsHorizontalScrollIndicator={false}
                 className=""
             >
-                {userPage.photosPosted.map((image) => {
+                {userPage.photosPosted.map((image, index) => {
                     return (
-                        <View key={image} className="pt-2 ml-0 h-60">
+
+                        <View key={index} className="pt-2">
+
                             <Image
                                 source={{ uri: image }}
                                 style={{
