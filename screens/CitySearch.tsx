@@ -1,29 +1,16 @@
 import { useState } from "react";
-import { FlatList, View, Text } from "react-native";
+import { FlatList, View, Text, Button } from "react-native";
 import { SearchBar } from "@rneui/base";
 
 import { useCache } from "../contexts/Cache";
 
 import { Props } from "./types";
+import PostcodeSearch from "../components/PostcodeSearch";
+import CitySelector from "../components/CitySelector";
 
 export default function CitySearch({ navigation }: Props<"CitySearch">) {
-    const { cache, setCache } = useCache();
-
-    const allCities = Object.keys(cache.cities);
-
-    const [input, setInput] = useState<string>("");
-    const [filteredCities, setFilteredCities] = useState<string[]>([
-        ...allCities,
-    ]);
-
-    function handleSearch(text: string) {
-        setInput(text);
-        setFilteredCities(
-            allCities.filter((city) => {
-                return city.toLowerCase().startsWith(text.toLowerCase());
-            })
-        );
-    }
+    const { setCache } = useCache();
+    const [postcode, setPostcode] = useState<boolean>(false);
 
     function changeCity(cityName: string) {
         setCache((currentCache) => {
@@ -33,34 +20,19 @@ export default function CitySearch({ navigation }: Props<"CitySearch">) {
         navigation.goBack();
     }
 
-    function renderItem(cityName: string) {
-        return (
-            <View className=" border my-2 mx-4 p-2">
-                <Text
-                    className="text-xl text-center"
-                    onPress={() => changeCity(cityName)}
-                >
-                    {cityName}
-                </Text>
-            </View>
-        );
+    function handlePress() {
+        setPostcode((current) => !current);
     }
 
     return (
         <View>
-            <SearchBar
-                placeholder="Enter name of city"
-                value={input}
-                onChangeText={handleSearch}
-                autoCorrect={false}
-            ></SearchBar>
+            {postcode ? (
+                <PostcodeSearch changeCity={changeCity}></PostcodeSearch>
+            ) : (
+                <CitySelector changeCity={changeCity}></CitySelector>
+            )}
 
-            <FlatList
-                className="flex-col flex-nowrap"
-                data={filteredCities}
-                renderItem={({ item }) => renderItem(item)}
-                keyExtractor={(item) => item}
-            ></FlatList>
+            <Button title="Switch Input" onPress={handlePress}></Button>
         </View>
     );
 }

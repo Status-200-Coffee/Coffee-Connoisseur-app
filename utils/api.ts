@@ -5,6 +5,9 @@ import { City, CoffeeShop, UserLocation } from "../types";
 const api = axios.create({
     baseURL: "https://coffee-connoisseur-api.onrender.com/api",
 });
+const postcodesApi = axios.create({
+    baseURL: "https://api.postcodes.io/postcodes/",
+});
 
 export async function getShopsByCity(
     city: string,
@@ -30,4 +33,17 @@ export async function getClosestCity(user: UserLocation): Promise<string> {
         },
     });
     return response.data.city.city;
+}
+
+export async function getCoordsOfPostcode(
+    postcode: string
+): Promise<UserLocation | null> {
+    const response = await postcodesApi.get(postcode);
+
+    if (response.status === 404) {
+        return null;
+    }
+
+    const { latitude, longitude } = response.data.result;
+    return { latitude, longitude };
 }

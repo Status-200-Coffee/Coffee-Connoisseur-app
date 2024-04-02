@@ -16,3 +16,11 @@ export type ShopCardProps = {
     shop: CoffeeShop;
     navigation: Props<"ShopSearch" | "ProfilePage">["navigation"];
 };
+
+export type CitySelectorProps = {
+    changeCity: (city: string) => void;
+};
+
+export type PostcodeSearchProps = {
+    changeCity: (city: string) => void;
+};
