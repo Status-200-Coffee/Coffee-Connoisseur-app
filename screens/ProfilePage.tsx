@@ -1,20 +1,19 @@
-
-import React from "react";
-import { Text, View, Image, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { Props } from "./types";
-import { useCache } from "../contexts/Cache";
-import { getShopsByCity } from "../utils/api";
-import { CoffeeShop, User } from "../types";
-import ShopCard from "../components/ShopCard";
+import { Text, View, Image, ScrollView } from "react-native";
+
 import CoffeeRewards from "../components/CoffeeReward";
+import ShopCard from "../components/ShopCard";
+import { useCache } from "../contexts/Cache";
+import { getShopsByCity, getUser } from "../utils/api";
+
+import { Props } from "./types";
+import { CoffeeShop, User } from "../types";
+
 export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
-    const { cache, setCache } = useCache();
+    const { cache } = useCache();
     const [shopList, setShopList] = useState<CoffeeShop[]>([]);
-    useCache;
     const username = cache.user?.username;
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [userPage, setUserPage] = useState<User>({
         _id: 0,
         profilePicture: "",
@@ -27,37 +26,41 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
     });
 
     useEffect(() => {
-        const currentCity = cache.currentCity || "Carlisle";
-        axios
-            .get(
-                `https://coffee-connoisseur-api.onrender.com/api/users/${username}`
-            )
-            .then(({ data: { user } }) => {
+        let favShops: number[];
+
+        getUser(username!)
+            .then((user) => {
                 setUserPage(user);
-                const favShops = user.favouriteShops;
-                getShopsByCity(currentCity, "", "")
-                    .then((shop) => {
-                        const filtered = shop.filter(function (item) {
-                            return favShops.indexOf(item._id) !== -1;
-                        });
-                        return filtered;
-                    })
-                    .then((data) => {
-                        return setShopList(data);
-                    })
-                    .then(() => {
-                        setIsLoading(false);
-                    });
+                favShops = user.favouriteShops;
+                return getShopsByCity(cache.currentCity!, "", "");
             })
-            .catch((error) => console.log(error));
+            .then((shops) => {
+                const filteredShops = shops.filter(function (item) {
+                    return favShops.indexOf(item._id) !== -1;
+                });
+                return filteredShops;
+            })
+            .then((filteredShops) => {
+                return setShopList(filteredShops);
+            })
+            .then(() => {
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, [username]);
-    return isLoading ? (
-        <Text>Loading...</Text>
-    ) : (
+
+    if (isLoading) {
+        return <Text>Loading...</Text>;
+    }
+
+    return (
         <ScrollView className="flex-1" key="profile">
             <Text className="font-bold text-xl">
                 Hello, {userPage.username}!
             </Text>
+
             <ScrollView
                 key="profile-photos"
                 horizontal
@@ -66,9 +69,7 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
             >
                 {userPage.photosPosted.map((image, index) => {
                     return (
-
                         <View key={index} className="pt-2">
-
                             <Image
                                 source={{ uri: image }}
                                 style={{
@@ -81,8 +82,9 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
                     );
                 })}
             </ScrollView>
-            
+
             <CoffeeRewards></CoffeeRewards>
+
             <Text className="font-bold text-lg">Your favourites:</Text>
             {shopList.map((shop) => {
                 return (
