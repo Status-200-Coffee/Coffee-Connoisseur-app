@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { City, CoffeeShop, UserLocation } from "../types";
+import { City, CoffeeShop, User, UserLocation } from "../types";
 
 const api = axios.create({
     baseURL: "https://coffee-connoisseur-api.onrender.com/api",
@@ -46,4 +46,10 @@ export async function getCoordsOfPostcode(
 
     const { latitude, longitude } = response.data.result;
     return { latitude, longitude };
+}
+
+export async function getUser(username: string): Promise<User> {
+    const response = await api.get(`/users/${username}`);
+
+    return response.data.user;
 }
