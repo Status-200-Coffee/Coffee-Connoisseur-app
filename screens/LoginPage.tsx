@@ -12,7 +12,6 @@ const LoginPage = ({ navigation }: Props<"LoginPage">) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginErr, setLoginErr] = useState<boolean>(false);
-
     const [loginSuccesful, setLoginSuccessful] = useState<boolean>(false);
 
     function handleLogin() {
@@ -23,14 +22,14 @@ const LoginPage = ({ navigation }: Props<"LoginPage">) => {
             .then(({ data: { user } }) => {
                 if (user.password === password && user.username === username) {
                     setLoginErr(false);
-                    setCache((cache) => {
-                        return { ...cache, user };
-                    });
                     setUsername("");
                     setPassword("");
                     setLoginSuccessful(true);
                     setTimeout(() => {
                         navigation.navigate("ShopSearch");
+                        setCache((cache) => {
+                            return { ...cache, user };
+                        });
                         setLoginSuccessful(false);
                     }, 3000);
                 } else {
@@ -41,6 +40,7 @@ const LoginPage = ({ navigation }: Props<"LoginPage">) => {
                 setLoginErr(true);
             });
     }
+
     if (loginSuccesful) {
         return (
             <View className="flex-1 items-center justify-center">
