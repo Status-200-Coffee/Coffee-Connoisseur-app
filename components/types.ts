@@ -16,3 +16,10 @@ export type ShopCardProps = {
     shop: CoffeeShop;
     navigation: Props<"ShopSearch" | "ProfilePage">["navigation"];
 };
+
+export type ShopRatingProps = {
+    shop_id: number;
+    setRating: (arg0: number) => void;
+    setVotes: (arg0: number) => void;
+    shopPage: CoffeeShop;
+}
