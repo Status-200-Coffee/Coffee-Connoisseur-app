@@ -25,8 +25,8 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
         photosPosted: [],
         favouriteShops: [],
     });
+
     useEffect(() => {
-        console.log(username);
         const currentCity = cache.currentCity || "Carlisle";
         axios
             .get(
@@ -34,7 +34,6 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
             )
             .then(({ data: { user } }) => {
                 setUserPage(user);
-                
                 const favShops = user.favouriteShops;
                 getShopsByCity(currentCity, "", "")
                     .then((shop) => {
@@ -44,7 +43,9 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
                         return filtered;
                     })
                     .then((data) => {
-                        setShopList(data);
+                        return setShopList(data);
+                    })
+                    .then(() => {
                         setIsLoading(false);
                     });
             })
@@ -78,6 +79,7 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
                     );
                 })}
             </ScrollView>
+            
             <CoffeeRewards></CoffeeRewards>
             <Text className="font-bold text-lg">Your favourites:</Text>
             {shopList.map((shop) => {
