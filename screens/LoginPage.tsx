@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
-import axios from "axios";
-import { Props } from "./types";
 import * as Animatable from "react-native-animatable";
 import { AntDesign } from "@expo/vector-icons";
+
 import { useCache } from "../contexts/Cache";
+import { getUser } from "../utils/api";
+
+import { Props } from "./types";
 
 const LoginPage = ({ navigation }: Props<"LoginPage">) => {
-    const { cache, setCache } = useCache();
+    const { setCache } = useCache();
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -15,16 +17,14 @@ const LoginPage = ({ navigation }: Props<"LoginPage">) => {
     const [loginSuccesful, setLoginSuccessful] = useState<boolean>(false);
 
     function handleLogin() {
-        return axios
-            .get(
-                `https://coffee-connoisseur-api.onrender.com/api/users/${username}`
-            )
-            .then(({ data: { user } }) => {
+        getUser(username)
+            .then((user) => {
                 if (user.password === password && user.username === username) {
-                    setLoginErr(false);
                     setUsername("");
                     setPassword("");
+                    setLoginErr(false);
                     setLoginSuccessful(true);
+
                     setTimeout(() => {
                         navigation.navigate("ShopSearch");
                         setCache((cache) => {
@@ -63,7 +63,6 @@ const LoginPage = ({ navigation }: Props<"LoginPage">) => {
 
     return (
         <View className="bg-white mx-6 rounded-3xl mt-16">
-            {cache.user && <Text>hello</Text>}
             {loginErr && (
                 <Text className="text-center mt-10  mx-10 bg-red-300 rounded">
                     Looks like either your email address or password were
@@ -93,7 +92,7 @@ const LoginPage = ({ navigation }: Props<"LoginPage">) => {
                 Not a coffee connoisseur just yet?
             </Text>
             <Pressable
-                onPress={(nav) => navigation.navigate("SignUpPage")}
+                onPress={() => navigation.navigate("SignUpPage")}
                 className="mb-10"
             >
                 <Text className="text-center hover:text-white font-bold 	">
