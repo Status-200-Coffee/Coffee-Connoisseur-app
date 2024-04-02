@@ -15,7 +15,6 @@ const AppDrawerNavigator = () => {
             <Drawer.Screen name="LoginPage" component={LoginPage} />
             <Drawer.Screen name="SignUpPage" component={SignUpPage} />
             <Drawer.Screen name="ProfilePage" component={ProfilePage} />
-            
         </Drawer.Navigator>
     );
 };
