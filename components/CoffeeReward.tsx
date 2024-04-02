@@ -1,13 +1,14 @@
-import { Text, View, Image, Pressable } from "react-native";
 import { useState } from "react";
-import { useCache } from "../contexts/Cache";
+import { Text, View, Image, Pressable } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 
+import { useCache } from "../contexts/Cache";
+
 const CoffeeRewards = () => {
-    const { cache, setCache } = useCache();
+    const { cache } = useCache();
     const [QR, setQR] = useState(false);
     const rewards = [1, 2, 3, 4, 5, 6, 7, 8];
-    const coffeeCollected = cache.user?.coffeeCollected
+    const coffeeCollected = cache.user?.coffeeCollected;
 
     return (
         <View>
@@ -21,15 +22,17 @@ const CoffeeRewards = () => {
                             <View
                                 className="mx-1.5 w-20 h-20 bg-white rounded-full"
                                 key={i}
-                            >{coffeeCollected ? 
-                                i < coffeeCollected ? (
-                                    <Image
-                                        className="w-20 h-20 rounded-full"
-                                        source={{
-                                            uri: "https://i.ibb.co/fq9bmmw/pitr-Coffee-cup-icon-preview-05af-2.png",
-                                        }}
-                                    ></Image>
-                                ) : null : null}
+                            >
+                                {coffeeCollected ? (
+                                    i < coffeeCollected ? (
+                                        <Image
+                                            className="w-20 h-20 rounded-full"
+                                            source={{
+                                                uri: "https://i.ibb.co/fq9bmmw/pitr-Coffee-cup-icon-preview-05af-2.png",
+                                            }}
+                                        ></Image>
+                                    ) : null
+                                ) : null}
                             </View>
                         );
                     })}
