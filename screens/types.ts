@@ -10,6 +10,7 @@ export type RootStackParamList = {
     LoginPage: undefined;
     SignUpPage: undefined;
     ProfilePage: { username: string };
+    ShopRating: { shop_id: number };
 };
 
 export type Props<K extends keyof RootStackParamList> = NativeStackScreenProps<
