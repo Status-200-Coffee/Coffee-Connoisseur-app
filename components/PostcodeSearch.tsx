@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Button, Text, View } from "react-native";
 import { SearchBar } from "@rneui/base";
 
-import { useCache } from "../contexts/Cache";
 import { getClosestCity, getCoordsOfPostcode } from "../utils/api";
 
 import { PostcodeSearchProps } from "./types";

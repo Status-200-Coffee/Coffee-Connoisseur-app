@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { FlatList, View, Text, Button } from "react-native";
-import { SearchBar } from "@rneui/base";
+import { View, Button } from "react-native";
 
 import { useCache } from "../contexts/Cache";
 
