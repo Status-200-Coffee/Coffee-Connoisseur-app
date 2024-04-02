@@ -39,7 +39,7 @@ export default function CitySelector({ changeCity }: CitySelectorProps) {
     }
 
     return (
-        <View>
+        <View className="flex-grow">
             <SearchBar
                 placeholder="Enter name of city"
                 value={input}

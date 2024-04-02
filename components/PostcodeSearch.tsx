@@ -50,7 +50,7 @@ export default function PostcodeSearch({ changeCity }: PostcodeSearchProps) {
     }
 
     return (
-        <View>
+        <View className="flex-grow">
             <SearchBar
                 placeholder="Enter postcode"
                 value={input}

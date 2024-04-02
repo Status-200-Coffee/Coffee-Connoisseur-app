@@ -25,14 +25,17 @@ export default function CitySearch({ navigation }: Props<"CitySearch">) {
     }
 
     return (
-        <View>
+        <View className="flex flex-col h-full">
             {postcode ? (
                 <PostcodeSearch changeCity={changeCity}></PostcodeSearch>
             ) : (
                 <CitySelector changeCity={changeCity}></CitySelector>
             )}
 
-            <Button title="Switch Input" onPress={handlePress}></Button>
+            <Button
+                title={postcode ? "City Select" : "Postcode"}
+                onPress={handlePress}
+            ></Button>
         </View>
     );
 }
