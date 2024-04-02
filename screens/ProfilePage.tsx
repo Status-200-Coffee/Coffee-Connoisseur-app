@@ -70,9 +70,9 @@ export default function ProfilePage({
                 showsHorizontalScrollIndicator={false}
                 className=""
             >
-                {userPage.photosPosted.map((image) => {
+                {userPage.photosPosted.map((image, index) => {
                     return (
-                        <View key={image} className="pt-2">
+                        <View key={index} className="pt-2">
                             <Image
                                 source={{ uri: image }}
                                 style={{
