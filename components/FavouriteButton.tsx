@@ -9,6 +9,7 @@ import { FavouriteButtonProps } from "./types";
 import { useState } from "react";
 
 export default function FavouriteButton({
+    city,
     shopId,
     navigation,
 }: FavouriteButtonProps) {
@@ -58,7 +59,7 @@ export default function FavouriteButton({
     function shopIsFavourited() {
         if (cache.user === null) return false;
 
-        return cache.user!.favouriteShops.includes(shopId);
+        return cache.user!.favouriteShops[city].includes(shopId);
     }
 
     const loginPopup = (
@@ -74,7 +75,9 @@ export default function FavouriteButton({
                 <Animatable.View animation="zoomIn" duration={1500}>
                     <Pressable
                         onPress={() => {
-                            navigation.navigate("LoginPage");
+                            navigation.navigate("LoginPageStackNavigator", {
+                                screen: "LoginPage",
+                            });
                             setModalVisible(false);
                         }}
                     >
@@ -84,7 +87,9 @@ export default function FavouriteButton({
                     </Pressable>
                     <Pressable
                         onPress={() => {
-                            navigation.navigate("SignUpPage");
+                            navigation.navigate("LoginPageStackNavigator", {
+                                screen: "SignUpPage",
+                            });
                             setModalVisible(false);
                         }}
                     >
@@ -99,7 +104,7 @@ export default function FavouriteButton({
 
     return (
         <View>
-            {loginPopup}
+            {!cache.user && loginPopup}
 
             {shopIsFavourited() ? (
                 <Animatable.View animation="shake" duration={3000}>

@@ -53,6 +53,6 @@ export type User = {
     email: string;
     coffeeCollected: number;
     photosPosted: string[];
-    favouriteShops: number[];
+    favouriteShops: Record<string, number[]>;
     profilePicture: string;
 };

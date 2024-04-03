@@ -72,6 +72,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                     </Text>
 
                     <FavouriteButton
+                        city={shopPage.city}
                         navigation={navigation}
                         shopId={shopPage._id}
                     ></FavouriteButton>
@@ -124,10 +125,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                 <Text className="pb-4 text-lg italic text-center">
                     {shopPage.description}
                 </Text>
-                <Text className="font-bold text-xl">
-                    {" "}
-                    Connoisseur's Favourite Coffee{" "}
-                </Text>
+                shop_id
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {shopPage.userImages.map((image) => {
                         return (

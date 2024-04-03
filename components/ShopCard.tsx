@@ -6,7 +6,6 @@ import FavouriteButton from "./FavouriteButton";
 import { ShopCardProps } from "./types";
 
 export default function ShopCard({ shop, navigation }: ShopCardProps) {
-
     return (
         <View className="flex-row border-2 border-slate-700 rounded m-2 items-center bg-sky-100">
             <Image
@@ -79,7 +78,11 @@ export default function ShopCard({ shop, navigation }: ShopCardProps) {
                         </Text>
                     </Pressable>
 
-                    <FavouriteButton navigation={navigation} shopId={shop._id} />
+                    <FavouriteButton
+                        city={shop.city}
+                        shopId={shop._id}
+                        navigation={navigation}
+                    />
                 </View>
             </View>
         </View>

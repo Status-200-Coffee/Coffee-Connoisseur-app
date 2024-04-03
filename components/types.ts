@@ -26,6 +26,7 @@ export type PostcodeSearchProps = {
 };
 
 export type FavouriteButtonProps = {
+    city: string;
     shopId: number;
-    navigation: Props<"ShopPage" | "ShopSearch" | "ProfilePage">["navigation"]
+    navigation: Props<"ShopPage" | "ShopSearch" | "ProfilePage">["navigation"];
 };
