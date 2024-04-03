@@ -35,6 +35,8 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
     });
 
     useEffect(() => {
+        console.log("USE EFFECT");
+
         const shops = cache.cityShops[cache.currentCity!];
 
         for (const shop of shops) {
@@ -140,6 +142,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                     onPress={() =>
                         navigation.navigate("CoffeeCamera", {
                             shop_id: shopPage._id,
+                            city: shopPage.city,
                         })
                     }
                 >

@@ -53,3 +53,26 @@ export async function getUser(username: string): Promise<User> {
 
     return response.data.user;
 }
+
+export async function uploadPhotoToUser(
+    username: string,
+    newPhotoUrl: string
+): Promise<User> {
+    const response = await api.patch(`/users/${username}`, {
+        newPhoto: newPhotoUrl,
+    });
+
+    return response.data.user;
+}
+
+export async function uploadPhotoToShop(
+    city: string,
+    shop_id: number,
+    newPhotoUrl: string
+): Promise<CoffeeShop> {
+    const response = await api.patch(`/shops/${city}/${shop_id}`, {
+        newPhoto: newPhotoUrl,
+    });
+
+    return response.data.shop;
+}

@@ -5,6 +5,7 @@ import { Props } from "./types";
 import * as Animatable from "react-native-animatable";
 import { AntDesign } from "@expo/vector-icons";
 
+
 const SignUpPage = ({ navigation }: Props<"SignUpPage">) => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState("");
@@ -15,6 +16,7 @@ const SignUpPage = ({ navigation }: Props<"SignUpPage">) => {
     const [emailErr, setEmailErr] = useState("");
     const [passwordErr, setPasswordErr] = useState("");
     const [accountSuccesful, setAccountSuccesful] = useState(false);
+   
 
     useEffect(() => {
         axios
