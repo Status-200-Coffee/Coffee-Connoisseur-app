@@ -12,6 +12,7 @@ import { WelcomePageProps } from "./types";
 export default function WelcomePage({ navigation }: WelcomePageProps) {
     const { cache, setCache } = useCache();
     const [retry, setRetry] = useState(0);
+    const [disabledButton, setDisabledButton] = useState<boolean>(true);
 
     useEffect(() => {
         getUserLocation()
@@ -84,7 +85,7 @@ export default function WelcomePage({ navigation }: WelcomePageProps) {
             cache.currentCity &&
             cache.cityShops
         ) {
-            navigation.navigate("HomeStackNavigator");
+            setDisabledButton(false);
         } else {
             setRetry((retry) => retry + 1);
         }
@@ -109,6 +110,7 @@ export default function WelcomePage({ navigation }: WelcomePageProps) {
                 </Text>
                 <View className="space-y-3 p-2"></View>
                 <TouchableOpacity
+                    disabled={disabledButton}
                     onPress={() => {
                         navigation.navigate("HomeStackNavigator");
                     }}
