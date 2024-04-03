@@ -1,4 +1,4 @@
-import { CoffeeShop, Region } from "../types";
+import { CoffeeShop, Region, SetState } from "../types";
 import { Props } from "../screens/types";
 
 export type ShopMapProps = {
@@ -19,7 +19,7 @@ export type ShopCardProps = {
 
 export type ShopRatingProps = {
     shop_id: number;
-    setRating: (arg0: number) => void;
-    setVotes: (arg0: number) => void;
+    setRating: SetState<number>;
+    setVotes: SetState<number>;
     shopPage: CoffeeShop;
-}
+};
