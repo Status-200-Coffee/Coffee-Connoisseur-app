@@ -1,4 +1,4 @@
-import { CoffeeShop, Region } from "../types";
+import { CoffeeShop, Region, SetState } from "../types";
 import { Props } from "../screens/types";
 
 export type ShopMapProps = {
@@ -16,6 +16,13 @@ export type ShopCardProps = {
     shop: CoffeeShop;
     navigation: Props<"ShopSearch" | "ProfilePage">["navigation"];
 };
+
+
+export type ShopRatingProps = {
+    shop_id: number;
+    setRating: SetState<number>;
+    setVotes: SetState<number>;
+    shopPage: CoffeeShop;
 
 export type CitySelectorProps = {
     changeCity: (city: string) => void;

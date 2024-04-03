@@ -19,6 +19,16 @@ export async function getShopsByCity(
     return response.data.shops;
 }
 
+export async function updateShopRating(
+    city: string,
+    shop_id: number,
+    rating: number
+) {
+    const reqBody = { rating };
+    const response = await api.patch(`/shops/${city}/${shop_id}`, reqBody);
+    return response.data.shop;
+}
+
 export async function getCities(): Promise<City[]> {
     const response = await api.get("/cities");
     return response.data.cities;
