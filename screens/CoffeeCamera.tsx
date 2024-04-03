@@ -64,8 +64,6 @@ export default function CoffeeCamera({
     }
 
     async function takePicture() {
-        console.log("Taking a picture");
-
         if (cameraRef.current) {
             const photo = await cameraRef.current.takePictureAsync();
             if (cache.user && cache.currentCity) {
@@ -93,9 +91,6 @@ export default function CoffeeCamera({
                             }
 
                             newCityShops[city] = shops;
-
-                            console.log("NEWCITYSHOPS >>>", newCityShops);
-                            console.log("NEWCITY >>>", newCityShops[city]);
 
                             setCache((currentCache) => {
                                 return {
