@@ -1,16 +1,15 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import CitySearch from "./screens/CitySearch";
-import CoffeeCamera from "./screens/CoffeeCamera";
-import FullscreenMap from "./screens/FullscreenMap";
-import LoadingScreen from "./screens/LoadingScreen";
-import LoginPage from "./screens/LoginPage";
-import ProfilePage from "./screens/ProfilePage";
-import ShopPage from "./screens/ShopPage";
-import ShopSearch from "./screens/ShopSearch";
-import SignUpPage from "./screens/SignUpPage";
+import CitySearch from "../screens/CitySearch";
+import CoffeeCamera from "../screens/CoffeeCamera";
+import FullscreenMap from "../screens/FullscreenMap";
+import LoginPage from "../screens/LoginPage";
+import ProfilePage from "../screens/ProfilePage";
+import ShopPage from "../screens/ShopPage";
+import ShopSearch from "../screens/ShopSearch";
+import SignUpPage from "../screens/SignUpPage";
 
-import { RootStackParamList } from "./screens/types";
+import { RootStackParamList } from "../screens/types";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -18,9 +17,8 @@ export const HomeStackNavigator = () => {
     return (
         <Stack.Navigator
             screenOptions={{ headerShown: false }}
-            initialRouteName="LoadingScreen"
+            initialRouteName="ShopSearch"
         >
-            <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
             <Stack.Screen name="ShopSearch" component={ShopSearch} />
             <Stack.Screen name="CitySearch" component={CitySearch} />
             <Stack.Screen name="FullscreenMap" component={FullscreenMap} />

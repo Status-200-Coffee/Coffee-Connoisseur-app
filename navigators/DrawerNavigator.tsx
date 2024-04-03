@@ -5,7 +5,8 @@ import {
     ProfilePageStackNavigator,
     HomeStackNavigator,
 } from "./StackNavigator";
-import { useCache } from "./contexts/Cache";
+import WelcomePage from "../screens/WelcomePage";
+import { useCache } from "../contexts/Cache";
 
 const Drawer = createDrawerNavigator();
 
@@ -13,7 +14,12 @@ const AppDrawerNavigator = () => {
     const { cache } = useCache();
 
     return (
-        <Drawer.Navigator initialRouteName="HomeStackNavigator">
+        <Drawer.Navigator initialRouteName="WelcomePage">
+            <Drawer.Screen
+                name="WelcomePage"
+                component={WelcomePage}
+                options={{ headerShown: false, drawerItemStyle: { height: 0 } }}
+            />
             <Drawer.Screen
                 name="HomeStackNavigator"
                 component={HomeStackNavigator}
