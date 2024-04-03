@@ -24,8 +24,8 @@ export default function CoffeeCamera({
     const { cache, setCache } = useCache();
     const [imageUploaded, setImageUploaded] = useState<boolean>(false);
 
-    console.log(typeof shop_id);
-    console.log(cache.user);
+    console.log("ROUTE", city, shop_id);
+    // console.log(cache.user);
     // console.log(cache.cityShops[cache.currentCity][shop_id].userImages);
 
     useEffect(() => {
@@ -68,34 +68,66 @@ export default function CoffeeCamera({
     }
 
     async function takePicture() {
+        console.log("Taking a picture");
+
         if (cameraRef.current) {
             const photo = await cameraRef.current.takePictureAsync();
             if (cache.user && cache.currentCity) {
-                const imgUrl = await uploadPhotoToImgur(photo.uri);
-                uploadPhotoToUser(cache.user.username, imgUrl);
-                uploadPhotoToShop(cache.currentCity, shop_id, imgUrl).then((shop) => {
-                    const cityShops = cache.cityShops
-                    
+                try {
+                    const imgUrl = await uploadPhotoToImgur(photo.uri);
 
-                    }
-                );
-                setImageUploaded(true);
-                setTimeout(() => {
-                    navigation.navigate("CoffeeCamera");
-                    setImageUploaded(false);
-                }, 1550);
+                    uploadPhotoToUser(cache.user.username, imgUrl)
+                        .then((user) => {
+                            setCache((currentCache) => {
+                                return { ...currentCache, user };
+                            });
 
-                Alert.alert(
-                    "Error",
-                    "Photo was not uploaded. Please try again",
-                    [
-                        {
-                            text: "OK",
-                            onPress: () => console.log("OK Pressed"),
-                        },
-                    ],
-                    { cancelable: false }
-                );
+                            return uploadPhotoToShop(city, shop_id, imgUrl);
+                        })
+                        .then((shop) => {
+                            const newCityShops = { ...cache.cityShops };
+
+                            const shops = newCityShops[city];
+
+                            for (const shopCopy of shops) {
+                                if (shopCopy._id === shop_id) {
+                                    shopCopy.userImages = shop.userImages;
+                                    break;
+                                }
+                            }
+
+                            newCityShops[city] = shops;
+
+                            console.log("NEWCITYSHOPS >>>", newCityShops);
+                            console.log("NEWCITY >>>", newCityShops[city]);
+
+                            setCache((currentCache) => {
+                                return { ...currentCache };
+                            });
+                        })
+                        .then(() => {
+                            setImageUploaded(true);
+                            setTimeout(() => {
+                                navigation.navigate("CoffeeCamera");
+                                setImageUploaded(false);
+                            }, 1550);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                } catch (error) {
+                    Alert.alert(
+                        "Error",
+                        "Photo was not uploaded. Please try again",
+                        [
+                            {
+                                text: "OK",
+                                onPress: () => console.log("OK Pressed"),
+                            },
+                        ],
+                        { cancelable: false }
+                    );
+                }
             } else {
                 Alert.alert(
                     "Not Logged in",
@@ -116,44 +148,44 @@ export default function CoffeeCamera({
         return null;
     };
 
-    useEffect(() => {
-        if (imageUploaded && cache.user && cache.currentCity && shop_id) {
-            // Update cache for user's photo
-            const updatedUser = {
-                ...cache.user,
-                photosPosted: [capturedImage, ...cache.user.photosPosted],
-            };
-            setCache((prevCache) => ({
-                ...prevCache,
-                user: updatedUser,
-            }));
-            console.log(
-                "testing",
-                cache.cityShops[cache.currentCity][shop_id],
-                shop_id
-            );
+    // useEffect(() => {
+    //     if (imageUploaded && cache.user && cache.currentCity && shop_id) {
+    //         // Update cache for user's photo
+    //         const updatedUser = {
+    //             ...cache.user,
+    //             photosPosted: [capturedImage, ...cache.user.photosPosted],
+    //         };
+    //         setCache((prevCache) => ({
+    //             ...prevCache,
+    //             user: updatedUser,
+    //         }));
+    //         console.log(
+    //             "testing",
+    //             cache.cityShops[cache.currentCity][shop_id],
+    //             shop_id
+    //         );
 
-            // Update cache for shop's photo
+    //         // Update cache for shop's photo
 
-            const updatedShop = {
-                ...findShop()!,
+    //         const updatedShop = {
+    //             ...findShop()!,
 
-                userImages: [...findShop()!.userImages, capturedImage],
-            };
-            const updatedCityShops = { ...cache.cityShops };
-            updatedCityShops[city];
-            setCache((prevCache) => ({
-                ...prevCache,
-                cityShops: {
-                    ...prevCache.cityShops,
-                    [cache.currentCity]: {
-                        ...prevCache.cityShops[cache.currentCity],
-                        [shop_id]: updatedShop,
-                    },
-                },
-            }));
-        }
-    }, [imageUploaded]);
+    //             userImages: [...findShop()!.userImages, capturedImage],
+    //         };
+    //         const updatedCityShops = { ...cache.cityShops };
+    //         updatedCityShops[city];
+    //         setCache((prevCache) => ({
+    //             ...prevCache,
+    //             cityShops: {
+    //                 ...prevCache.cityShops,
+    //                 [cache.currentCity]: {
+    //                     ...prevCache.cityShops[cache.currentCity],
+    //                     [shop_id]: updatedShop,
+    //                 },
+    //             },
+    //         }));
+    //     }
+    // }, [imageUploaded]);
 
     if (imageUploaded) {
         return (

@@ -54,16 +54,19 @@ export async function getUser(username: string): Promise<User> {
     return response.data.user;
 }
 
-export async function uploadPhotoToUser(username: string, newPhotoUrl: string) {
-    try {
-        const response = await axios.patch(
-            `https://coffee-connoisseur-api.onrender.com/api/users/${username}`,
-            { newPhoto: newPhotoUrl }
-        );
-        console.log("Photo uploaded successfully to user:", username);
-    } catch (error) {
-        console.error("Error updating photo for user:", username, ":", error);
-    }
+export async function uploadPhotoToUser(
+    username: string,
+    newPhotoUrl: string
+): Promise<User> {
+    console.log("UPLOAD USER");
+
+    const response = await api.patch(`/users/${username}`, {
+        newPhoto: newPhotoUrl,
+    });
+
+    return response.data.user;
+    // console.log("Photo uploaded successfully to user:", username);
+    // console.error("Error updating photo for user:", username, ":", error);
 }
 
 export async function uploadPhotoToShop(
@@ -71,26 +74,24 @@ export async function uploadPhotoToShop(
     shop_id: number,
     newPhotoUrl: string
 ): Promise<CoffeeShop> {
-    try {
-        const response = await axios.patch(
-            `https://coffee-connoisseur-api.onrender.com/api/shops/${city}/${shop_id}`,
-            { newPhoto: newPhotoUrl }
-        );
-        console.log(
-            "Photo uploaded successfully to shop:",
-            shop_id,
-            "in city:",
-            city
-        )
-        return response.data.shop
-    } catch (error) {
-        console.error(
-            "Error updating photo for shop:",
-            shop_id,
-            "in city:",
-            city,
-            ":",
-            error
-        );
-    }
+    console.log("UPLOAD SHOP");
+    
+    const response = await api.patch(`/shops/${city}/${shop_id}`, {
+        newPhoto: newPhotoUrl,
+    });
+    // console.log(
+    //     "Photo uploaded successfully to shop:",
+    //     shop_id,
+    //     "in city:",
+    //     city
+    // )
+    return response.data.shop;
+    // console.error(
+    //     "Error updating photo for shop:",
+    //     shop_id,
+    //     "in city:",
+    //     city,
+    //     ":",
+    //     error
+    // );
 }
