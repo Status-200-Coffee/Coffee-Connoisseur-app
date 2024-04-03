@@ -9,7 +9,8 @@ export default function ShopCard({ shop, navigation }: ShopCardProps) {
     return (
         <View className="flex-row border-2 rounded m-2 items-center bg-sky-100">
             <Image
-                source={{ uri: shop.mainImage }}
+                source={{ uri: shop.mainImage.image }}
+                alt={shop.mainImage.altText}
                 style={{ width: 150, height: 150, margin: 10 }}
             />
             <View className="flex-1 items-center">
