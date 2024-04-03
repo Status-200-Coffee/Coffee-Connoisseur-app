@@ -53,3 +53,21 @@ export async function getUser(username: string): Promise<User> {
 
     return response.data.user;
 }
+
+export async function addFavouriteShop(
+    username: string,
+    shopId: number
+): Promise<User> {
+    const reqBody = { addToFavourites: shopId };
+    const response = await api.patch(`/users/${username}`, reqBody);
+    return response.data.user;
+}
+
+export async function removeFavouriteShop(
+    username: string,
+    shopId: number
+): Promise<User> {
+    const reqBody = { removeFromFavourites: shopId };
+    const response = await api.patch(`/users/${username}`, reqBody);
+    return response.data.user;
+}

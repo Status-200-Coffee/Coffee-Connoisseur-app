@@ -24,3 +24,7 @@ export type CitySelectorProps = {
 export type PostcodeSearchProps = {
     changeCity: (city: string) => void;
 };
+
+export type FavouriteButtonProps = {
+    shopId: number;
+};
