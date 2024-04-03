@@ -125,7 +125,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                 <Text className="pb-4 text-lg italic text-center">
                     {shopPage.description}
                 </Text>
-                shop_id
+                
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {shopPage.userImages.map((image) => {
                         return (

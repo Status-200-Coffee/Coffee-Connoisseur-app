@@ -56,18 +56,20 @@ export async function getUser(username: string): Promise<User> {
 
 export async function addFavouriteShop(
     username: string,
+    city: string,
     shopId: number
 ): Promise<User> {
-    const reqBody = { addToFavourites: shopId };
+    const reqBody = { addToFavourites: { [city]: shopId } };
     const response = await api.patch(`/users/${username}`, reqBody);
     return response.data.user;
 }
 
 export async function removeFavouriteShop(
     username: string,
+    city: string,
     shopId: number
 ): Promise<User> {
-    const reqBody = { removeFromFavourites: shopId };
+    const reqBody = { removeFromFavourites: { [city]: shopId } };
     const response = await api.patch(`/users/${username}`, reqBody);
     return response.data.user;
 }

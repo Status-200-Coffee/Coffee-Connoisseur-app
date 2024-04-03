@@ -23,7 +23,7 @@ export default function FavouriteButton({
             return;
         }
 
-        addFavouriteShop(cache.user!.username, shopId)
+        addFavouriteShop(cache.user!.username, city, shopId)
             .then((user) => {
                 console.log(user.favouriteShops);
                 if (cache.user === null) return loginPopup;
@@ -43,7 +43,7 @@ export default function FavouriteButton({
             return;
         }
 
-        removeFavouriteShop(cache.user!.username, shopId)
+        removeFavouriteShop(cache.user!.username, city, shopId)
             .then((user) => {
                 console.log(user.favouriteShops);
 
