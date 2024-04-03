@@ -27,4 +27,5 @@ export type PostcodeSearchProps = {
 
 export type FavouriteButtonProps = {
     shopId: number;
+    navigation: Props<"ShopPage" | "ShopSearch" | "ProfilePage">["navigation"]
 };

@@ -23,7 +23,10 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
     const [shopPage, setShopPage] = useState<CoffeeShop>({
         _id: 0,
         name: "",
-        mainImage: "",
+        mainImage: {
+            altText: "",
+            image: "",
+        },
         userImages: [],
         description: "",
         longitude: 0,
@@ -59,7 +62,8 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
             <View className="flex-1 items-center bg-cyan-50 p-5">
                 <Image
                     className="width-300 height-300 margin-10"
-                    source={{ uri: shopPage.mainImage }}
+                     source={{ uri: shopPage.mainImage.image }}
+                    alt={shopPage.mainImage.altText}
                     style={{ width: 300, height: 300, margin: 12 }}
                 />
                 <View className="flex-row items-center">
@@ -67,7 +71,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                         {shopPage.name}
                     </Text>
 
-                    <FavouriteButton shopId={shopPage._id}></FavouriteButton>
+                    <FavouriteButton navigation={navigation} shopId={shopPage._id}></FavouriteButton>
                 </View>
                 <Text className="font-bold leading-10 text-xl">
                     Connoisseur Rating: {shopPage.rating} / 5
