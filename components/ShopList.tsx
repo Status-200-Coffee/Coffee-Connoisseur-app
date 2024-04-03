@@ -1,26 +1,27 @@
 import { useState, useEffect, useMemo } from "react";
-import { View, ScrollView, Pressable, Text } from "react-native";
+import { View, Pressable, Text } from "react-native";
 import RadioGroup, { RadioButtonProps } from "react-native-radio-buttons-group";
+import { MaterialIcons, Octicons } from "@expo/vector-icons";
+import { CheckBox } from "@rneui/base";
+
 import ShopCard from "./ShopCard";
 import { useCache } from "../contexts/Cache";
-import { CoffeeShop } from "../types";
-import { ShopListProps } from "./types";
-import { MaterialIcons } from "@expo/vector-icons";
-import { Octicons } from "@expo/vector-icons";
-import { CheckBox } from "@rneui/base";
 import { getShopsByCity } from "../utils/api";
+
+import { ShopListProps } from "./types";
+import { CoffeeShop } from "../types";
+
 export default function ShopList({ navigation }: ShopListProps) {
     const { cache } = useCache();
     const [shopList, setShopList] = useState<CoffeeShop[]>(
         cache.cityShops[cache.currentCity!]
     );
     const [queryString, setQueryString] = useState("");
-    const [filterPressed, setFilterPressed] = useState<boolean>(false);
+    const [filterPressed, setFilterPressed] = useState(false);
     const [sortByPressed, setSortByPressed] = useState(false);
-    const [dogFriendlyChecked, setDogFriendlyChecked] =
-        useState<boolean>(false);
-    const [dairyFreeChecked, setDairyFreeChecked] = useState<boolean>(false);
-    const [hasSeatingChecked, setHasSeatingChecked] = useState<boolean>(false);
+    const [dogFriendlyChecked, setDogFriendlyChecked] = useState(false);
+    const [dairyFreeChecked, setDairyFreeChecked] = useState(false);
+    const [hasSeatingChecked, setHasSeatingChecked] = useState(false);
     const [sortBy, setSortBy] = useState("distance");
     const radioButtons: RadioButtonProps[] = useMemo(
         () => [
@@ -29,15 +30,18 @@ export default function ShopList({ navigation }: ShopListProps) {
         ],
         []
     );
+
     const clearFilters = () => {
         setDogFriendlyChecked(false);
         setDairyFreeChecked(false);
         setHasSeatingChecked(false);
         setQueryString("");
     };
+
     const clearSortBy = () => {
         setSortBy("distance");
     };
+
     const handleFilters = () => {
         let queries = "";
         if (dogFriendlyChecked) {
@@ -51,6 +55,7 @@ export default function ShopList({ navigation }: ShopListProps) {
         }
         setQueryString(queries);
     };
+
     useEffect(() => {
         const { latitude, longitude } = cache.userLocation!;
         let sort = `&sortBy=distance&orderBy=asc&long=${longitude}&lat=${latitude}`;
@@ -65,8 +70,9 @@ export default function ShopList({ navigation }: ShopListProps) {
         setFilterPressed(false);
         setSortByPressed(false);
     }, [queryString, sortBy]);
+
     return (
-        <ScrollView className="flex flex-col h-full">
+        <View className="flex flex-col h-full">
             <View className="flex-row justify-center justify-evenly">
                 <Pressable onPress={() => setFilterPressed(!filterPressed)}>
                     <View className="items-center">
@@ -141,6 +147,6 @@ export default function ShopList({ navigation }: ShopListProps) {
                     </View>
                 );
             })}
-        </ScrollView>
+        </View>
     );
 }

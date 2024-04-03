@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Button, View, ActivityIndicator } from "react-native";
+import { Button, View, ActivityIndicator, ScrollView } from "react-native";
 
 import ShopMap from "../components/ShopMap";
 import ShopList from "../components/ShopList";
-import { getShopsByCity } from "../utils/api";
 import { useCache } from "../contexts/Cache";
 import { RegionProvider } from "../contexts/Region";
+import { getShopsByCity } from "../utils/api";
 
 import { Props } from "./types";
 
@@ -21,7 +21,7 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
         if (cache.cityShops[currentCity]) {
             setLoaded(true);
         } else {
-            getShopsByCity(currentCity)
+            getShopsByCity(currentCity, "", "")
                 .then((shops) => {
                     setCache((currCache) => {
                         const newCityShops = { ...currCache.cityShops };
@@ -63,10 +63,10 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
     }
 
     return (
-        <View className="flex flex-col h-full">
+        <ScrollView className="flex flex-col h-full">
             <Button title="City Search" onPress={navSearch}></Button>
 
-            <View className="w-full h-1/5">
+            <View className="w-full h-64">
                 <RegionProvider>
                     <ShopMap
                         navigation={navigation}
@@ -76,14 +76,12 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
                 </RegionProvider>
             </View>
 
-            {/* <Button title="navigate" onPress={navMap}></Button> */}
-
             <View className="flex-1 py-2">
                 <ShopList
                     shopList={cache.cityShops[cache.currentCity!]}
                     navigation={navigation}
                 ></ShopList>
             </View>
-        </View>
+        </ScrollView>
     );
 }
