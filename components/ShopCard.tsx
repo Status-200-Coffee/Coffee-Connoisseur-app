@@ -31,14 +31,12 @@ export default function ShopCard({ shop, navigation }: ShopCardProps) {
             )
             .then(({ data: { user } }) => {
                 setFavouriteShop(user.favouriteShops);
-                console.log("favourited");
                 setFavouriteSuccessful(true);
                 setTimeout(() => {
                     setFavouriteSuccessful(true);
                 }, 3000);
             })
             .catch((err) => {
-                console.log(err);
                 setFavouriteError(true);
                 setTimeout(() => {
                     setFavouriteError(false);
@@ -60,7 +58,6 @@ export default function ShopCard({ shop, navigation }: ShopCardProps) {
                 }, 3000);
             })
             .catch((err) => {
-                console.log(err);
                 setFavouriteError(true);
             });
     }
