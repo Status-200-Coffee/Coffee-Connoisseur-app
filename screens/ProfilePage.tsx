@@ -1,29 +1,19 @@
-import React from "react";
-import { Text, View, Image, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { Props } from "./types";
-import ShopList from "../components/ShopList";
-import { useCache } from "../contexts/Cache";
-import { getShopsByCity } from "../utils/api";
+import { Text, View, Image, ScrollView, Button } from "react-native";
 
-import { CoffeeShop, Region, User } from "../types";
+import CoffeeRewards from "../components/CoffeeReward";
 import ShopCard from "../components/ShopCard";
+import { useCache } from "../contexts/Cache";
+import { getShopsByCity, getUser } from "../utils/api";
 
-export default function ProfilePage({
-    navigation,
-    route,
-}: Props<"ProfilePage">) {
+import { Props } from "./types";
+import { CoffeeShop, User } from "../types";
+
+export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
     const { cache, setCache } = useCache();
-    const [loaded, setLoaded] = useState<boolean>(false);
-    const currShops = [];
-
     const [shopList, setShopList] = useState<CoffeeShop[]>([]);
-    const [filteredShopList, setFilteredShopList] = useState<CoffeeShop[]>([]);
-
-    const username = "easter";
-    // const { username } = route.params;
-    // const [isLoading, setIsLoading] = useState(true);
+    const username = cache.user?.username;
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [userPage, setUserPage] = useState<User>({
         _id: 0,
         profilePicture: "",
@@ -36,36 +26,54 @@ export default function ProfilePage({
     });
 
     useEffect(() => {
-        axios
-            .get(
-                `https://coffee-connoisseur-api.onrender.com/api/users/${username}`
-            )
-            .then(({ data: { user } }) => {
+        let favShops: number[];
+
+        console.log("user", username);
+
+        getUser(username!)
+            .then((user) => {
+                console.log(">>>>", user);
                 setUserPage(user);
-                // setIsLoading(false);
+                favShops = user.favouriteShops;
+                return getShopsByCity(cache.currentCity!, "", "");
+            })
+            .then((shops) => {
+                const filteredShops = shops.filter(function (item) {
+                    return favShops.indexOf(item._id) !== -1;
+                });
+                return filteredShops;
+            })
+            .then((filteredShops) => {
+                return setShopList(filteredShops);
+            })
+            .then(() => {
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
             });
-    }, []);
+    }, [username]);
 
-    useEffect(() => {
-        setLoaded(false);
-
-        const currentCity = cache.currentCity || "Carlisle";
-
-        getShopsByCity(currentCity, "", "").then((shop) => {
-            setShopList(shop);
+    function handleLogout() {
+        setCache((currentCache) => {
+            return {...currentCache, user: null};
         });
-    }, []);
+        navigation.navigate("ShopSearch");
+    }
 
-    // isLoading ?
-    // (
-    //     <Text className="">Loading...</Text>
-    // ) :
+    if (isLoading) {
+        return <Text>Loading...</Text>;
+    }
+
     return (
-        <View className="flex justify-items-center py-4">
-            <Text className="font-bold text-lg">Profile</Text>
-            <Text>Username: {userPage.username}</Text>
-            <Text className="font-bold text-lg"> Favourite Coffees</Text>
+        <ScrollView className="flex-1" key="profile">
+            <Button title="Logout" onPress={handleLogout}></Button>
+            <Text className="font-bold text-xl">
+                Hello, {userPage.username}!
+            </Text>
+
             <ScrollView
+                key="profile-photos"
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 className=""
@@ -76,40 +84,26 @@ export default function ProfilePage({
                             <Image
                                 source={{ uri: image }}
                                 style={{
-                                    width: 100,
-                                    height: 100,
-                                    margin: 10,
+                                    width: 180,
+                                    height: 180,
+                                    margin: 5,
                                 }}
                             />
                         </View>
                     );
                 })}
             </ScrollView>
-            <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                className=""
-            >
-                {userPage.favouriteShops.map((coffeeShopID) => {
-                    return (
-                        <View key={coffeeShopID} className="pt-2">
-                            <Text className="font-bold text-lg">
-                                {" "}
-                                {coffeeShopID}
-                            </Text>
-                        </View>
-                    );
-                })}
-            </ScrollView>
-            <ScrollView>
-                {shopList.map((shop) => {
-                    return (
-                        <View key={shop._id}>
-                            <ShopCard shop={shop} navigation={navigation} />
-                        </View>
-                    );
-                })}
-            </ScrollView>
-        </View>
+
+            <CoffeeRewards></CoffeeRewards>
+
+            <Text className="font-bold text-lg">Your favourites:</Text>
+            {shopList.map((shop) => {
+                return (
+                    <View key={shop._id}>
+                        <ShopCard shop={shop} navigation={navigation} />
+                    </View>
+                );
+            })}
+        </ScrollView>
     );
 }

@@ -17,7 +17,10 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
     const [shopPage, setShopPage] = useState<CoffeeShop>({
         _id: 0,
         name: "",
-        mainImage: "",
+        mainImage: {
+            altText: "",
+            image: "",
+        },
         userImages: [],
         description: "",
         longitude: 0,
@@ -55,7 +58,8 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
             <View className="flex-1 items-center bg-cyan-50 p-5">
                 <Image
                     className="width-300 height-300 margin-10"
-                    source={{ uri: shopPage.mainImage }}
+                    source={{ uri: shopPage.mainImage.image }}
+                    alt={shopPage.mainImage.altText}
                     style={{ width: 300, height: 300, margin: 12 }}
                 />
                 <Text className="font-bold p-1 text-3xl">{shopPage.name}</Text>

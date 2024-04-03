@@ -1,17 +1,25 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoadingScreen from "./screens/LoadingScreen";
-import ShopSearch from "./screens/ShopSearch";
+
 import CitySearch from "./screens/CitySearch";
-import FullscreenMap from "./screens/FullscreenMap";
-import ShopPage from "./screens/ShopPage";
 import CoffeeCamera from "./screens/CoffeeCamera";
+import FullscreenMap from "./screens/FullscreenMap";
+import LoadingScreen from "./screens/LoadingScreen";
+import LoginPage from "./screens/LoginPage";
+import ProfilePage from "./screens/ProfilePage";
+import ShopPage from "./screens/ShopPage";
+import ShopSearch from "./screens/ShopSearch";
+import SignUpPage from "./screens/SignUpPage";
+
 import { RootStackParamList } from "./screens/types";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const HomeStackNavigator = () => {
+export const HomeStackNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName="LoadingScreen">
+        <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+            initialRouteName="LoadingScreen"
+        >
             <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
             <Stack.Screen name="ShopSearch" component={ShopSearch} />
             <Stack.Screen name="CitySearch" component={CitySearch} />
@@ -22,4 +30,27 @@ const HomeStackNavigator = () => {
     );
 };
 
-export default HomeStackNavigator;
+export const LoginPageStackNavigator = () => {
+    return (
+        <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+            initialRouteName="LoginPage"
+        >
+            <Stack.Screen name="LoginPage" component={LoginPage} />
+            <Stack.Screen name="SignUpPage" component={SignUpPage} />
+        </Stack.Navigator>
+    );
+};
+
+export const ProfilePageStackNavigator = () => {
+    return (
+        <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+            initialRouteName="ProfilePage"
+        >
+            <Stack.Screen name="ProfilePage" component={ProfilePage} />
+            <Stack.Screen name="ShopPage" component={ShopPage} />
+            <Stack.Screen name="CoffeeCamera" component={CoffeeCamera} />
+        </Stack.Navigator>
+    );
+};

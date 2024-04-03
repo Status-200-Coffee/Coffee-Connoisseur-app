@@ -1,9 +1,12 @@
 import axios from "axios";
 
-import { City, CoffeeShop, UserLocation } from "../types";
+import { City, CoffeeShop, User, UserLocation } from "../types";
 
 const api = axios.create({
     baseURL: "https://coffee-connoisseur-api.onrender.com/api",
+});
+const postcodesApi = axios.create({
+    baseURL: "https://api.postcodes.io/postcodes/",
 });
 
 export async function getShopsByCity(
@@ -40,4 +43,23 @@ export async function getClosestCity(user: UserLocation): Promise<string> {
         },
     });
     return response.data.city.city;
+}
+
+export async function getCoordsOfPostcode(
+    postcode: string
+): Promise<UserLocation | null> {
+    const response = await postcodesApi.get(postcode);
+
+    if (response.status === 404) {
+        return null;
+    }
+
+    const { latitude, longitude } = response.data.result;
+    return { latitude, longitude };
+}
+
+export async function getUser(username: string): Promise<User> {
+    const response = await api.get(`/users/${username}`);
+
+    return response.data.user;
 }
