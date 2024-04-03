@@ -8,13 +8,11 @@ import { getShopsByCity, getUser } from "../utils/api";
 
 import { Props } from "./types";
 import { CoffeeShop, User } from "../types";
-import LoginPage from "./LoginPage";
 
 export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
-    
-    const { cache, setCache } = useCache()
+    const { cache, setCache } = useCache();
     const [shopList, setShopList] = useState<CoffeeShop[]>([]);
-    let username = cache.user?.username;
+    const username = cache.user?.username;
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [userPage, setUserPage] = useState<User>({
         _id: 0,
@@ -30,11 +28,11 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
     useEffect(() => {
         let favShops: number[];
 
-        console.log("user",username)
+        console.log("user", username);
 
         getUser(username!)
             .then((user) => {
-                console.log(">>>>",user)
+                console.log(">>>>", user);
                 setUserPage(user);
                 favShops = user.favouriteShops;
                 return getShopsByCity(cache.currentCity!, "", "");
@@ -57,12 +55,11 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
     }, [username]);
 
     function handleLogout() {
-            setCache((cache) => {
-                cache.user = null;
-                return cache;
-            });
-            navigation.navigate("ShopSearch");
-        }
+        setCache((currentCache) => {
+            return {...currentCache, user: null};
+        });
+        navigation.navigate("ShopSearch");
+    }
 
     if (isLoading) {
         return <Text>Loading...</Text>;
@@ -70,10 +67,7 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
 
     return (
         <ScrollView className="flex-1" key="profile">
-            <Button title="Logout"                   onPress={
-              handleLogout
-            
-            }></Button>
+            <Button title="Logout" onPress={handleLogout}></Button>
             <Text className="font-bold text-xl">
                 Hello, {userPage.username}!
             </Text>
