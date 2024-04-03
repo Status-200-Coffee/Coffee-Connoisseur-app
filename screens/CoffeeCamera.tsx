@@ -1,13 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { Text, View, Image, Pressable, Alert } from "react-native";
-import { Camera, CameraType } from "expo-camera";
-import * as MediaLibrary from "expo-media-library";
-import axios from "axios";
-import { Props } from "./types";
 import * as Animatable from "react-native-animatable";
+import { Camera, CameraType } from "expo-camera";
 import { AntDesign } from "@expo/vector-icons";
+import axios from "axios";
+
 import { useCache } from "../contexts/Cache";
 import { uploadPhotoToShop, uploadPhotoToUser } from "../utils/api";
+
+import { Props } from "./types";
 
 export default function CoffeeCamera({
     navigation,
@@ -24,13 +25,8 @@ export default function CoffeeCamera({
     const { cache, setCache } = useCache();
     const [imageUploaded, setImageUploaded] = useState<boolean>(false);
 
-    console.log("ROUTE", city, shop_id);
-    // console.log(cache.user);
-    // console.log(cache.cityShops[cache.currentCity][shop_id].userImages);
-
     useEffect(() => {
         (async () => {
-            // MediaLibrary.requestPermissionsAsync();
             const cameraStatus = await Camera.requestCameraPermissionsAsync();
             setHasCameraPermission(cameraStatus.status === "granted");
         })();
@@ -102,13 +98,15 @@ export default function CoffeeCamera({
                             console.log("NEWCITY >>>", newCityShops[city]);
 
                             setCache((currentCache) => {
-                                return { ...currentCache };
+                                return {
+                                    ...currentCache,
+                                    cityShops: newCityShops,
+                                };
                             });
                         })
                         .then(() => {
                             setImageUploaded(true);
                             setTimeout(() => {
-                                navigation.navigate("CoffeeCamera");
                                 setImageUploaded(false);
                             }, 1550);
                         })
@@ -138,54 +136,6 @@ export default function CoffeeCamera({
             }
         }
     }
-
-    const findShop = () => {
-        for (const shop of cache.cityShops[cache.currentCity!]) {
-            if (shop._id === shop_id) {
-                return shop;
-            }
-        }
-        return null;
-    };
-
-    // useEffect(() => {
-    //     if (imageUploaded && cache.user && cache.currentCity && shop_id) {
-    //         // Update cache for user's photo
-    //         const updatedUser = {
-    //             ...cache.user,
-    //             photosPosted: [capturedImage, ...cache.user.photosPosted],
-    //         };
-    //         setCache((prevCache) => ({
-    //             ...prevCache,
-    //             user: updatedUser,
-    //         }));
-    //         console.log(
-    //             "testing",
-    //             cache.cityShops[cache.currentCity][shop_id],
-    //             shop_id
-    //         );
-
-    //         // Update cache for shop's photo
-
-    //         const updatedShop = {
-    //             ...findShop()!,
-
-    //             userImages: [...findShop()!.userImages, capturedImage],
-    //         };
-    //         const updatedCityShops = { ...cache.cityShops };
-    //         updatedCityShops[city];
-    //         setCache((prevCache) => ({
-    //             ...prevCache,
-    //             cityShops: {
-    //                 ...prevCache.cityShops,
-    //                 [cache.currentCity]: {
-    //                     ...prevCache.cityShops[cache.currentCity],
-    //                     [shop_id]: updatedShop,
-    //                 },
-    //             },
-    //         }));
-    //     }
-    // }, [imageUploaded]);
 
     if (imageUploaded) {
         return (
