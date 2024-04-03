@@ -42,7 +42,6 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
         if (!loaded) {
             return;
         }
-
         navigation.navigate("CitySearch");
     }
 
