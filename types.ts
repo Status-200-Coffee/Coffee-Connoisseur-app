@@ -10,7 +10,10 @@ export type UserLocation = {
 export type CoffeeShop = {
     _id: number;
     name: string;
-    mainImage: string;
+    mainImage: {
+        altText: string;
+        image: string;
+    };
     userImages: string[];
     latitude: number;
     longitude: number;
