@@ -62,7 +62,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
             <View className="flex-1 items-center bg-cyan-50 p-5">
                 <Image
                     className="width-300 height-300 margin-10"
-                     source={{ uri: shopPage.mainImage.image }}
+                    source={{ uri: shopPage.mainImage.image }}
                     alt={shopPage.mainImage.altText}
                     style={{ width: 300, height: 300, margin: 12 }}
                 />
@@ -71,7 +71,10 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                         {shopPage.name}
                     </Text>
 
-                    <FavouriteButton navigation={navigation} shopId={shopPage._id}></FavouriteButton>
+                    <FavouriteButton
+                        navigation={navigation}
+                        shopId={shopPage._id}
+                    ></FavouriteButton>
                 </View>
                 <Text className="font-bold leading-10 text-xl">
                     Connoisseur Rating: {shopPage.rating} / 5
