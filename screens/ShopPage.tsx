@@ -1,20 +1,18 @@
 import { useEffect, useState } from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
-import { Entypo } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
-import { FontAwesome6 } from "@expo/vector-icons";
+import { Entypo, MaterialIcons, FontAwesome6 } from "@expo/vector-icons";
 
+import ShopRating from "../components/ShopRating";
 import { useCache } from "../contexts/Cache";
 
 import { Props } from "./types";
 import { CoffeeShop } from "../types";
-import ShopRating from "../components/ShopRating";
 
 export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
     const { shop_id } = route.params;
     const { cache } = useCache();
-    const [rating, setRating] = useState(0);
-    const [votes, setVotes] = useState(0);
+    const [rating, setRating] = useState<number>(0);
+    const [votes, setVotes] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [shopPage, setShopPage] = useState<CoffeeShop>({
         _id: 0,
@@ -31,7 +29,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
         dogFriendly: false,
         hasSeating: false,
         dairyFree: false,
-        userVote: 0
+        userVote: 0,
     });
 
     useEffect(() => {
