@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Text, View, Image, ScrollView } from "react-native";
+import { Text, View, Image, ScrollView, Button } from "react-native";
 
 import CoffeeRewards from "../components/CoffeeReward";
 import ShopCard from "../components/ShopCard";
@@ -10,7 +10,7 @@ import { Props } from "./types";
 import { CoffeeShop, User } from "../types";
 
 export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
-    const { cache } = useCache();
+    const { cache, setCache } = useCache();
     const [shopList, setShopList] = useState<CoffeeShop[]>([]);
     const username = cache.user?.username;
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -28,8 +28,11 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
     useEffect(() => {
         let favShops: number[];
 
+        console.log("user", username);
+
         getUser(username!)
             .then((user) => {
+                console.log(">>>>", user);
                 setUserPage(user);
                 favShops = user.favouriteShops;
                 return getShopsByCity(cache.currentCity!, "", "");
@@ -51,12 +54,20 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
             });
     }, [username]);
 
+    function handleLogout() {
+        setCache((currentCache) => {
+            return {...currentCache, user: null};
+        });
+        navigation.navigate("ShopSearch");
+    }
+
     if (isLoading) {
         return <Text>Loading...</Text>;
     }
 
     return (
         <ScrollView className="flex-1" key="profile">
+            <Button title="Logout" onPress={handleLogout}></Button>
             <Text className="font-bold text-xl">
                 Hello, {userPage.username}!
             </Text>
