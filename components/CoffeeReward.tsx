@@ -1,22 +1,18 @@
-import { Text, View, Image, Pressable } from "react-native";
 import { useState } from "react";
+import { Text, View, Image, Pressable } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 
-const CoffeeRewards = () => {
-    //user should be retrieved from props passed down from profilepage
-    const user = {
-        _id: 4,
-        username: "mochamonster",
-        coffeeCollected: 8,
-    };
-    //user should be retrieved from props passed down from profilepage
+import { useCache } from "../contexts/Cache";
 
+const CoffeeRewards = () => {
+    const { cache } = useCache();
     const [QR, setQR] = useState(false);
     const rewards = [1, 2, 3, 4, 5, 6, 7, 8];
+    const coffeeCollected = cache.user?.coffeeCollected;
 
     return (
         <View>
-            <View className="mx-3 mt-20 mb-3 h-64 bg-orange-200 rounded-md">
+            <View className="mx-3 mt-3 mb-3 h-64 bg-orange-200 rounded-md">
                 <Text className="text-xl text-center tracking-widest">
                     Your Reward Card
                 </Text>
@@ -27,20 +23,22 @@ const CoffeeRewards = () => {
                                 className="mx-1.5 w-20 h-20 bg-white rounded-full"
                                 key={i}
                             >
-                                {i < user.coffeeCollected ? (
-                                    <Image
-                                        className="w-20 h-20 rounded-full"
-                                        source={{
-                                            uri: "https://i.ibb.co/fq9bmmw/pitr-Coffee-cup-icon-preview-05af-2.png",
-                                        }}
-                                    ></Image>
+                                {coffeeCollected ? (
+                                    i < coffeeCollected ? (
+                                        <Image
+                                            className="w-20 h-20 rounded-full"
+                                            source={{
+                                                uri: "https://i.ibb.co/fq9bmmw/pitr-Coffee-cup-icon-preview-05af-2.png",
+                                            }}
+                                        ></Image>
+                                    ) : null
                                 ) : null}
                             </View>
                         );
                     })}
                 </View>
             </View>
-            {user.coffeeCollected === 8 ? (
+            {coffeeCollected === 8 ? (
                 <View className="flex-wrap justify-evenly content-center items-center pb-2">
                     <Pressable
                         className="bg-green-300 mb-2 p-2 rounded-md"
