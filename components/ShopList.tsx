@@ -5,10 +5,10 @@ import ShopCard from "./ShopCard";
 import { useCache } from "../contexts/Cache";
 import { CoffeeShop } from "../types";
 import { ShopListProps } from "./types";
-import { MaterialIcons } from "@expo/vector-icons";
-import { Octicons } from "@expo/vector-icons";
+import { MaterialIcons, Octicons } from "@expo/vector-icons";
 import { CheckBox } from "@rneui/base";
 import { getShopsByCity } from "../utils/api";
+
 export default function ShopList({ navigation }: ShopListProps) {
     const { cache } = useCache();
     const [shopList, setShopList] = useState<CoffeeShop[]>(
