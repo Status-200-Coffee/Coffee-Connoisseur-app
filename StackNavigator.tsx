@@ -16,7 +16,10 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const HomeStackNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName="LoadingScreen">
+        <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+            initialRouteName="LoadingScreen"
+        >
             <Stack.Screen name="LoadingScreen" component={LoadingScreen} />
             <Stack.Screen name="ShopSearch" component={ShopSearch} />
             <Stack.Screen name="CitySearch" component={CitySearch} />
@@ -29,7 +32,10 @@ export const HomeStackNavigator = () => {
 
 export const LoginPageStackNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName="LoginPage">
+        <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+            initialRouteName="LoginPage"
+        >
             <Stack.Screen name="LoginPage" component={LoginPage} />
             <Stack.Screen name="SignUpPage" component={SignUpPage} />
         </Stack.Navigator>
@@ -38,7 +44,10 @@ export const LoginPageStackNavigator = () => {
 
 export const ProfilePageStackNavigator = () => {
     return (
-        <Stack.Navigator initialRouteName="ProfilePage">
+        <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+            initialRouteName="ProfilePage"
+        >
             <Stack.Screen name="ProfilePage" component={ProfilePage} />
             <Stack.Screen name="ShopPage" component={ShopPage} />
             <Stack.Screen name="CoffeeCamera" component={CoffeeCamera} />
