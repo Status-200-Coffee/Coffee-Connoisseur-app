@@ -6,7 +6,7 @@ export type RootStackParamList = {
     CitySearch: undefined;
     FullscreenMap: undefined;
     ShopPage: { shop_id: number };
-    CoffeeCamera: { shop_id: number };
+    CoffeeCamera: { shop_id: number, city: string };
     LoginPage: undefined;
     SignUpPage: undefined;
     ProfilePage: { username: string };

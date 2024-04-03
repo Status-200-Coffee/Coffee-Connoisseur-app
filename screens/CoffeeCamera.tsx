@@ -7,6 +7,7 @@ import { Props } from "./types";
 import * as Animatable from "react-native-animatable";
 import { AntDesign } from "@expo/vector-icons";
 import { useCache } from "../contexts/Cache";
+import { uploadPhotoToShop, uploadPhotoToUser } from "../utils/api";
 
 export default function CoffeeCamera({
     navigation,
@@ -18,13 +19,14 @@ export default function CoffeeCamera({
     const [capturedImage, setCapturedImage] = useState<string>("");
     const [showCamera, setShowCamera] = useState<boolean>(false);
     const cameraRef = useRef<Camera>(null);
-    const shopId = route.params?.shop_id;
+    const { city, shop_id } = route.params;
+
     const { cache, setCache } = useCache();
     const [imageUploaded, setImageUploaded] = useState<boolean>(false);
 
-    console.log(typeof shopId);
+    console.log(typeof shop_id);
     console.log(cache.user);
-    // console.log(cache.cityShops[cache.currentCity][shopId].userImages);
+    // console.log(cache.cityShops[cache.currentCity][shop_id].userImages);
 
     useEffect(() => {
         (async () => {
@@ -69,28 +71,31 @@ export default function CoffeeCamera({
         if (cameraRef.current) {
             const photo = await cameraRef.current.takePictureAsync();
             if (cache.user && cache.currentCity) {
-                try {
-                    const imgUrl = await uploadPhotoToImgur(photo.uri);
-                    await uploadPhotoToUser(cache.user.username, imgUrl);
-                    await uploadPhotoToShop(cache.currentCity, shopId, imgUrl);
-                    setImageUploaded(true);
-                    setTimeout(() => {
-                        navigation.navigate("CoffeeCamera");
-                        setImageUploaded(false);
-                    }, 1550);
-                } catch (error) {
-                    Alert.alert(
-                        "Error",
-                        "Photo was not uploaded. Please try again",
-                        [
-                            {
-                                text: "OK",
-                                onPress: () => console.log("OK Pressed"),
-                            },
-                        ],
-                        { cancelable: false }
-                    );
-                }
+                const imgUrl = await uploadPhotoToImgur(photo.uri);
+                uploadPhotoToUser(cache.user.username, imgUrl);
+                uploadPhotoToShop(cache.currentCity, shop_id, imgUrl).then((shop) => {
+                    const cityShops = cache.cityShops
+                    
+
+                    }
+                );
+                setImageUploaded(true);
+                setTimeout(() => {
+                    navigation.navigate("CoffeeCamera");
+                    setImageUploaded(false);
+                }, 1550);
+
+                Alert.alert(
+                    "Error",
+                    "Photo was not uploaded. Please try again",
+                    [
+                        {
+                            text: "OK",
+                            onPress: () => console.log("OK Pressed"),
+                        },
+                    ],
+                    { cancelable: false }
+                );
             } else {
                 Alert.alert(
                     "Not Logged in",
@@ -102,53 +107,17 @@ export default function CoffeeCamera({
         }
     }
 
-    async function uploadPhotoToUser(username: string, newPhotoUrl: string) {
-        try {
-            const response = await axios.patch(
-                `https://coffee-connoisseur-api.onrender.com/api/users/${username}`,
-                { newPhoto: newPhotoUrl }
-            );
-            console.log("Photo uploaded successfully to user:", username);
-        } catch (error) {
-            console.error(
-                "Error updating photo for user:",
-                username,
-                ":",
-                error
-            );
+    const findShop = () => {
+        for (const shop of cache.cityShops[cache.currentCity!]) {
+            if (shop._id === shop_id) {
+                return shop;
+            }
         }
-    }
-
-    async function uploadPhotoToShop(
-        city: string,
-        shopId: number,
-        newPhotoUrl: string
-    ) {
-        try {
-            const response = await axios.patch(
-                `https://coffee-connoisseur-api.onrender.com/api/shops/${city}/${shopId}`,
-                { newPhoto: newPhotoUrl }
-            );
-            console.log(
-                "Photo uploaded successfully to shop:",
-                shopId,
-                "in city:",
-                city
-            );
-        } catch (error) {
-            console.error(
-                "Error updating photo for shop:",
-                shopId,
-                "in city:",
-                city,
-                ":",
-                error
-            );
-        }
-    }
+        return null;
+    };
 
     useEffect(() => {
-        if (imageUploaded && cache.user && cache.currentCity && shopId) {
+        if (imageUploaded && cache.user && cache.currentCity && shop_id) {
             // Update cache for user's photo
             const updatedUser = {
                 ...cache.user,
@@ -158,22 +127,28 @@ export default function CoffeeCamera({
                 ...prevCache,
                 user: updatedUser,
             }));
+            console.log(
+                "testing",
+                cache.cityShops[cache.currentCity][shop_id],
+                shop_id
+            );
 
             // Update cache for shop's photo
+
             const updatedShop = {
-                ...cache.cityShops[cache.currentCity][shopId],
-                userImages: [
-                    ...cache.cityShops[cache.currentCity][shopId].userImages,
-                    capturedImage,
-                ],
+                ...findShop()!,
+
+                userImages: [...findShop()!.userImages, capturedImage],
             };
+            const updatedCityShops = { ...cache.cityShops };
+            updatedCityShops[city];
             setCache((prevCache) => ({
                 ...prevCache,
                 cityShops: {
                     ...prevCache.cityShops,
                     [cache.currentCity]: {
                         ...prevCache.cityShops[cache.currentCity],
-                        [shopId]: updatedShop,
+                        [shop_id]: updatedShop,
                     },
                 },
             }));

@@ -53,3 +53,44 @@ export async function getUser(username: string): Promise<User> {
 
     return response.data.user;
 }
+
+export async function uploadPhotoToUser(username: string, newPhotoUrl: string) {
+    try {
+        const response = await axios.patch(
+            `https://coffee-connoisseur-api.onrender.com/api/users/${username}`,
+            { newPhoto: newPhotoUrl }
+        );
+        console.log("Photo uploaded successfully to user:", username);
+    } catch (error) {
+        console.error("Error updating photo for user:", username, ":", error);
+    }
+}
+
+export async function uploadPhotoToShop(
+    city: string,
+    shop_id: number,
+    newPhotoUrl: string
+): Promise<CoffeeShop> {
+    try {
+        const response = await axios.patch(
+            `https://coffee-connoisseur-api.onrender.com/api/shops/${city}/${shop_id}`,
+            { newPhoto: newPhotoUrl }
+        );
+        console.log(
+            "Photo uploaded successfully to shop:",
+            shop_id,
+            "in city:",
+            city
+        )
+        return response.data.shop
+    } catch (error) {
+        console.error(
+            "Error updating photo for shop:",
+            shop_id,
+            "in city:",
+            city,
+            ":",
+            error
+        );
+    }
+}

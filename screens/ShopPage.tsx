@@ -140,6 +140,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                     onPress={() =>
                         navigation.navigate("CoffeeCamera", {
                             shop_id: shopPage._id,
+                            city: shopPage.city
                         })
                     }
                 >
