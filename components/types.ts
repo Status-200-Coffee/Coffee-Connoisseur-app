@@ -23,6 +23,7 @@ export type ShopRatingProps = {
     setRating: SetState<number>;
     setVotes: SetState<number>;
     shopPage: CoffeeShop;
+}
 
 export type CitySelectorProps = {
     changeCity: (city: string) => void;
