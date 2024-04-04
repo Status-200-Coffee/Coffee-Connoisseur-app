@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import StarRating from "react-native-star-rating";
+import StarRating from "react-native-star-rating-widget";
 
 import { useCache } from "../contexts/Cache";
 import { updateShopRating } from "../utils/api";
 
 import { ShopRatingProps } from "./types";
+import { View } from "react-native";
 
 export default function ShopRating({
     shop_id,
@@ -36,11 +37,14 @@ export default function ShopRating({
     useEffect(() => {}, [userRating]);
 
     return cache.user ? (
-        <StarRating
-            disabled={userHasVoted}
-            maxStars={5}
-            rating={userRating}
-            selectedStar={(stars: number) => handleRating(stars)}
-        />
+        <View pointerEvents={userHasVoted ? "none" : "auto"}>
+            <StarRating
+                isDisabled={true}
+                enableHalfStar={false}
+                maxStars={5}
+                rating={userRating}
+                onChange={(stars: number) => handleRating(stars)}
+            />
+        </View>
     ) : null;
 }
