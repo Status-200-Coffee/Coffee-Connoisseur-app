@@ -21,6 +21,7 @@ export default function CoffeeCamera({
     const [showCamera, setShowCamera] = useState<boolean>(false);
     const cameraRef = useRef<Camera>(null);
     const { city, shop_id } = route.params;
+    const [buttonDisable, setButtonDisabled] = useState<boolean>(false);
 
     const { cache, setCache } = useCache();
     const [imageUploaded, setImageUploaded] = useState<boolean>(false);
@@ -64,6 +65,7 @@ export default function CoffeeCamera({
     }
 
     async function takePicture() {
+        setButtonDisabled(true);
         if (cameraRef.current) {
             const photo = await cameraRef.current.takePictureAsync();
             if (cache.user && cache.currentCity) {
@@ -104,6 +106,8 @@ export default function CoffeeCamera({
                             setTimeout(() => {
                                 setImageUploaded(false);
                             }, 1550);
+                            setButtonDisabled(false);
+                            navigation.goBack();
                         })
                         .catch((error) => {
                             console.log(error);
@@ -163,7 +167,7 @@ export default function CoffeeCamera({
                         style={{ width: 400, height: 400 }}
                         type={CameraType.back}
                     />
-                    <Pressable onPress={takePicture}>
+                    <Pressable onPress={takePicture} disabled={buttonDisable}>
                         <View className="m-3 p-3 bg-sky-900 rounded-full mb-5 mx-20">
                             <Text className="text-center font-bold text-white text-lg">
                                 Take picture 📷
