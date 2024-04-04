@@ -17,12 +17,12 @@ export type ShopCardProps = {
     navigation: Props<"ShopSearch" | "ProfilePage">["navigation"];
 };
 
-
 export type ShopRatingProps = {
     shop_id: number;
     setRating: SetState<number>;
     setVotes: SetState<number>;
     shopPage: CoffeeShop;
+};
 
 export type CitySelectorProps = {
     changeCity: (city: string) => void;

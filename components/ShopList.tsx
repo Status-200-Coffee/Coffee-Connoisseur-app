@@ -63,7 +63,7 @@ export default function ShopList({ navigation }: ShopListProps) {
             sort = "&sortBy=rating&orderBy=desc";
         }
         getShopsByCity(`${cache.currentCity}`, queryString, sort).then(
-            (shops) => {Refactored favourite button.
+            (shops) => {
                 setShopList(shops);
             }
         );
