@@ -17,13 +17,12 @@ export type ShopCardProps = {
     navigation: Props<"ShopSearch" | "ProfilePage">["navigation"];
 };
 
-
 export type ShopRatingProps = {
     shop_id: number;
     setRating: SetState<number>;
     setVotes: SetState<number>;
     shopPage: CoffeeShop;
-}
+};
 
 export type CitySelectorProps = {
     changeCity: (city: string) => void;
@@ -31,4 +30,10 @@ export type CitySelectorProps = {
 
 export type PostcodeSearchProps = {
     changeCity: (city: string) => void;
+};
+
+export type FavouriteButtonProps = {
+    city: string;
+    shopId: number;
+    navigation: Props<"ShopPage" | "ShopSearch" | "ProfilePage">["navigation"];
 };

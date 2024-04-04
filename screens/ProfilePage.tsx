@@ -26,37 +26,34 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
     });
 
     useEffect(() => {
-        let favShops: number[];
-
-        console.log("user", username);
-
+        if (shopList.length > 0) {
+            setShopList([]);
+        }
         getUser(username!)
             .then((user) => {
-                console.log(">>>>", user);
                 setUserPage(user);
-                favShops = user.favouriteShops;
-                return getShopsByCity(cache.currentCity!, "", "");
-            })
-            .then((shops) => {
-                const filteredShops = shops.filter(function (item) {
-                    return favShops.indexOf(item._id) !== -1;
+                const favShops = user.favouriteShops;
+                const cities = Object.keys(favShops);
+                cities.forEach((city) => {
+                    getShopsByCity(city, "", "").then((shops) => {
+                        const filteredShops = shops.filter((shop) => {
+                            return favShops[city].includes(shop._id);
+                        });
+                        setShopList((currShops) => {
+                            return [...currShops, ...filteredShops];
+                        });
+                        setIsLoading(false);
+                    });
                 });
-                return filteredShops;
-            })
-            .then((filteredShops) => {
-                return setShopList(filteredShops);
-            })
-            .then(() => {
-                setIsLoading(false);
             })
             .catch((error) => {
                 console.log(error);
             });
-    }, [username]);
+    }, []);
 
     function handleLogout() {
         setCache((currentCache) => {
-            return {...currentCache, user: null};
+            return { ...currentCache, user: null };
         });
         navigation.navigate("ShopSearch");
     }
@@ -99,7 +96,7 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
             <Text className="font-bold text-lg">Your favourites:</Text>
             {shopList.map((shop) => {
                 return (
-                    <View key={shop._id}>
+                    <View key={`${shop._id}${shop.city}`}>
                         <ShopCard shop={shop} navigation={navigation} />
                     </View>
                 );

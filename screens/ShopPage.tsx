@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
-import { Image, Pressable, ScrollView, Text, View } from "react-native";
+import {
+    ActivityIndicator,
+    Image,
+    Pressable,
+    ScrollView,
+    Text,
+    View,
+} from "react-native";
 import { Entypo, MaterialIcons, FontAwesome6 } from "@expo/vector-icons";
 
+import FavouriteButton from "../components/FavouriteButton";
 import ShopRating from "../components/ShopRating";
 import { useCache } from "../contexts/Cache";
 
@@ -9,8 +17,9 @@ import { Props } from "./types";
 import { CoffeeShop } from "../types";
 
 export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
-    const { shop_id } = route.params;
     const { cache } = useCache();
+    const { shop_id } = route.params;
+
     const [rating, setRating] = useState<number>(0);
     const [votes, setVotes] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -51,11 +60,12 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
         }
     }, []);
 
-    if (isLoading) {
-        return <Text className="">Loading...</Text>;
-    }
-
-    return (
+    return isLoading ? (
+        <View className="flex justify-center">
+            <ActivityIndicator size="large"></ActivityIndicator>
+            <Text className="text-center">App is initialising</Text>
+        </View>
+    ) : (
         <ScrollView>
             <View className="flex-1 items-center bg-cyan-50 p-5">
                 <Image
@@ -70,7 +80,14 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                         {" "}
                         Connoisseur Rating: {rating} / 5
                     </Text>
+
+                    <FavouriteButton
+                        city={shopPage.city}
+                        navigation={navigation}
+                        shopId={shopPage._id}
+                    ></FavouriteButton>
                 </View>
+
                 <ShopRating
                     shop_id={shop_id}
                     setRating={setRating}
@@ -78,19 +95,20 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                     shopPage={shopPage}
                 />
                 <Text>({votes})</Text>
+
                 <View className="flex-row items-center">
                     <Entypo name="location-pin" size={22} color="black" />
                     <Text className="text-xl">
                         {shopPage.city} {shopPage.distance}
                     </Text>
-                    <View className="flex-row m-2 pl-4">
+                    <View className="flex-row m-2 pl-2">
                         {(() => {
                             if (shopPage.dogFriendly) {
                                 return (
                                     <FontAwesome6
                                         name="dog"
                                         size={21}
-                                        color="black"
+                                        color="brown"
                                     />
                                 );
                             }
@@ -101,7 +119,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                                     <MaterialIcons
                                         name="chair"
                                         size={22}
-                                        color="black"
+                                        color="darkblue"
                                     />
                                 );
                             }
@@ -112,25 +130,19 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                                     <Entypo
                                         name="leaf"
                                         size={22}
-                                        color="black"
+                                        color="green"
+                                        title="dairy-free"
                                     />
                                 );
                             }
                         })()}
                     </View>
                 </View>
-                <Text className="pb-5 leading-10 text-lg italic items-center">
+                <Text className="pb-4 text-lg italic text-center">
                     {shopPage.description}
                 </Text>
-                <Text className="font-bold text-xl">
-                    {" "}
-                    Connoisseur's Favourite Coffee{" "}
-                </Text>
-                <ScrollView
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    className=""
-                >
+                
+                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {shopPage.userImages.map((image) => {
                         return (
                             <View key={image} className="pt-2">
@@ -146,7 +158,6 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                         );
                     })}
                 </ScrollView>
-
                 <Pressable
                     key={shopPage._id}
                     onPress={() =>
@@ -156,7 +167,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                         })
                     }
                 >
-                    <Text className="m-2 p-2 bg-blue-900 text-center font-bold text-white rounded mb-5 text-base">
+                    <Text className="m-3 p-2 pr-6 pl-6 bg-blue-900 text-center font-bold text-white rounded-full mb-5 text-base">
                         Take a picture
                     </Text>
                 </Pressable>
