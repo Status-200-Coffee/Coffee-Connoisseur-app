@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { SearchBar } from "@rneui/base";
 
 import { getClosestCity, getCoordsOfPostcode } from "../utils/api";
@@ -56,9 +56,13 @@ export default function PostcodeSearch({ changeCity }: PostcodeSearchProps) {
                 onChangeText={handleSearch}
                 autoCorrect={false}
             ></SearchBar>
-
-            <Button title="Submit" onPress={handleSubmit}></Button>
-
+            <View className="justify-center bg-sky-800 rounded-full mx-8 my-4 p-2">
+                <Pressable onPress={handleSubmit}>
+                    <Text className="font-bold text-xl text-center text-white">
+                        Submit
+                    </Text>
+                </Pressable>
+            </View>
             <Text>{errorMsg}</Text>
         </View>
     );
