@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Text, View, Image, ScrollView, Button } from "react-native";
+import { Text, View, Image, ScrollView, Button, Pressable } from "react-native";
 
 import CoffeeRewards from "../components/CoffeeReward";
 import ShopCard from "../components/ShopCard";
@@ -63,17 +63,24 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
     }
 
     return (
-        <ScrollView className="flex-1" key="profile">
-            <Button title="Logout" onPress={handleLogout}></Button>
-            <Text className="font-bold text-xl">
-                Hello, {userPage.username}!
+        <ScrollView className="flex-1 bg-white" key="profile">
+            <Text className="text-center font-bold text-xl p-2">
+                Hey, {userPage.username}!
             </Text>
-
+            <View className="justify-center bg-blue-900 rounded-full mx-20 my-2 p-2">
+                <Pressable onPress={handleLogout}>
+                    <Text className="text-center text-white font-bold">
+                        Logout
+                    </Text>
+                </Pressable>
+            </View>
+            <CoffeeRewards />
+            <Text className="text-lg font-bold pl-5">Your coffee pics:</Text>
             <ScrollView
                 key="profile-photos"
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                className=""
+                className="pl-3"
             >
                 {userPage.photosPosted.map((image, index) => {
                     return (
@@ -81,19 +88,17 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
                             <Image
                                 source={{ uri: image }}
                                 style={{
+                                    borderRadius: 20,
                                     width: 180,
                                     height: 180,
-                                    margin: 5,
+                                    margin: 6,
                                 }}
                             />
                         </View>
                     );
                 })}
             </ScrollView>
-
-            <CoffeeRewards></CoffeeRewards>
-
-            <Text className="font-bold text-lg">Your favourites:</Text>
+            <Text className="font-bold text-lg pl-5 pt-3">Your favourites:</Text>
             {shopList.map((shop) => {
                 return (
                     <View key={`${shop._id}${shop.city}`}>

@@ -74,34 +74,32 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                     alt={shopPage.mainImage.altText}
                     style={{ width: 300, height: 300, margin: 12 }}
                 />
-                <Text className="font-bold p-1 text-3xl">{shopPage.name}</Text>
                 <View className="flex-row items-center">
-                    <Text className="font-bold leading-10 text-xl">
-                        {" "}
-                        Connoisseur Rating: {rating} / 5
-                    </Text>
-
-                    <FavouriteButton
+                <Text className="font-bold p-1 text-3xl">{shopPage.name}</Text>
+                <FavouriteButton
                         city={shopPage.city}
                         navigation={navigation}
                         shopId={shopPage._id}
                     ></FavouriteButton>
-                </View>
-
+                    </View>
+                    <Text className="font-bold text-xl pb-3">
+                        {" "}
+                        Connoisseur Rating: {rating} / 5
+                    </Text>
                 <ShopRating
                     shop_id={shop_id}
                     setRating={setRating}
                     setVotes={setVotes}
                     shopPage={shopPage}
                 />
-                <Text>({votes})</Text>
+                <Text className="font-bold">({votes})</Text>
 
                 <View className="flex-row items-center">
                     <Entypo name="location-pin" size={22} color="black" />
                     <Text className="text-xl">
                         {shopPage.city} {shopPage.distance}
                     </Text>
-                    <View className="flex-row m-2 pl-2">
+                    <View className="flex-row m-2 pl-1">
                         {(() => {
                             if (shopPage.dogFriendly) {
                                 return (
@@ -149,9 +147,10 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                                 <Image
                                     source={{ uri: image }}
                                     style={{
-                                        width: 100,
-                                        height: 100,
-                                        margin: 10,
+                                        width: 140,
+                                        height: 140,
+                                        margin: 6,
+                                        borderRadius: 20,
                                     }}
                                 />
                             </View>
