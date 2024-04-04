@@ -66,10 +66,12 @@ export default function FavouriteButton({
         <Modal animationType="slide" transparent={true} visible={modalVisible}>
             <View className="mx-10 my-48 flex-1 pb-5 justify-center border-slate-700 bg-sky-100 border-2 rounded items-center">
                 <View className="m-3 items-center justify-center">
-                    <Pressable onPress={() => {
+                    <Pressable
+                        onPress={() => {
                             setModalVisible(false);
-                        }}>
-                            <Entypo name="cross" size={32} color="black"/>
+                        }}
+                    >
+                        <Entypo name="cross" size={32} color="black" />
                     </Pressable>
                     <Text className="m-2 font-bold text-xl text-center">
                         Login or create an account to add this shop to your
