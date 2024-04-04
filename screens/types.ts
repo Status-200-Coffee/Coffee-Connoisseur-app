@@ -10,7 +10,7 @@ export type RootStackParamList = {
     CitySearch: undefined;
     FullscreenMap: undefined;
     ShopPage: { shop_id: number };
-    CoffeeCamera: { shop_id: number, city: string };
+    CoffeeCamera: { shop_id: number; city: string };
     LoginPage: undefined;
     SignUpPage: undefined;
     ProfilePage: { username: string };
@@ -23,9 +23,12 @@ export type Props<K extends keyof RootStackParamList> = NativeStackScreenProps<
 
 export type DrawerParamList = {
     WelcomePage: undefined;
-    HomeStackNavigator: undefined;
-    LoginPageStackNavigator: undefined;
-    ProfilePageStackNavigator: undefined;
+    HomeRedirect: undefined;
+    HomeStackNavigator: { screen: string };
+    LoginPageRedirect: undefined;
+    LoginPageStackNavigator: { screen: string };
+    ProfilePageRedirect: undefined;
+    ProfilePageStackNavigator: { screen: string };
 };
 
 export type WelcomePageProps = {
@@ -33,8 +36,8 @@ export type WelcomePageProps = {
 };
 
 // No idea why this doesn't work
-//
-// export type DrawerProps<K extends keyof DrawerParamList> = DrawerScreenProps<
-//     DrawerParamList,
-//     K
-// >;
+
+export type DrawerProps<K extends keyof DrawerParamList> = DrawerScreenProps<
+    DrawerParamList,
+    K
+>;

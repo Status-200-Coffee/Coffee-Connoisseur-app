@@ -112,7 +112,7 @@ export default function WelcomePage({ navigation }: WelcomePageProps) {
                 <TouchableOpacity
                     disabled={disabledButton}
                     onPress={() => {
-                        navigation.navigate("HomeStackNavigator");
+                        navigation.navigate("HomeRedirect");
                     }}
                     className="bg-white opacity-90 mx-auto p-4 px-10 rounded-full"
                 >
