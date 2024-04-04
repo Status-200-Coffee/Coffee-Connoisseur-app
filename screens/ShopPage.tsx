@@ -93,6 +93,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                     setRating={setRating}
                     setVotes={setVotes}
                     shopPage={shopPage}
+                    navigation={navigation}
                 />
                 <Text className="font-bold">({votes})</Text>
 
@@ -141,7 +142,9 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                 <Text className="pb-4 text-lg italic text-center">
                     {shopPage.description}
                 </Text>
-                <Text className="text-xl font-bold">{shopPage.name}'s best coffees</Text>
+                <Text className="text-xl font-bold">
+                    {shopPage.name}'s best coffees
+                </Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {shopPage.userImages.map((image) => {
                         return (
