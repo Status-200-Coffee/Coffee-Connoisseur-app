@@ -39,10 +39,9 @@ export default function ShopRating({
     return cache.user ? (
         <View pointerEvents={userHasVoted ? "none" : "auto"}>
             <StarRating
-                isDisabled={true}
                 enableHalfStar={false}
                 maxStars={5}
-                rating={userRating}
+                rating={userRating ? userRating : 0}
                 onChange={(stars: number) => handleRating(stars)}
             />
         </View>
