@@ -13,14 +13,14 @@ const CoffeeRewards = () => {
     return (
         <View>
             <View className="mx-3 mt-3 mb-3 h-64 bg-orange-200 rounded-md">
-                <Text className="text-xl text-center tracking-widest">
+                <Text className="text-xl text-center tracking-widest pt-2">
                     Your Reward Card
                 </Text>
                 <View className="flex-wrap justify-evenly content-center items-center pb-8">
                     {rewards.map((reward, i) => {
                         return (
                             <View
-                                className="mx-1.5 w-20 h-20 bg-white rounded-full"
+                                className="mx-1.4 w-20 h-20 bg-white rounded-full"
                                 key={i}
                             >
                                 {coffeeCollected ? (

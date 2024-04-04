@@ -47,7 +47,7 @@ const LoginPage = ({ navigation }: Props<"LoginPage">) => {
                 <Animatable.View
                     animation="fadeInDown"
                     duration={1000}
-                    className="bg-black p-4 rounded-3xl mb-10"
+                    className="bg-blue-900 p-4 rounded-3xl mb-10"
                 >
                     <Text className="text-white text-lg pb-2">Logged in</Text>
                     <AntDesign
@@ -69,33 +69,37 @@ const LoginPage = ({ navigation }: Props<"LoginPage">) => {
                     incorrect. Wanna try again?
                 </Text>
             )}
-            <Text className="mx-14 mt-10 text-slate-500">Username:</Text>
+            <Text className="mx-14 mt-10 text-base text-slate-700">
+                Username:
+            </Text>
             <TextInput
                 className="border my-2 mx-14 rounded p-1"
                 value={username}
                 onChangeText={(text) => setUsername(text.trim())}
             ></TextInput>
-            <Text className="mx-14 mt-2 text-slate-500">Password:</Text>
+            <Text className="mx-14 text-base mt-2 text-slate-700">
+                Password:
+            </Text>
             <TextInput
-                className="border border my-2 mx-14 rounded p-1"
+                className="border my-2 mx-14 rounded p-1"
                 value={password}
                 secureTextEntry={true}
                 onChangeText={(text) => setPassword(text.trim())}
             ></TextInput>
             <Pressable
                 onPress={handleLogin}
-                className="border my-10 mx-32 items-center pb-1 pt-1 bg-black rounded-full"
+                className="my-10 mx-28 items-center p-1 bg-blue-900 rounded-full"
             >
-                <Text className="text-white">Login</Text>
+                <Text className="text-white font-bold text-base">Login</Text>
             </Pressable>
-            <Text className="text-center">
+            <Text className="text-center text-base">
                 Not a coffee connoisseur just yet?
             </Text>
             <Pressable
                 onPress={() => navigation.navigate("SignUpPage")}
                 className="mb-10"
             >
-                <Text className="text-center hover:text-white font-bold 	">
+                <Text className="text-center hover:text-white font-bold text-base underline">
                     Join here
                 </Text>
             </Pressable>

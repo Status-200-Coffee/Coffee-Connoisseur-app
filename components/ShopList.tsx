@@ -72,7 +72,7 @@ export default function ShopList({ navigation }: ShopListProps) {
     }, [queryString, sortBy]);
 
     return (
-        <View className="flex flex-col h-full">
+        <View className="flex flex-col h-full bg-white">
             <View className="flex-row justify-center justify-evenly">
                 <Pressable onPress={() => setFilterPressed(!filterPressed)}>
                     <View className="items-center">
@@ -112,7 +112,7 @@ export default function ShopList({ navigation }: ShopListProps) {
                                 </Text>
                             </Pressable>
                             <Pressable onPress={clearFilters}>
-                                <Text className="m-2 p-2 bg-red-900 text-center font-bold text-white rounded">
+                                <Text className="m-2 p-2 bg-red-800 text-center font-bold text-white rounded">
                                     Clear All Filters
                                 </Text>
                             </Pressable>
@@ -132,7 +132,7 @@ export default function ShopList({ navigation }: ShopListProps) {
                                 selectedId={sortBy}
                             />
                             <Pressable onPress={clearSortBy}>
-                                <Text className="m-2 p-2 bg-red-900 text-center font-bold text-white rounded">
+                                <Text className="m-2 p-2 bg-red-800 text-center font-bold text-white rounded">
                                     Reset
                                 </Text>
                             </Pressable>
