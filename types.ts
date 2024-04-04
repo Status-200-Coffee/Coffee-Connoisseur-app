@@ -25,6 +25,7 @@ export type CoffeeShop = {
     hasSeating: boolean;
     description: string;
     distance?: string;
+    userVote?: number;
 };
 
 export type Region = {

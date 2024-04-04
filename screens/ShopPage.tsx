@@ -7,9 +7,10 @@ import {
     Text,
     View,
 } from "react-native";
-import { MaterialIcons, FontAwesome6, Entypo } from "@expo/vector-icons";
+import { Entypo, MaterialIcons, FontAwesome6 } from "@expo/vector-icons";
 
 import FavouriteButton from "../components/FavouriteButton";
+import ShopRating from "../components/ShopRating";
 import { useCache } from "../contexts/Cache";
 
 import { Props } from "./types";
@@ -19,6 +20,8 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
     const { cache } = useCache();
     const { shop_id } = route.params;
 
+    const [rating, setRating] = useState<number>(0);
+    const [votes, setVotes] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [shopPage, setShopPage] = useState<CoffeeShop>({
         _id: 0,
@@ -38,14 +41,19 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
         dogFriendly: false,
         hasSeating: false,
         dairyFree: false,
+        userVote: 0,
     });
 
     useEffect(() => {
+        console.log("USE EFFECT");
+
         const shops = cache.cityShops[cache.currentCity!];
 
         for (const shop of shops) {
             if (shop._id === shop_id) {
                 setShopPage(shop);
+                setRating(shop.rating);
+                setVotes(shop.totalRatings);
                 setIsLoading(false);
                 return;
             }
@@ -66,9 +74,11 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                     alt={shopPage.mainImage.altText}
                     style={{ width: 300, height: 300, margin: 12 }}
                 />
+                <Text className="font-bold p-1 text-3xl">{shopPage.name}</Text>
                 <View className="flex-row items-center">
-                    <Text className="font-bold p-1 text-3xl mr-1">
-                        {shopPage.name}
+                    <Text className="font-bold leading-10 text-xl">
+                        {" "}
+                        Connoisseur Rating: {rating} / 5
                     </Text>
 
                     <FavouriteButton
@@ -77,9 +87,15 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                         shopId={shopPage._id}
                     ></FavouriteButton>
                 </View>
-                <Text className="font-bold leading-10 text-xl">
-                    Connoisseur Rating: {shopPage.rating} / 5
-                </Text>
+
+                <ShopRating
+                    shop_id={shop_id}
+                    setRating={setRating}
+                    setVotes={setVotes}
+                    shopPage={shopPage}
+                />
+                <Text>({votes})</Text>
+
                 <View className="flex-row items-center">
                     <Entypo name="location-pin" size={22} color="black" />
                     <Text className="text-xl">
@@ -147,6 +163,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                     onPress={() =>
                         navigation.navigate("CoffeeCamera", {
                             shop_id: shopPage._id,
+                            city: shopPage.city,
                         })
                     }
                 >

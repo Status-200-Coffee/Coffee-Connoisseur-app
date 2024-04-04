@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Text, View, Image, ScrollView } from "react-native";
+import { Text, View, Image, ScrollView, Button } from "react-native";
 
 import CoffeeRewards from "../components/CoffeeReward";
 import ShopCard from "../components/ShopCard";
@@ -10,7 +10,7 @@ import { Props } from "./types";
 import { CoffeeShop, User } from "../types";
 
 export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
-    const { cache } = useCache();
+    const { cache, setCache } = useCache();
     const [shopList, setShopList] = useState<CoffeeShop[]>([]);
     const username = cache.user?.username;
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -26,30 +26,37 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
     });
 
     useEffect(() => {
-        let favShops: number[];
-
+        if (shopList.length > 0) {
+            setShopList([]);
+        }
         getUser(username!)
             .then((user) => {
                 setUserPage(user);
-                favShops = user.favouriteShops;
-                return getShopsByCity(cache.currentCity!, "", "");
-            })
-            .then((shops) => {
-                const filteredShops = shops.filter(function (item) {
-                    return favShops.indexOf(item._id) !== -1;
+                const favShops = user.favouriteShops;
+                const cities = Object.keys(favShops);
+                cities.forEach((city) => {
+                    getShopsByCity(city, "", "").then((shops) => {
+                        const filteredShops = shops.filter((shop) => {
+                            return favShops[city].includes(shop._id);
+                        });
+                        setShopList((currShops) => {
+                            return [...currShops, ...filteredShops];
+                        });
+                        setIsLoading(false);
+                    });
                 });
-                return filteredShops;
-            })
-            .then((filteredShops) => {
-                return setShopList(filteredShops);
-            })
-            .then(() => {
-                setIsLoading(false);
             })
             .catch((error) => {
                 console.log(error);
             });
-    }, [username]);
+    }, []);
+
+    function handleLogout() {
+        setCache((currentCache) => {
+            return { ...currentCache, user: null };
+        });
+        navigation.navigate("ShopSearch");
+    }
 
     if (isLoading) {
         return <Text>Loading...</Text>;
@@ -57,6 +64,7 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
 
     return (
         <ScrollView className="flex-1" key="profile">
+            <Button title="Logout" onPress={handleLogout}></Button>
             <Text className="font-bold text-xl">
                 Hello, {userPage.username}!
             </Text>
@@ -88,7 +96,7 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
             <Text className="font-bold text-lg">Your favourites:</Text>
             {shopList.map((shop) => {
                 return (
-                    <View key={shop._id}>
+                    <View key={`${shop._id}${shop.city}`}>
                         <ShopCard shop={shop} navigation={navigation} />
                     </View>
                 );

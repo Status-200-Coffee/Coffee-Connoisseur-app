@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { Image, StatusBar, Text, TouchableOpacity, View } from "react-native";
-import { getUserLocation } from "../utils/location";
-import { getCities, getClosestCity } from "../utils/api";
-import { useCache } from "../contexts/Cache";
-import { Props } from "./types";
-import { CityRegions } from "../types";
 import { LinearGradient } from "expo-linear-gradient";
 
-export default function LoadingScreen({ navigation }: Props<"LoadingScreen">) {
+import { useCache } from "../contexts/Cache";
+import { getUserLocation } from "../utils/location";
+import { getCities, getClosestCity } from "../utils/api";
+
+import { CityRegions } from "../types";
+import { WelcomePageProps } from "./types";
+
+export default function WelcomePage({ navigation }: WelcomePageProps) {
     const { cache, setCache } = useCache();
     const [retry, setRetry] = useState(0);
+    const [disabledButton, setDisabledButton] = useState<boolean>(true);
 
     useEffect(() => {
         getUserLocation()
@@ -82,7 +85,7 @@ export default function LoadingScreen({ navigation }: Props<"LoadingScreen">) {
             cache.currentCity &&
             cache.cityShops
         ) {
-            navigation.navigate("ShopSearch");
+            setDisabledButton(false);
         } else {
             setRetry((retry) => retry + 1);
         }
@@ -107,8 +110,9 @@ export default function LoadingScreen({ navigation }: Props<"LoadingScreen">) {
                 </Text>
                 <View className="space-y-3 p-2"></View>
                 <TouchableOpacity
+                    disabled={disabledButton}
                     onPress={() => {
-                        navigation.navigate("ShopSearch");
+                        navigation.navigate("HomeStackNavigator");
                     }}
                     className="bg-white opacity-90 mx-auto p-4 px-10 rounded-full"
                 >
