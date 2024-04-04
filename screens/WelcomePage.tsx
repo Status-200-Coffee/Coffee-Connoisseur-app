@@ -7,9 +7,11 @@ import { getUserLocation } from "../utils/location";
 import { getCities, getClosestCity } from "../utils/api";
 
 import { CityRegions } from "../types";
-import { WelcomePageProps } from "./types";
+import { DrawerProps } from "./types";
 
-export default function WelcomePage({ navigation }: WelcomePageProps) {
+export default function WelcomePage({
+    navigation,
+}: DrawerProps<"WelcomePage">) {
     const { cache, setCache } = useCache();
     const [retry, setRetry] = useState(0);
     const [disabledButton, setDisabledButton] = useState<boolean>(true);

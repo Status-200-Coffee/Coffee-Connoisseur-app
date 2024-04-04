@@ -1,7 +1,4 @@
-import {
-    DrawerNavigationProp,
-    DrawerScreenProps,
-} from "@react-navigation/drawer";
+import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export type RootStackParamList = {
@@ -31,13 +28,6 @@ export type DrawerParamList = {
     ProfilePageStackNavigator: { screen: string };
 };
 
-export type WelcomePageProps = {
-    navigation: DrawerNavigationProp<DrawerParamList, "WelcomePage">;
+export type DrawerProps<K extends keyof DrawerParamList> = {
+    navigation: DrawerNavigationProp<DrawerParamList, K>;
 };
-
-// No idea why this doesn't work
-
-export type DrawerProps<K extends keyof DrawerParamList> = DrawerScreenProps<
-    DrawerParamList,
-    K
->;
