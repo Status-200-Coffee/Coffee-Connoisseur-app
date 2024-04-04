@@ -63,7 +63,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
     return isLoading ? (
         <View className="flex justify-center">
             <ActivityIndicator size="large"></ActivityIndicator>
-            <Text className="text-center">App is initialising</Text>
+            <Text className="text-center"></Text>
         </View>
     ) : (
         <ScrollView>
@@ -171,9 +171,11 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                         })
                     }
                 >
-                    <Text className="m-3 p-2 pr-6 pl-6 bg-blue-900 text-center font-bold text-white rounded-full mb-5 text-base">
+                    <View className="m-3 p-2 pr-6 pl-6 bg-blue-900 rounded-full mb-5 text-base">
+                    <Text className="text-center font-bold text-white ">
                         Take a picture
                     </Text>
+                    </View>
                 </Pressable>
             </View>
         </ScrollView>

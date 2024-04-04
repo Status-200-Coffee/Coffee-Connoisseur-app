@@ -121,7 +121,7 @@ export default function FavouriteButton({
                 </Animatable.View>
             ) : (
                 <Pressable onPress={handleAddFavourite}>
-                    <AntDesign name="heart" size={30} color="#FF3368" />
+                    <AntDesign name="heart" size={30} color="#FFFFFF" />
                 </Pressable>
             )}
         </View>
