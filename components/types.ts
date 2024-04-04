@@ -22,6 +22,7 @@ export type ShopRatingProps = {
     setRating: SetState<number>;
     setVotes: SetState<number>;
     shopPage: CoffeeShop;
+    navigation: Props<"ShopPage" | "ShopSearch" | "ProfilePage">["navigation"];
 };
 
 export type CitySelectorProps = {
