@@ -71,13 +71,6 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
 
     return (
         <ScrollView className="flex flex-col h-full bg-white">
-            <View className="justify-center bg-blue-900 rounded-full mx-8 my-1 p-2">
-                <Pressable onPress={navSearch}>
-                    <Text className="text-center text-base text-white font-bold">
-                        City Search
-                    </Text>
-                </Pressable>
-            </View>
             <View className="w-full h-64">
                 <RegionProvider>
                     <ShopMap
@@ -87,7 +80,13 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
                     ></ShopMap>
                 </RegionProvider>
             </View>
-
+            <View className="justify-center bg-blue-900 rounded-full mx-8 my-3 p-2">
+                <Pressable onPress={navSearch}>
+                    <Text className="text-center text-base text-white font-bold">
+                        City Search
+                    </Text>
+                </Pressable>
+            </View>
             <View className="flex-1 py-2">
                 <ShopList
                     shopList={cache.cityShops[cache.currentCity!]}

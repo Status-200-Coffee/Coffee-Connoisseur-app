@@ -46,7 +46,6 @@ export default function CitySelector({ changeCity }: CitySelectorProps) {
                 onChangeText={handleSearch}
                 autoCorrect={false}
             ></SearchBar>
-
             <FlatList
                 className="flex-col flex-nowrap"
                 data={filteredCities}
