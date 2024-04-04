@@ -7,6 +7,11 @@ import {
 } from "./StackNavigator";
 import WelcomePage from "../screens/WelcomePage";
 import { useCache } from "../contexts/Cache";
+import {
+    HomeRedirect,
+    LoginPageRedirect,
+    ProfilePageRedirect,
+} from "./redirects";
 
 const Drawer = createDrawerNavigator();
 
@@ -21,22 +26,47 @@ const AppDrawerNavigator = () => {
                 options={{ headerShown: false, drawerItemStyle: { height: 0 } }}
             />
             <Drawer.Screen
-                name="HomeStackNavigator"
-                component={HomeStackNavigator}
+                name="HomeRedirect"
+                component={HomeRedirect}
                 options={{ title: "Home" }}
             />
+            <Drawer.Screen
+                name="HomeStackNavigator"
+                component={HomeStackNavigator}
+                options={{ title: "Home", drawerItemStyle: { height: 0 } }}
+            />
             {!cache.user ? (
-                <Drawer.Screen
-                    name="LoginPageStackNavigator"
-                    component={LoginPageStackNavigator}
-                    options={{ title: "Log in" }}
-                />
+                <>
+                    <Drawer.Screen
+                        name="LoginPageRedirect"
+                        component={LoginPageRedirect}
+                        options={{ title: "Log in" }}
+                    />
+                    <Drawer.Screen
+                        name="LoginPageStackNavigator"
+                        component={LoginPageStackNavigator}
+                        options={{
+                            title: "Log in",
+                            drawerItemStyle: { height: 0 },
+                        }}
+                    />
+                </>
             ) : (
-                <Drawer.Screen
-                    name="ProfilePageStackNavigator"
-                    component={ProfilePageStackNavigator}
-                    options={{ title: "My profile" }}
-                />
+                <>
+                    <Drawer.Screen
+                        name="ProfilePageRedirect"
+                        component={ProfilePageRedirect}
+                        options={{ title: "My Profile" }}
+                    />
+                    <Drawer.Screen
+                        name="ProfilePageStackNavigator"
+                        component={ProfilePageStackNavigator}
+                        options={{
+                            title: "My profile",
+                            drawerItemStyle: { height: 0 },
+                        }}
+                    />
+                </>
             )}
         </Drawer.Navigator>
     );
