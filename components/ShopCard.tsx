@@ -22,7 +22,7 @@ export default function ShopCard({ shop, navigation }: ShopCardProps) {
                     <Text className="text-base">{shop.city}</Text>
                     <Text className="text-base mr-2">
                         {" "}
-                        {`${shop.distance} km`}
+                        {shop.distance ? `${shop.distance} km` : null}
                     </Text>
                 </View>
                 <Text className="font-bold leading-6 text-base">
