@@ -75,17 +75,19 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                     style={{ width: 300, height: 300, margin: 12 }}
                 />
                 <View className="flex-row items-center">
-                <Text className="font-bold p-1 text-3xl">{shopPage.name}</Text>
-                <FavouriteButton
+                    <Text className="font-bold p-1 text-3xl">
+                        {shopPage.name}
+                    </Text>
+                    <FavouriteButton
                         city={shopPage.city}
                         navigation={navigation}
                         shopId={shopPage._id}
                     ></FavouriteButton>
-                    </View>
-                    <Text className="font-bold text-xl pb-3">
-                        {" "}
-                        Connoisseur Rating: {rating} / 5
-                    </Text>
+                </View>
+                <Text className="font-bold text-xl pb-3">
+                    {" "}
+                    Connoisseur Rating: {rating} / 5
+                </Text>
                 <ShopRating
                     shop_id={shop_id}
                     setRating={setRating}
@@ -139,7 +141,7 @@ export default function ShopPage({ navigation, route }: Props<"ShopPage">) {
                 <Text className="pb-4 text-lg italic text-center">
                     {shopPage.description}
                 </Text>
-                
+                <Text className="text-xl font-bold">{shopPage.name}'s best coffees</Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {shopPage.userImages.map((image) => {
                         return (

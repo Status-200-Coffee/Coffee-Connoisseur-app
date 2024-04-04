@@ -98,7 +98,9 @@ export default function ProfilePage({ navigation }: Props<"ProfilePage">) {
                     );
                 })}
             </ScrollView>
-            <Text className="font-bold text-lg pl-5 pt-3">Your favourites:</Text>
+            <Text className="font-bold text-lg pl-5 pt-3">
+                Your favourites:
+            </Text>
             {shopList.map((shop) => {
                 return (
                     <View key={`${shop._id}${shop.city}`}>

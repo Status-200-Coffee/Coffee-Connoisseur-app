@@ -5,7 +5,6 @@ import { Props } from "./types";
 import * as Animatable from "react-native-animatable";
 import { AntDesign } from "@expo/vector-icons";
 
-
 const SignUpPage = ({ navigation }: Props<"SignUpPage">) => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState("");
@@ -16,7 +15,6 @@ const SignUpPage = ({ navigation }: Props<"SignUpPage">) => {
     const [emailErr, setEmailErr] = useState("");
     const [passwordErr, setPasswordErr] = useState("");
     const [accountSuccesful, setAccountSuccesful] = useState(false);
-   
 
     useEffect(() => {
         axios
@@ -117,7 +115,9 @@ const SignUpPage = ({ navigation }: Props<"SignUpPage">) => {
                     }
                 }}
             ></TextInput>
-            <Text className="mx-14 mt-1 text-base text-slate-700">Username:</Text>
+            <Text className="mx-14 mt-1 text-base text-slate-700">
+                Username:
+            </Text>
             {usernameErr && (
                 <Text className="text-red-500 mx-14">{usernameErr}</Text>
             )}
@@ -144,7 +144,9 @@ const SignUpPage = ({ navigation }: Props<"SignUpPage">) => {
                     }
                 }}
             ></TextInput>
-            <Text className="mx-14 mt-1 text-base text-slate-700">Password:</Text>
+            <Text className="mx-14 mt-1 text-base text-slate-700">
+                Password:
+            </Text>
             {passwordErr && (
                 <Text className="text-red-500 mx-14 mt-1">{passwordErr}</Text>
             )}
@@ -171,7 +173,8 @@ const SignUpPage = ({ navigation }: Props<"SignUpPage">) => {
             <Pressable
                 onPress={handleSignUp}
                 disabled={isDisabled}
-                className={"my-10 mx-28 items-center p-1 bg-blue-900 rounded-full"
+                className={
+                    "my-10 mx-28 items-center p-1 bg-blue-900 rounded-full"
                 }
             >
                 <Text className="text-white text-base font-bold">Sign Up</Text>
