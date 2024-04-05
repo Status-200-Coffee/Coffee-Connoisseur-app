@@ -1,6 +1,6 @@
 # Coffee Connoisseur Frontend
 
-# Summary
+## Summary
 Coffee connoisseur is a react expo app designed to enable people to find the best coffee shops closest to them.
 The idea is to enable to anyone to have access to coffee shops in various cities as recommended members.
 
@@ -14,7 +14,7 @@ This front-end app utilises a back-end API built using Mongo DB to access applic
 <img src="https://i.imgur.com/AMhuamc.gif" width="18%"/>
 </p>
 
-# Using the app
+## Using the app
 The front end application satisfies the following user needs:
 
 - displays maps with markers for coffee shops in the city the user is in
@@ -33,11 +33,11 @@ As a Guest user - the default user for the Home page - you can search for coffee
 
 To access member benefits, select the menu in the top right corner, and then the login button to register first.
 
-# Requirements
+## Requirements
 
 - Node v18.7.0 or higher
 
-# Cloning the repo
+## Cloning the repo
 
 Clone the repo and enter the directory using the following commands:
 ```bash
@@ -45,14 +45,14 @@ git clone https://github.com/Status-200-Coffee/Coffee-Connoisseur-app.git
 cd Coffee-Connoisseur-app
 ```
 
-# Set-up instructions
+## Set-up instructions
 
 Install all of the required packages:
 ```
 npm install
 ```
 
-# Using the app
+## Using the app
 
 We use Expo to develop and test the app. Start the development server with:
 ```
@@ -64,21 +64,20 @@ If you receive errors when connecting to the server, try running this instead:
 npm run tunnel
 ```
 
-## Android Emulator
+### Android Emulator
 
 If you have the Android Studio emulator running on your machine, you can open the app
 by pressing `a` in the terminal where the development server is running.
 
-## Physical Device
+### Physical Device
 
 Download the Expo Go app on your device: https://docs.expo.dev/get-started/installation/
 The, scan the QR code that appears in the terminal after running the development server.
 
-## Reloading the app
+### Reloading the app
 
 If you need to reload the app, you can do so by pressing `r` in the terminal where
 the development server is running.
 
-# Tech Stack
+## Tech Stack
 React Native, Expo, Typescript, Axios, Node.JS, Tailwind, 
-
