@@ -6,11 +6,13 @@ The idea is to enable to anyone to have access to coffee shops in various cities
 
 This front-end app utilises a back-end API built using Mongo DB to access application data.
 
-<img src="https://i.imgur.com/scLUhik.gif" width="150"/>
-<img src="https://i.imgur.com/VnVe4jh.gif" width="150"/>
-<img src="https://i.imgur.com/PqehL2P.gif" width="150"/>
-<img src="https://i.imgur.com/sS5a6SJ.gif" width="150"/>
-<img src="https://i.imgur.com/AMhuamc.gif" width="150"/>
+<p align="center">
+<img src="https://i.imgur.com/scLUhik.gif" width="18%"/>
+<img src="https://i.imgur.com/VnVe4jh.gif" width="18%"/>
+<img src="https://i.imgur.com/PqehL2P.gif" width="18%"/>
+<img src="https://i.imgur.com/sS5a6SJ.gif" width="18%"/>
+<img src="https://i.imgur.com/AMhuamc.gif" width="18%"/>
+</p>
 
 # Using the app
 The front end application satisfies the following user needs:
