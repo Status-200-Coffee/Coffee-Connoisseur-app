@@ -1,65 +1,79 @@
 # Coffee Connoisseur Frontend
 
 # Summary
-Coffee connoisseur is a react expo app designed to enable people to find the best coffee shops closest to them. The idea is to enable to anyone to have access to coffee shops in various cities as recommended members.
+Coffee connoisseur is a react expo app designed to enable people to find the best coffee shops closest to them.
+The idea is to enable to anyone to have access to coffee shops in various cities as recommended members.
 
 This front-end app utilises a back-end API built using Mongo DB to access application data.
+
+| A | B | C | D | E |
+| ![](https://files.slack.com/files-pri/T01KPE0QGCD-F06SJC5KJ23/favouriteandrate.gif) | ![](https://files.slack.com/files-pri/T01KPE0QGCD-F06SW1NGTQD/homepage.gif) | ![](https://files.slack.com/files-pri/T01KPE0QGCD-F06SJC7RAUF/mapclickthroughzoom.gif) | ![](https://files.slack.com/files-pri/T01KPE0QGCD-F06T1CYT944/profilepage.gif) | ![](https://files.slack.com/files-pri/T01KPE0QGCD-F06TMNJPADN/login.gif) |
 
 # Using the app
 The front end application satisfies the following user needs:
 
-- map shows two closest ones and the routes to get to them
-- coffee shops are above 4*
-- set preferences on distance away
-- users can submit photo of their favourite coffee at each coffee shop
-- users can leave a review
-- users can have a member benefit of when they leave a certain number of reviews
-    and favourite coffees they get a free coffee
-- Users can add new coffee shops  
-- Users can view a list of coffee shops close to them 
-- Users have option of using location services or inputting postcode and city
-- Users can set text size larger or smaller
-- Users can set the app to light or dark mode in settings
+- displays maps with markers for coffee shops in the city the user is in
+- users can see a list of coffee shops with more up-front information
+- users can see a full page of information about a coffee shop
+- users can see the coffee shops of a city of their choice
+- users can filter the coffee shop list by preferences
+- users can order the coffee shop list by distance or price
+- users can submit a photo of their favourite coffee at each coffee shop
+- users can leave a review for each coffee shop
+- when users upload a photo of their coffee, they receive progress towards their coffee counter
+- users can create an account
+- users can log in to their account and see their profile
 
 As a Guest user - the default user for the Home page - you can search for coffee shops in your local area, filter and sort results, and view further details of individual coffee shops. You will not be able to leave reviews, access personlised profile page, or access rewards without registering as a member. 
 
-To access member benefits, select the menu in the top right corner, and then the login button to register first. 
+To access member benefits, select the menu in the top right corner, and then the login button to register first.
+
+# Requirements
+
+- Node v18.7.0 or higher
 
 # Cloning the repo
 
-In order to clone this repo use the following:
-https://github.com/Status-200-Coffee/Coffee-Connoisseur-app.git
-
+Clone the repo and enter the directory using the following commands:
+```bash
+git clone https://github.com/Status-200-Coffee/Coffee-Connoisseur-app.git
+cd Coffee-Connoisseur-app
+```
 
 # Set-up instructions
-To view this project locally please follow these simple steps.
 
-1. Install node and/or ensure you are running version v18.7.0 or higher:
-node -v
-
-2. Install npm and/or ensure you are running version 8.19.2 or higher:
-
-npm install -g npm
-
-3. check the version you're running
-npm -v
-
-4. Fork this respository on GitHub
-
-- Clone the forked repository to your chosen local directory:
-git clone https://github.com/Status-200-Coffee/Coffee-Connoisseur-app.git
-
-5. Install dependencies by running
+Install all of the required packages:
+```
 npm install
+```
 
-6. Install Expo to be able preview the app on your machine. You may also install the Expo Go app on your mobile device.
-https://docs.expo.dev/get-started/installation/
+# Using the app
 
- Suggested mobile simulators: XCode (iOS) and Android Studio.
+We use Expo to develop and test the app. Start the development server with:
+```
+npm run start
+```
 
-7. Preview the app through this command:
-npm start
+If you receive errors when connecting to the server, try running this instead:
+```
+npm run tunnel
+```
 
+## Android Emulator
+
+If you have the Android Studio emulator running on your machine, you can open the app
+by pressing `a` in the terminal where the development server is running.
+
+## Physical Device
+
+Download the Expo Go app on your device: https://docs.expo.dev/get-started/installation/
+The, scan the QR code that appears in the terminal after running the development server.
+
+## Reloading the app
+
+If you need to reload the app, you can do so by pressing `r` in the terminal where
+the development server is running.
 
 # Tech Stack
 React Native, Expo, Typescript, Axios, Node.JS, Tailwind, 
+
