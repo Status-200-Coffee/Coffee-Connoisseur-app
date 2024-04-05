@@ -74,9 +74,9 @@ export default function ShopCard({ shop, navigation }: ShopCardProps) {
                         }
                     >
                         <View className="m-2 p-2 pr-6 pl-6 bg-blue-900 text-center font-bold text-white rounded-full">
-                        <Text className="font-bold text-white ">
-                            View Shop
-                        </Text>
+                            <Text className="font-bold text-white ">
+                                View Shop
+                            </Text>
                         </View>
                     </Pressable>
 
