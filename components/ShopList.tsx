@@ -72,7 +72,7 @@ export default function ShopList({ navigation }: ShopListProps) {
     }, [queryString, sortBy]);
 
     return (
-        <View className="flex flex-col h-full">
+        <View className="flex flex-col h-full bg-white">
             <View className="flex-row justify-center justify-evenly">
                 <Pressable onPress={() => setFilterPressed(!filterPressed)}>
                     <View className="items-center">
@@ -107,14 +107,18 @@ export default function ShopList({ navigation }: ShopListProps) {
                                 }
                             ></CheckBox>
                             <Pressable onPress={handleFilters}>
-                                <Text className="m-2 p-2 bg-blue-900 text-center font-bold text-white rounded">
-                                    Apply Filters
-                                </Text>
+                                <View className="m-2 p-2 bg-blue-900 text-center font-bold text-white rounded">
+                                    <Text className="text-center font-bold text-white ">
+                                        Apply Filters
+                                    </Text>
+                                </View>
                             </Pressable>
                             <Pressable onPress={clearFilters}>
-                                <Text className="m-2 p-2 bg-red-900 text-center font-bold text-white rounded">
-                                    Clear All Filters
-                                </Text>
+                                <View className="m-2 p-2 bg-red-800  rounded">
+                                    <Text className="text-center font-bold text-white">
+                                        Clear All Filters
+                                    </Text>
+                                </View>
                             </Pressable>
                         </View>
                     ) : null}
@@ -132,9 +136,11 @@ export default function ShopList({ navigation }: ShopListProps) {
                                 selectedId={sortBy}
                             />
                             <Pressable onPress={clearSortBy}>
-                                <Text className="m-2 p-2 bg-red-900 text-center font-bold text-white rounded">
-                                    Reset
-                                </Text>
+                                <View className="m-2 p-2 bg-red-800 rounded">
+                                    <Text className="text-center font-bold text-white">
+                                        Reset
+                                    </Text>
+                                </View>
                             </Pressable>
                         </View>
                     ) : null}

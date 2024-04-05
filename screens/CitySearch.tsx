@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Button } from "react-native";
+import { View, Button, Pressable, Text } from "react-native";
 
 import { useCache } from "../contexts/Cache";
 
@@ -30,11 +30,13 @@ export default function CitySearch({ navigation }: Props<"CitySearch">) {
             ) : (
                 <CitySelector changeCity={changeCity}></CitySelector>
             )}
-
-            <Button
-                title={postcode ? "City Select" : "Postcode"}
-                onPress={handlePress}
-            ></Button>
+            <View className="justify-center bg-blue-900 rounded-full mx-8 my-6 p-2">
+                <Pressable onPress={handlePress}>
+                    <Text className="font-bold text-xl text-center text-white">
+                        {postcode ? "City Select" : "Postcode"}
+                    </Text>
+                </Pressable>
+            </View>
         </View>
     );
 }

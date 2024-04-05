@@ -5,7 +5,6 @@ import { Props } from "./types";
 import * as Animatable from "react-native-animatable";
 import { AntDesign } from "@expo/vector-icons";
 
-
 const SignUpPage = ({ navigation }: Props<"SignUpPage">) => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState("");
@@ -16,7 +15,6 @@ const SignUpPage = ({ navigation }: Props<"SignUpPage">) => {
     const [emailErr, setEmailErr] = useState("");
     const [passwordErr, setPasswordErr] = useState("");
     const [accountSuccesful, setAccountSuccesful] = useState(false);
-   
 
     useEffect(() => {
         axios
@@ -94,7 +92,7 @@ const SignUpPage = ({ navigation }: Props<"SignUpPage">) => {
 
     return (
         <View className="bg-white mx-6 rounded-3xl mt-16">
-            <Text className="mx-14 mt-4 text-slate-500 pt-6">Email:</Text>
+            <Text className="mx-14 mt-6 text-base text-slate-700">Email:</Text>
             {emailErr && (
                 <Text className="text-red-500 mx-14 mt-1">{emailErr}</Text>
             )}
@@ -117,7 +115,9 @@ const SignUpPage = ({ navigation }: Props<"SignUpPage">) => {
                     }
                 }}
             ></TextInput>
-            <Text className="mx-14 mt-2 text-slate-500">Username:</Text>
+            <Text className="mx-14 mt-1 text-base text-slate-700">
+                Username:
+            </Text>
             {usernameErr && (
                 <Text className="text-red-500 mx-14">{usernameErr}</Text>
             )}
@@ -144,7 +144,9 @@ const SignUpPage = ({ navigation }: Props<"SignUpPage">) => {
                     }
                 }}
             ></TextInput>
-            <Text className="mx-14 mt-2 text-slate-500">Password:</Text>
+            <Text className="mx-14 mt-1 text-base text-slate-700">
+                Password:
+            </Text>
             {passwordErr && (
                 <Text className="text-red-500 mx-14 mt-1">{passwordErr}</Text>
             )}
@@ -172,10 +174,10 @@ const SignUpPage = ({ navigation }: Props<"SignUpPage">) => {
                 onPress={handleSignUp}
                 disabled={isDisabled}
                 className={
-                    "border my-10 mx-32 items-center pb-1 pt-1 bg-black rounded-full"
+                    "my-10 mx-28 items-center p-1 bg-blue-900 rounded-full"
                 }
             >
-                <Text className="text-white">Sign Up</Text>
+                <Text className="text-white text-base font-bold">Sign Up</Text>
             </Pressable>
             <View></View>
         </View>

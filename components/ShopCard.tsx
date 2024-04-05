@@ -1,13 +1,13 @@
 import { Image, Text, View, Pressable } from "react-native";
-import { Entypo } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
-import { FontAwesome6 } from "@expo/vector-icons";
+import { MaterialIcons, FontAwesome6, Entypo } from "@expo/vector-icons";
+
+import FavouriteButton from "./FavouriteButton";
 
 import { ShopCardProps } from "./types";
 
 export default function ShopCard({ shop, navigation }: ShopCardProps) {
     return (
-        <View className="flex-row border-2 rounded m-2 items-center bg-sky-100">
+        <View className="flex-row border-2 border-slate-700 rounded m-2 items-center bg-sky-100">
             <Image
                 source={{ uri: shop.mainImage.image }}
                 alt={shop.mainImage.altText}
@@ -19,8 +19,10 @@ export default function ShopCard({ shop, navigation }: ShopCardProps) {
                 </Text>
                 <View className="flex-row items-center">
                     <Entypo name="location-pin" size={20} color="black" />
-                    <Text className="text-base">
-                        {shop.city} {shop.distance} km
+                    <Text className="text-base">{shop.city}</Text>
+                    <Text className="text-base mr-2">
+                        {" "}
+                        {shop.distance ? `${shop.distance} km` : null}
                     </Text>
                 </View>
                 <Text className="font-bold leading-6 text-base">
@@ -33,7 +35,7 @@ export default function ShopCard({ shop, navigation }: ShopCardProps) {
                                 <FontAwesome6
                                     name="dog"
                                     size={21}
-                                    color="black"
+                                    color="brown"
                                 />
                             );
                         }
@@ -44,7 +46,7 @@ export default function ShopCard({ shop, navigation }: ShopCardProps) {
                                 <MaterialIcons
                                     name="chair"
                                     size={22}
-                                    color="black"
+                                    color="darkblue"
                                 />
                             );
                         }
@@ -52,23 +54,38 @@ export default function ShopCard({ shop, navigation }: ShopCardProps) {
                     {(() => {
                         if (shop.dairyFree) {
                             return (
-                                <Entypo name="leaf" size={22} color="black" />
+                                <Entypo
+                                    name="leaf"
+                                    size={22}
+                                    color="green"
+                                    title="dairy-free"
+                                />
                             );
                         }
                     })()}
                 </View>
-                <Pressable
-                    key={shop._id}
-                    onPress={() =>
-                        navigation.navigate("ShopPage", {
-                            shop_id: shop._id,
-                        })
-                    }
-                >
-                    <Text className="m-2 p-2 bg-blue-900 text-center font-bold text-white rounded">
-                        View Shop
-                    </Text>
-                </Pressable>
+                <View className="flex flex-row items-center mr-2">
+                    <Pressable
+                        key={shop._id}
+                        onPress={() =>
+                            navigation.navigate("ShopPage", {
+                                shop_id: shop._id,
+                            })
+                        }
+                    >
+                        <View className="m-2 p-2 pr-6 pl-6 bg-blue-900 text-center font-bold text-white rounded-full">
+                        <Text className="font-bold text-white ">
+                            View Shop
+                        </Text>
+                        </View>
+                    </Pressable>
+
+                    <FavouriteButton
+                        city={shop.city}
+                        shopId={shop._id}
+                        navigation={navigation}
+                    />
+                </View>
             </View>
         </View>
     );

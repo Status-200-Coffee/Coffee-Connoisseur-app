@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Button, View, ActivityIndicator, ScrollView } from "react-native";
+import {
+    Button,
+    View,
+    ActivityIndicator,
+    ScrollView,
+    Pressable,
+    Text,
+} from "react-native";
 
 import ShopMap from "../components/ShopMap";
 import ShopList from "../components/ShopList";
@@ -56,16 +63,14 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
 
     if (!loaded) {
         return (
-            <View className="h-5/6 flex justify-center">
+            <View className="h-5/6 flex justify-center bg-white">
                 <ActivityIndicator size="large"></ActivityIndicator>
             </View>
         );
     }
 
     return (
-        <ScrollView className="flex flex-col h-full">
-            <Button title="City Search" onPress={navSearch}></Button>
-
+        <ScrollView className="flex flex-col h-full bg-white">
             <View className="w-full h-64">
                 <RegionProvider>
                     <ShopMap
@@ -75,7 +80,13 @@ export default function ShopSearch({ navigation }: Props<"ShopSearch">) {
                     ></ShopMap>
                 </RegionProvider>
             </View>
-
+            <View className="justify-center bg-blue-900 rounded-full mx-8 my-3 p-2">
+                <Pressable onPress={navSearch}>
+                    <Text className="text-center text-base text-white font-bold">
+                        City Search
+                    </Text>
+                </Pressable>
+            </View>
             <View className="flex-1 py-2">
                 <ShopList
                     shopList={cache.cityShops[cache.currentCity!]}
