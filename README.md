@@ -10,6 +10,8 @@ This front-end app utilises a back-end API built using Mongo DB to access applic
 |-------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|----------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|--------------------------------------------------------------------------|
 | ![](https://files.slack.com/files-pri/T01KPE0QGCD-F06SJC5KJ23/favouriteandrate.gif) | ![](https://files.slack.com/files-pri/T01KPE0QGCD-F06SW1NGTQD/homepage.gif) | ![](https://files.slack.com/files-pri/T01KPE0QGCD-F06SJC7RAUF/mapclickthroughzoom.gif) | ![](https://files.slack.com/files-pri/T01KPE0QGCD-F06T1CYT944/profilepage.gif) | ![](https://files.slack.com/files-pri/T01KPE0QGCD-F06TMNJPADN/login.gif) |
 
+![](https://files.slack.com/files-pri/T01KPE0QGCD-F06SJC5KJ23/favouriteandrate.gif)
+
 # Using the app
 The front end application satisfies the following user needs:
 
