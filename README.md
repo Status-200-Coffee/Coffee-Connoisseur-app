@@ -6,11 +6,11 @@ The idea is to enable to anyone to have access to coffee shops in various cities
 
 This front-end app utilises a back-end API built using Mongo DB to access application data.
 
-| A ----------------------------------------------------------------------------------| B --------------------------------------------------------------------------| C -------------------------------------------------------------------------------------| D -----------------------------------------------------------------------------| E -----------------------------------------------------------------------|
-|-------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|----------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|--------------------------------------------------------------------------|
-| ![](https://files.slack.com/files-pri/T01KPE0QGCD-F06SJC5KJ23/favouriteandrate.gif) | ![](https://files.slack.com/files-pri/T01KPE0QGCD-F06SW1NGTQD/homepage.gif) | ![](https://files.slack.com/files-pri/T01KPE0QGCD-F06SJC7RAUF/mapclickthroughzoom.gif) | ![](https://files.slack.com/files-pri/T01KPE0QGCD-F06T1CYT944/profilepage.gif) | ![](https://files.slack.com/files-pri/T01KPE0QGCD-F06TMNJPADN/login.gif) |
-
-![](https://files.slack.com/files-pri/T01KPE0QGCD-F06SJC5KJ23/favouriteandrate.gif)
+<img src="https://i.imgur.com/scLUhik.gif" width="150"/>
+<img src="https://i.imgur.com/VnVe4jh.gif" width="150"/>
+<img src="https://i.imgur.com/PqehL2P.gif" width="150"/>
+<img src="https://i.imgur.com/sS5a6SJ.gif" width="150"/>
+<img src="https://i.imgur.com/AMhuamc.gif" width="150"/>
 
 # Using the app
 The front end application satisfies the following user needs:
